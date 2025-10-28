@@ -11,15 +11,21 @@ module Bard
         content_tag("input-attachment", options) do
           next block.call(options) if block
           Array(object.try(@method_name)).map do |attachment|
-            content_tag("uploaded-file", nil, {
+            content_tag("attachment-file", nil, {
               name: options["name"],
-              src: @template_object.url_for(attachment),
+              src: blob_path(attachment),
               filename: attachment.filename,
               value: attachment.signed_id,
               preview: options["preview"],
             })
           end.join("\n").html_safe
         end
+      end
+
+      private
+
+      def blob_path(attachment)
+        "/rails/active_storage/blobs/redirect/#{attachment.signed_id}/#{attachment.filename}"
       end
     end
   end

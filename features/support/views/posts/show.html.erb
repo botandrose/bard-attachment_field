@@ -1,0 +1,16 @@
+<h1><%= @post.name %></h1>
+
+<% if @post.image.attached? %>
+  <h2><%= @post.image.filename %></h2>
+  <p><%= image_tag "/rails/active_storage/blobs/redirect/#{@post.image.signed_id}/#{@post.image.filename}" %></p>
+<% end %>
+
+<% if @post.images.any? %>
+  <h2>Images:</dt>
+  <% @post.images.each do |image| %>
+    <dt><%= image.filename %></dt>
+    <dd><%= image_tag "/rails/active_storage/blobs/redirect/#{image.signed_id}/#{image.filename}" %></dd>
+  <% end %>
+<% end %>
+
+<p><%= link_to "Edit", [:edit, @post] %></p>

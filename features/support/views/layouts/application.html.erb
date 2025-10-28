@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script type="module" src="/assets/input-attachment.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/FThompson/FormPersistence.js@2.0.6/form-persistence.min.js"></script>
+    <script defer>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('form[id]').forEach(function(form) {
+          if (typeof FormPersistence !== 'undefined') {
+            FormPersistence.persist(form);
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="alert"><%= flash.alert %></div>
+    <div class="notice"><%= flash.notice %></div>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<%= form_for @post do |form| %>
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :image %>
+    <%= form.attachment_field :image, accepts: "image", max: 100.kilobytes %>
+  </p>
+
+  <p>
+    <%= form.label :images %>
+    <%= form.attachment_field :images, multiple: true, accepts: "image" %>
+  </p>
+
+  <p><%= form.submit "Submit" %></p>
+<% end %>
+

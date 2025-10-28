@@ -5,9 +5,12 @@
 /_yardoc/
 /coverage/
 /doc/
+/log
 /pkg/
 /spec/reports/
 /tmp/
 .ruby-version
 .ruby-gemset
 .byebug_history
+/features/support/log/
+/features/support/tmp/

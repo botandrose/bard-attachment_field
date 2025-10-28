@@ -1,4 +1,10 @@
 # frozen_string_literal: true
 
 require "bundler/gem_tasks"
-task default: %i[]
+
+desc "Run tests"
+task :test do
+  sh "bundle exec cucumber features/"
+end
+
+task default: %i[test]

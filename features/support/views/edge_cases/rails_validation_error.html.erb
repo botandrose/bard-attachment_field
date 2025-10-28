@@ -1,0 +1,27 @@
+<h1>Rails validation error</h1>
+
+<% if @post.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @post, url: request.fullpath, method: :patch do |form| %>
+  <p>
+    <%= form.label :image %>
+    <%= form.attachment_field :image, accepts: "image" %>
+  </p>
+
+  <p>
+    <%= form.label :number %>
+    <%= form.text_field :number %>
+  </p>
+
+  <p><%= form.submit "Submit" %></p>
+<% end %>
+
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>&lt;input-attachment&gt; and friends</title>
+    <script type="importmap">
+      { "imports": {
+        "@stencil/core": "https://ga.jspm.io/npm:@stencil/core@4.8.0/internal/stencil-core/index.js",
+        "@stencil/core/internal/app-data": "https://ga.jspm.io/npm:@stencil/core@4.8.0/internal/app-data/index.js",
+        "@stencil/core/internal/client": "https://ga.jspm.io/npm:@stencil/core@4.8.0/internal/client/index.js"
+      } }
+    </script>
+    <script type="module" src="./build/input-attachment.esm.js"></script>
+  </head>
+  <body style="background: #f0f0f0;">
+    <fieldset>
+      <legend>&lt;input-attachment&gt;</legend>
+      <form>
+        <input-attachment name="image" id="pep" directupload="http://smh.localhost/rails/active_storage/direct_uploads" accepts="image,video">
+          <attachment-file name="image" src="images/example.jpg" filename="example1.jpg" size="36287" max="1000000"></attachment-file>
+        </input-attachment>
+      </form>
+    </fieldset>
+
+    <fieldset>
+      <legend>&lt;attachment-file&gt;</legend>
+      <attachment-file name="image" src="images/example.jpg" filename="example.jpg" size="36287" filetype="image" max="1000000"></attachment-file>
+    </fieldset>
+
+    <fieldset>
+      <legend>&lt;attachment-preview&gt;</legend>
+      <attachment-preview src="images/example.jpg" filetype="image"></attachment-preview>
+    </fieldset>
+  </body>
+</html>
