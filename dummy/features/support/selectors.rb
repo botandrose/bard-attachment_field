@@ -8,9 +8,9 @@ module WithinHelpers
   def selector_for(locator)
     case locator
 
-    when /the "(.+)" bard-file/
+    when /the "(.+)" bard-attachment/
       field = find_field($1)
-      bard_file = field.find(:xpath, "..")
+      bard_attachment = field.find(:xpath, "..")
 
     when /the "(.+)" uploaded-file/
       page.document.synchronize 5, errors: [Capybara::ElementNotFound, Ferrum::JavaScriptError] do

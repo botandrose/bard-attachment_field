@@ -1,2 +1,2 @@
-import 'bard-file'
+import 'input-attachment'
 

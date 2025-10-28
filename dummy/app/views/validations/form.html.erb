@@ -6,12 +6,12 @@
 
   <p>
     <%= form.label :image %>
-    <%= form.bard_file_field :image, accepts: "image", max: 100.kilobytes %>
+    <%= form.attachment_field :image, accepts: "image", max: 100.kilobytes %>
   </p>
 
   <p>
     <%= form.label :images %>
-    <%= form.bard_file_field :images, multiple: true, accepts: "image" %>
+    <%= form.attachment_field :images, multiple: true, accepts: "image" %>
   </p>
 
   <p><%= form.submit "Submit" %></p>

@@ -8,7 +8,7 @@ module Bard
         })
         add_default_name_and_id(options)
 
-        content_tag("bard-file", options) do
+        content_tag("input-attachment", options) do
           next block.call(options) if block
           Array(object.try(@method_name)).map do |attachment|
             content_tag("uploaded-file", nil, {

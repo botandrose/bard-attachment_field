@@ -7,7 +7,7 @@ Feature: It supports naive serialization and resumption with the form-persistenc
 
     Given I am on the homepage
     Then I should see "Name" filled in with "Jerry"
-    And I should see a preview of "image.jpg" within the "Image" bard-file
+    And I should see a preview of "image.jpg" within the "Image" bard-attachment
 
     When I press "Submit"
     Then I should see "Post created!"
@@ -19,19 +19,19 @@ Feature: It supports naive serialization and resumption with the form-persistenc
     When I fill in "Name" with "Jerry"
     And I attach the file "image.jpg" to "Image"
     Then I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
-    And I should see a preview of "image.jpg" within the "Image" bard-file
+    And I should see a preview of "image.jpg" within the "Image" bard-attachment
     When I press "Submit"
     Then I should see "Post created!"
 
     When I follow "Edit"
     Then I should see "Name" filled in with "Jerry"
     And I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
-    And I should see a preview of "image.jpg" within the "Image" bard-file
+    And I should see a preview of "image.jpg" within the "Image" bard-attachment
 
     When I reload the page
     Then I should see "Name" filled in with "Jerry"
     And I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
-    And I should see a preview of "image.jpg" within the "Image" bard-file
+    And I should see a preview of "image.jpg" within the "Image" bard-attachment
 
     When I press "Submit"
     Then I should see "Post updated!"

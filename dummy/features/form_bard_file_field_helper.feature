@@ -1,8 +1,8 @@
-Feature: form.bard_file_field is an improved form.file_field input with extra features
+Feature: form.attachment_field is an improved form.file_field input with extra features
   Background:
     Given I am on the homepage
 
-  Scenario: I can use bard-file to attach a file to a form
+  Scenario: I can use bard-attachment to attach a file to a form
     When I attach the file "image.jpg" to "Image"
     And I press "Submit"
     Then I should see "Post created!"
@@ -11,7 +11,7 @@ Feature: form.bard_file_field is an improved form.file_field input with extra fe
 
   Scenario: It displays a preview
     When I attach the file "image.jpg" to "Image"
-    Then I should see a preview of "image.jpg" within the "Image" bard-file
+    Then I should see a preview of "image.jpg" within the "Image" bard-attachment
 
   Scenario: It uploads the file before form submission
     When I attach the file "image.jpg" to "Image"
@@ -22,7 +22,7 @@ Feature: form.bard_file_field is an improved form.file_field input with extra fe
     And I press "Submit"
     Then I should see "Post created!"
     When I follow "Edit"
-    Then I should see a preview of "image.jpg" within the "Image" bard-file
+    Then I should see a preview of "image.jpg" within the "Image" bard-attachment
 
   Scenario: Filename is a download link to the file when the file already exists
     When I fill in "Name" with "Image"
@@ -39,7 +39,7 @@ Feature: form.bard_file_field is an improved form.file_field input with extra fe
   Scenario: It can remove a not-yet-submitted file
     When I fill in "Name" with "No Image"
     And I attach the file "image.jpg" to "Image"
-    Then I should see a preview of "image.jpg" within the "Image" bard-file
+    Then I should see a preview of "image.jpg" within the "Image" bard-attachment
     When I follow "Remove media" within the "image.jpg" uploaded-file
     And I press "Submit"
     Then I should see "Post created!"

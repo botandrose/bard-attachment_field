@@ -2,7 +2,7 @@
 <%= form_with model: @post, url: "/validations" do |form| %>
   <p>
     <%= form.label :file, "Optional file" %>
-    <%= form.bard_file_field :file %>
+    <%= form.attachment_field :file %>
   </p>
 
   <p><%= form.submit "Submit" %></p>

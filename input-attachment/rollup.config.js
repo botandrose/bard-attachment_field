@@ -7,7 +7,7 @@ export default [
     input: "./index.js",
     output: [
       {
-        file: "../app/assets/javascripts/bard-file.js",
+        file: "../app/assets/javascripts/input-attachment.js",
         format: "es",
       },
     ],

@@ -71,20 +71,20 @@ Then "I should see an upload progress bar at 100%" do
   end
 end
 
-Then "the {string} bard-file should have a validation error containing {string}" do |field, message|
-  messages = bard_file_validation_messages(field)
+Then "the {string} bard-attachment should have a validation error containing {string}" do |field, message|
+  messages = bard_attachment_validation_messages(field)
   expect(messages).to include message
 end
 
-Then "the {string} bard-file should have no validation errors" do |field|
-  messages = bard_file_validation_messages(field)
+Then "the {string} bard-attachment should have no validation errors" do |field|
+  messages = bard_attachment_validation_messages(field)
   expect(messages).to be_empty
 end
 
-def bard_file_validation_messages field
+def bard_attachment_validation_messages field
   field = find_field(field)
-  bard_file = field.find(:xpath, "..")
-  [bard_file, *bard_file.all("uploaded-file input")].map do |e|
+  bard_attachment = field.find(:xpath, "..")
+  [bard_attachment, *bard_attachment.all("uploaded-file input")].map do |e|
     e.evaluate_script("this.validationMessage")
   end.select(&:present?)
 end

@@ -2,7 +2,7 @@
 <%= form_with model: @post, url: request.fullpath, method: :patch do |form| %>
   <p>
     <%= form.label :file, "File" %>
-    <%= form.bard_file_field :file, max: 100.kilobytes %>
+    <%= form.attachment_field :file, max: 100.kilobytes %>
   </p>
 
   <p><%= form.submit "Submit" %></p>

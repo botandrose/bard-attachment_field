@@ -6,9 +6,9 @@ require_relative "file_field/form_builder"
 module Bard
   module FileField
     class Engine < ::Rails::Engine
-      initializer "bard-file_field.assets" do
+      initializer "bard-attachment_field.assets" do
         if Rails.application.config.respond_to?(:assets)
-          Rails.application.config.assets.precompile += ["bard-file.js"]
+          Rails.application.config.assets.precompile += ["input-attachment.js"]
         end
       end
 

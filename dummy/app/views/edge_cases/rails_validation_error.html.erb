@@ -2,7 +2,7 @@
 <%= form_with model: @post, url: request.fullpath, method: :patch do |form| %>
   <p>
     <%= form.label :image %>
-    <%= form.bard_file_field :image, accepts: "image" %>
+    <%= form.attachment_field :image, accepts: "image" %>
   </p>
 
   <p>

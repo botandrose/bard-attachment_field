@@ -6,12 +6,12 @@
 
   <p>
     <%= form.label :image %>
-    <%= form.bard_file_field :image, accepts: "image", max: 100.kilobytes %>
+    <%= form.attachment_field :image, accepts: "image", max: 100.kilobytes %>
   </p>
 
   <p>
     <%= form.label :images %>
-    <%= form.bard_file_field :images, multiple: true, accepts: "image" %>
+    <%= form.attachment_field :images, multiple: true, accepts: "image" %>
   </p>
 
   <p><%= form.submit "Submit" %></p>
@@ -22,14 +22,14 @@
   const form = document.querySelector("form")
   FormPersistence.persist(form, {
     beforeDeserialize: (form, data) => {
-      [...form.querySelectorAll("bard-file")].forEach(bardFile => {
+      [...form.querySelectorAll("bard-attachment")].forEach(bardFile => {
         bardFile.value = data[bardFile.name]
         delete data[bardFile.name]
       })
       return data
     },
     afterSerialize: (form, data) => {
-      [...form.querySelectorAll("bard-file")].forEach(bardFile => {
+      [...form.querySelectorAll("bard-attachment")].forEach(bardFile => {
         data[bardFile.name] = bardFile.value
       })
       return data
