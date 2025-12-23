@@ -1,8 +1,9 @@
-Feature: It supports naive serialization and resumption with the form-persistence npm package
-  # NOTE: These scenarios are pending because they require the Stencil component's
-  # direct upload functionality to work properly in the test environment.
+Feature: Form persistence
+  The attachment field integrates with form-persistence libraries to preserve
+  uploaded files across page reloads, supporting a seamless user experience.
+
   @requires-form-persistence
-  Scenario: It works with not-yet-uploaded file
+  Scenario: Persisting a not-yet-submitted file across page reload
     Given I am on the homepage
     When I fill in "Name" with "Jerry"
     And I attach the file "image.jpg" to "Image"
@@ -16,7 +17,7 @@ Feature: It supports naive serialization and resumption with the form-persistenc
     And I should see the "image.jpg" image
 
   @requires-form-persistence
-  Scenario: It works with an already uploaded file
+  Scenario: Persisting an already uploaded file across page reload
     Given I am on the homepage
     When I fill in "Name" with "Jerry"
     And I attach the file "image.jpg" to "Image"

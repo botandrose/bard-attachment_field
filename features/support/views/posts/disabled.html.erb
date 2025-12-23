@@ -1,0 +1,14 @@
+<h1>Disabled Attachment Field</h1>
+<%= form_for @post do |form| %>
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :image %>
+    <%= form.attachment_field :image, accepts: "image", disabled: true %>
+  </p>
+
+  <p><%= form.submit "Submit" %></p>
+<% end %>

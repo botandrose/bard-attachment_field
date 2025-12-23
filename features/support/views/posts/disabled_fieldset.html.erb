@@ -1,0 +1,17 @@
+<h1>Disabled Fieldset</h1>
+<%= form_for @post do |form| %>
+  <fieldset disabled>
+    <legend>Disabled Section</legend>
+    <p>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </p>
+
+    <p>
+      <%= form.label :image %>
+      <%= form.attachment_field :image, accepts: "image" %>
+    </p>
+  </fieldset>
+
+  <p><%= form.submit "Submit" %></p>
+<% end %>

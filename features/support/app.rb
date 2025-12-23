@@ -179,6 +179,16 @@ class PostsController < ApplicationController
     end
   end
 
+  def disabled
+    @post = Post.new
+    render 'posts/disabled'
+  end
+
+  def disabled_fieldset
+    @post = Post.new
+    render 'posts/disabled_fieldset'
+  end
+
   private
 
   def post_params
@@ -317,7 +327,12 @@ Rails.application.routes.draw do
   end
 
   root 'posts#index'
-  resources :posts
+  resources :posts do
+    collection do
+      get :disabled
+      get :disabled_fieldset
+    end
+  end
 
   namespace :validations do
     get :required_file

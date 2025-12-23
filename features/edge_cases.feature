@@ -1,5 +1,7 @@
-Feature: Various edge cases
-  Scenario: File remains in form after rails validation error
+Feature: Edge cases
+  Various edge cases and error handling scenarios.
+
+  Scenario: File remains in form after Rails validation error
     Given I am on "/edge_cases/rails_validation_error"
     When I attach the file "image.jpg" to "Image"
     Then I should see a preview of "image.jpg" within the "Image" bard-attachment

@@ -260,3 +260,84 @@ Then "I dump the input-attachment HTML" do
   puts result
   puts "========================="
 end
+
+When "I drag the file {string} onto the {string} attachment field" do |path, field|
+  file_path_full = Pathname.new(__dir__).join("../fixtures/#{path}").expand_path.to_s
+
+  label = find("label", text: /^#{Regexp.escape(field)}$/)
+  element_id = label[:for]
+  element = find("input-attachment##{element_id}")
+
+  # Use CDP to set files on the input, then simulate drop event on file-drop
+  shadow_root = element.shadow_root
+  file_input = shadow_root.find("input[type='file']", visible: :all)
+  ferrum_node = file_input.native.node
+  ferrum_node.select_file(file_path_full)
+
+  # Trigger the file-drop component's drop handler via the file input
+  page.execute_script(<<~JS)
+    (function() {
+      const element = document.getElementById('#{element_id}');
+      const fileInput = element.shadowRoot.querySelector('input[type="file"]');
+      const fileDrop = element.shadowRoot.querySelector('file-drop');
+
+      if (fileInput && fileInput.files.length > 0) {
+        // Create a synthetic drop event with the files
+        const dataTransfer = new DataTransfer();
+        Array.from(fileInput.files).forEach(f => dataTransfer.items.add(f));
+
+        const dropEvent = new DragEvent('drop', {
+          bubbles: true,
+          cancelable: true,
+          dataTransfer: dataTransfer
+        });
+
+        // Dispatch to file-drop (which should trigger the file input change)
+        fileDrop.dispatchEvent(dropEvent);
+
+        // Also call addFiles as fallback
+        element.addFiles(fileInput.files);
+        fileInput.value = '';
+      }
+    })()
+  JS
+
+  page.document.synchronize(15, errors: [Capybara::ElementNotFound]) do
+    element.find("attachment-file")
+  end
+
+  page.document.synchronize(30, errors: [RuntimeError]) do
+    state = page.evaluate_script("document.querySelector('attachment-file')?.getAttribute('state')")
+    raise "Upload not complete (state=#{state})" unless state == "complete" || state == "error"
+  end
+end
+
+Then "the {string} attachment field should be disabled" do |field|
+  label = find("label", text: /^#{Regexp.escape(field)}$/)
+  element_id = label[:for]
+  element = find("input-attachment##{element_id}")
+
+  # Check if the component has disabled attribute or is within a disabled fieldset
+  is_disabled = page.evaluate_script(<<~JS)
+    (function() {
+      const element = document.getElementById('#{element_id}');
+      if (element.hasAttribute('disabled')) return true;
+      if (element.closest('fieldset[disabled]')) return true;
+      const fileInput = element.shadowRoot?.querySelector('input[type="file"]');
+      return fileInput?.disabled || false;
+    })()
+  JS
+
+  raise "Expected '#{field}' attachment field to be disabled" unless is_disabled
+end
+
+Then "I should not be able to attach a file to {string}" do |field|
+  label = find("label", text: /^#{Regexp.escape(field)}$/)
+  element_id = label[:for]
+  element = find("input-attachment##{element_id}")
+
+  shadow_root = element.shadow_root
+  file_input = shadow_root.find("input[type='file']", visible: :all)
+
+  raise "Expected file input to be disabled" unless file_input.disabled?
+end

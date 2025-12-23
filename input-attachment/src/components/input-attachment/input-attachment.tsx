@@ -240,6 +240,10 @@ export class InputAttachment {
 
   // Rendering
 
+  get isDisabled() {
+    return this.disabled || !!this.el.closest('fieldset[disabled]')
+  }
+
   render() {
     return (
       <Host>
@@ -249,7 +253,7 @@ export class InputAttachment {
           multiple={this.multiple}
           accept={this.accepts}
           required={this.required && this.files.length === 0}
-          disabled={this.disabled}
+          disabled={this.isDisabled}
           style={{
             opacity: '0.01',
             width: '1px',
