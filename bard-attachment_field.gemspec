@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/bard/file_field/version"
+require_relative "lib/bard/attachment_field/version"
 
 Gem::Specification.new do |spec|
   spec.name = "bard-attachment_field"
-  spec.version = Bard::FileField::VERSION
+  spec.version = Bard::AttachmentField::VERSION
   spec.authors = ["Micah Geisel"]
   spec.email = ["micah@botandrose.com"]
 

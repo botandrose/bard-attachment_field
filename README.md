@@ -1,29 +1,39 @@
 # Bard Attachment Field
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/bard/file_field`. To experiment with that code, run `bin/console` for an interactive prompt.
+An enhanced file upload field for Rails forms, powered by web components. Provides drag-and-drop uploads, image previews, and seamless ActiveStorage integration.
 
-TODO: Delete this and the text above, and describe your gem
+## Features
+
+- Drag-and-drop file uploads
+- Image and video previews
+- Direct uploads to ActiveStorage
+- Multiple file support
+- Form validation (required, accept, size limits)
+- Persists attachments through validation errors
 
 ## Installation
 
-Install the gem and add to the application's Gemfile by executing:
+Add to your Gemfile:
 
-    $ bundle add bard-attachment_field
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install bard-attachment_field
+    gem "bard-attachment_field"
 
 ## Usage
 
-TODO: Write usage instructions here
+In your form:
 
-## Development
+```erb
+<%= form.attachment_field :avatar %>
+<%= form.attachment_field :documents, multiple: true %>
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Options
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+- `multiple: true` - Allow multiple file uploads
+- `accept: "image/*"` - Restrict file types
+- `required: true` - Make field required
+- `preview: false` - Disable image previews
+- `disabled: true` - Disable the field
 
-## Contributing
+## License
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/bard-attachment_field.
+MIT

@@ -1,5 +1,5 @@
 module Bard
-  module FileField
+  module AttachmentField
     class BlobsController < ActionController::Base
       def show
         @blob = ActiveStorage::Blob.find_signed!(params[:signed_id])

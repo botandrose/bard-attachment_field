@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "file_field/version"
-require_relative "file_field/form_builder"
+require_relative "attachment_field/version"
+require_relative "attachment_field/form_builder"
 
 module Bard
-  module FileField
+  module AttachmentField
     class Engine < ::Rails::Engine
       initializer "bard-attachment_field.assets" do
         if Rails.application.config.respond_to?(:assets)

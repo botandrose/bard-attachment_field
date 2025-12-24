@@ -1,7 +1,7 @@
 require_relative "field"
 
 module Bard
-  module FileField
+  module AttachmentField
     module FormBuilder
       def attachment_field method, options={}, &block
         self.multipart = true

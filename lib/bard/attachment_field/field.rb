@@ -1,5 +1,5 @@
 module Bard
-  module FileField
+  module AttachmentField
     class Field < ActionView::Helpers::Tags::TextField
       def render &block
         options = @options.stringify_keys.reverse_merge({

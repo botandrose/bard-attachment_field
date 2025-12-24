@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bard
-  module FileField
+  module AttachmentField
     VERSION = "0.1.6"
   end
 end

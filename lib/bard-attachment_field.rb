@@ -1,1 +1,1 @@
-require "bard/file_field"
+require "bard/attachment_field"
