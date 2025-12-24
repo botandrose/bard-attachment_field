@@ -78,17 +78,26 @@ def expect(subject)
 end
 
 Capybara.register_driver(:cuprite) do |app|
-  Capybara::Cuprite::Driver.new(app, {
+  options = {
     window_size: [1920, 2160],
     timeout: 600,
-    process_timeout: 20,
+    process_timeout: 60,
     js_errors: true,
     headless: true,
-  })
+  }
+
+  if ENV["BROWSER_PATH"] && !ENV["BROWSER_PATH"].empty?
+    options[:browser_path] = ENV["BROWSER_PATH"]
+  elsif ENV["CI"]
+    options[:browser_path] = "/usr/bin/google-chrome"
+  end
+
+  Capybara::Cuprite::Driver.new(app, **options)
 end
 
 Capybara.default_driver = :cuprite
 Capybara.default_normalize_ws = true
+Capybara.default_max_wait_time = ENV["CI"] ? 10 : 2
 
 # Setup DatabaseCleaner
 require "database_cleaner"

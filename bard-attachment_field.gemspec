@@ -47,6 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "turbo-rails"
   spec.add_development_dependency "stimulus-rails"
   spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "appraisal"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
