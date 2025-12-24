@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# Run the demo/test Rails app standalone
+
+require_relative '../features/support/app'
+require 'rackup'
+
+puts "Starting demo server at http://localhost:3000"
+puts "Press Ctrl+C to stop"
+
+Rails.application.config.hosts.clear
+Rackup::Server.start(app: Rails.application, Port: 3000)
