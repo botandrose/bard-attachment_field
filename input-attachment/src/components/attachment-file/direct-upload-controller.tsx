@@ -9,9 +9,9 @@ export default class DirectUploadController {
   uploadXHR: XMLHttpRequest
   callback = null
 
-  constructor(uploadedFile) {
+  constructor(uploadedFile, file: File) {
     this.uploadedFile = uploadedFile
-    this.file = this.uploadedFile["file"]
+    this.file = file
     this.directUpload = new DirectUpload(this.file, this.uploadedFile.url, this)
   }
 

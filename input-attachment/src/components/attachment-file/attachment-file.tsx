@@ -135,9 +135,9 @@ export class AttachmentFile {
   }
 
   componentDidLoad() {
-    if(this.state == "pending") {
+    if(this.state == "pending" && this._file) {
       if(this.checkValidity()) {
-        this.controller = new DirectUploadController(this.el)
+        this.controller = new DirectUploadController(this.el, this._file)
         this.controller.dispatch("initialize", { controller: this.controller })
       } else {
         this.state = "error"

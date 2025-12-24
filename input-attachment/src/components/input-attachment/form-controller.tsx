@@ -105,7 +105,7 @@ export default class FormController {
     const { id, file, controller } = event.detail
 
     this.progressContainerTarget.insertAdjacentHTML("beforebegin", `
-      <progress-bar id="direct-upload-${id}" class="direct-upload--pending">${file.name}</progress-bar>
+      <progress-bar id="direct-upload-${id}" class="direct-upload--pending">${file?.name || 'Uploading...'}</progress-bar>
     `)
     const progressTarget = document.getElementById(`direct-upload-${id}`)
     this.progressTargetMap[id] = progressTarget
