@@ -16,67 +16,6 @@ require "capybara-screenshot/cucumber" unless ENV["CI"]
 require "capybara/dsl"
 World(Capybara::DSL)
 
-# Simple expect implementation for Cucumber without RSpec
-class SimpleExpectation
-  def initialize(subject)
-    @subject = subject
-  end
-
-  def to(matcher)
-    matcher.matches?(@subject)
-  end
-
-  def to_not(matcher)
-    !matcher.matches?(@subject)
-  end
-
-  def have_content(text)
-    HaveContentMatcher.new(text)
-  end
-
-  def have_css(selector)
-    HaveCssMatcher.new(selector)
-  end
-
-  def eq(value)
-    EqualMatcher.new(value)
-  end
-end
-
-class HaveContentMatcher
-  def initialize(text)
-    @text = text
-  end
-
-  def matches?(page)
-    page.has_content?(@text)
-  end
-end
-
-class HaveCssMatcher
-  def initialize(selector)
-    @selector = selector
-  end
-
-  def matches?(page)
-    page.has_css?(@selector)
-  end
-end
-
-class EqualMatcher
-  def initialize(expected)
-    @expected = expected
-  end
-
-  def matches?(actual)
-    actual == @expected
-  end
-end
-
-def expect(subject)
-  SimpleExpectation.new(subject)
-end
-
 Capybara.register_driver(:cuprite) do |app|
   options = {
     window_size: [1920, 2160],

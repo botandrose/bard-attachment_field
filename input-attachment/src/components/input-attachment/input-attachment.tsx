@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, Listen, Host, h } from '@stencil/core';
+import { Component, Element, Prop, Listen, Host, h, forceUpdate } from '@stencil/core';
 import FormController from "./form-controller"
 import { AttachmentFile } from "../attachment-file/attachment-file"
 import { arrayRemove } from "../../utils/utils"
@@ -24,8 +24,6 @@ export class InputAttachment {
   @Prop() preview: boolean = true
   @Prop() disabled: boolean = false
 
-  @State() _forceUpdate: boolean = false
-  forceUpdate() { this._forceUpdate = !this._forceUpdate }
 
   form: HTMLFormElement
   internals: ElementInternals
@@ -60,6 +58,9 @@ export class InputAttachment {
     if (this.form) {
       this.form.addEventListener('submit', () => this.clearLocalStorage())
     }
+
+    // Listen for file input changes directly (JSX onChange doesn't reliably work in shadow DOM)
+    this.fileInput?.addEventListener('change', this.handleFileInputChange)
   }
 
   get localStorageKey() {
@@ -113,7 +114,7 @@ export class InputAttachment {
   set files(val) {
     this._files = val
     if(!this.multiple) this._files = this._files.slice(-1)
-    this.forceUpdate()
+    forceUpdate(this.el)
     this.fireChangeEvent()
   }
 
@@ -203,18 +204,9 @@ export class InputAttachment {
     this.clearLocalStorage()
   }
 
-  @Listen("change")
-  fileTargetChanged(event) {
-    if(event.target !== this.fileInput) return
-    this.files.push(...Array.from(this.fileInput.files).map(file => Object.assign(new AttachmentFile(), {
-      name: this.name,
-      preview: this.preview,
-      url: this.directupload,
-      accepts: this.accepts,
-      max: this.max,
-      file,
-    })))
-    this.files = this.files
+  handleFileInputChange = () => {
+    if (!this.fileInput?.files?.length) return
+    this.addFiles(this.fileInput.files)
     this.fileInput.value = null
   }
 
@@ -254,6 +246,7 @@ export class InputAttachment {
           accept={this.accepts}
           required={this.required && this.files.length === 0}
           disabled={this.isDisabled}
+          onChange={() => this.handleFileInputChange()}
           style={{
             opacity: '0.01',
             width: '1px',

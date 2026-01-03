@@ -3201,6 +3201,18 @@ var postUpdateComponent = (hostRef) => {
     hostRef.$flags$ &= ~(4 | 512);
   }
 };
+var forceUpdate = (ref) => {
+  var _a;
+  if (BUILD.updatable && (Build.isBrowser || Build.isTesting)) {
+    const hostRef = getHostRef(ref);
+    const isConnected = (_a = hostRef == null ? void 0 : hostRef.$hostElement$) == null ? void 0 : _a.isConnected;
+    if (isConnected && (hostRef.$flags$ & (2 | 16)) === 2) {
+      scheduleUpdate(hostRef, false);
+    }
+    return isConnected;
+  }
+  return false;
+};
 var appDidLoad = (who) => {
   var _a;
   if (BUILD.asyncQueue) {
@@ -5684,7 +5696,7 @@ var ProgressBar = class extends HTMLElement {
 if (!customElements.get("progress-bar")) {
   customElements.define("progress-bar", ProgressBar);
 }
-var inputAttachmentCss = ":host{display:block;padding:25px;color:var(--input-attachment-text-color, #000);font-size:13px}file-drop{cursor:pointer}:host *{box-sizing:border-box;position:relative}drag-and-drop{display:block;outline-offset:-10px;background:rgba(255,255,255, 0.25);margin:0;text-align:center;transition:all 0.15s;outline:2px dashed rgba(0,0,0,0.25);color:#444;font-size:14px}p{padding:10px 20px;margin:0}drag-and-drop.-full{width:100%}.-dragover{background:rgba(255,255,255,0.5);outline:2px dashed rgba(0,0,0,0.25)}.media-preview{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center}// UPLOADER .direct-upload-wrapper{position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:rgba(#333, 0.9)}.direct-upload-content{display:block;background:#fcfcfc;padding:40px 60px 60px;border-radius:3px;width:60vw}.direct-upload-content h3{border-bottom:2px solid #1f1f1f;margin-bottom:20px}.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}.direct-upload--pending{opacity:0.6}.direct-upload--complete{opacity:0.4}.direct-upload--error{border-color:red}input[type=file][data-direct-upload-url][disabled]{display:none}:host.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}";
+var inputAttachmentCss = ":host{display:block;padding:25px;color:var(--input-attachment-text-color, #000);font-size:13px}:host *{box-sizing:border-box;position:relative}file-drop{cursor:pointer;display:block;outline-offset:-10px;background:rgba(255,255,255, 0.25);padding:20px;text-align:center;transition:all 0.15s;outline:2px dashed rgba(0,0,0,0.25);color:#444;font-size:14px}file-drop.-full{width:100%}p{padding:10px 20px;margin:0}.-dragover{background:rgba(255,255,255,0.5);outline:2px dashed rgba(0,0,0,0.25)}.media-preview{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center}// UPLOADER .direct-upload-wrapper{position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:rgba(#333, 0.9)}.direct-upload-content{display:block;background:#fcfcfc;padding:40px 60px 60px;border-radius:3px;width:60vw}.direct-upload-content h3{border-bottom:2px solid #1f1f1f;margin-bottom:20px}.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}.direct-upload--pending{opacity:0.6}.direct-upload--complete{opacity:0.4}.direct-upload--error{border-color:red}input[type=file][data-direct-upload-url][disabled]{display:none}:host.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}";
 var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment extends H {
   get el() {
     return this;
@@ -5697,10 +5709,6 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
   max;
   preview = true;
   disabled = false;
-  _forceUpdate = false;
-  forceUpdate() {
-    this._forceUpdate = !this._forceUpdate;
-  }
   form;
   internals;
   fileInput;
@@ -5730,6 +5738,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     if (this.form) {
       this.form.addEventListener("submit", () => this.clearLocalStorage());
     }
+    this.fileInput?.addEventListener("change", this.handleFileInputChange);
   }
   get localStorageKey() {
     if (!this.form || !this.name)
@@ -5777,7 +5786,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     this._files = val;
     if (!this.multiple)
       this._files = this._files.slice(-1);
-    this.forceUpdate();
+    forceUpdate(this.el);
     this.fireChangeEvent();
   }
   get value() {
@@ -5852,20 +5861,12 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     this.value = [];
     this.clearLocalStorage();
   }
-  fileTargetChanged(event) {
-    if (event.target !== this.fileInput)
+  handleFileInputChange = () => {
+    if (!this.fileInput?.files?.length)
       return;
-    this.files.push(...Array.from(this.fileInput.files).map((file) => Object.assign(new AttachmentFile(), {
-      name: this.name,
-      preview: this.preview,
-      url: this.directupload,
-      accepts: this.accepts,
-      max: this.max,
-      file
-    })));
-    this.files = this.files;
+    this.addFiles(this.fileInput.files);
     this.fileInput.value = null;
-  }
+  };
   removeUploadedFile(event) {
     arrayRemove(this.files, event.detail);
     this.files = this.files;
@@ -5884,12 +5885,12 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "06a192b6398693809fa3ee28e96857b1e7535651" }, h("input", { key: "d8a6bc9b48c2eab6dd90d7db48cf6a8bd7474dc1", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, style: {
+    return h(Host, { key: "6a28dcfd10988dd4b3ffce0e6df43b6f53b7ecb7" }, h("input", { key: "2f3d024394ce6afaf73b2419f053d453ccebf9ce", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
       opacity: "0.01",
       width: "1px",
       height: "1px",
       zIndex: "-999"
-    } }), h("file-drop", { key: "66bb07b3a24bc8c5fc66482848592ba332ddd922", onClick: () => this.fileInput?.click() }, h("p", { key: "718a93badfc77865d8577b8546c2d02b61cc0c8b", part: "title" }, h("strong", { key: "649212985c2216f9036c84c744217c80e3049699" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "dd092402e42e36bf364e23b34425e559bca53d47" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "6266062f24b5b3fb6dc6cdc839e523aff5c7f360", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "eb9e6ffec28e5fc862c937edb1d95a344e2fe357" }))));
+    } }), h("file-drop", { key: "5ae9f28265be53abc0d1db6f687ac3d637cad09f", onClick: () => this.fileInput?.click() }, h("p", { key: "377f2db884843e72658e33690cd210bfe00d2e8f", part: "title" }, h("strong", { key: "2ea319d0b7a9bae089c22dc1f20c25080cf1dc49" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "f6f1adb08a799808b4f9e12ab2deac96463575a5" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "f33d4b74bd6836719895497bb62aba8df091b355", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "dd71b4bda5708c2d84d5d28ee47aa49f1121d45e" }))));
   }
   componentDidRender() {
     if (this.files.length === 0) {
@@ -5965,9 +5966,8 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
   "accepts": [1],
   "max": [2],
   "preview": [4],
-  "disabled": [4],
-  "_forceUpdate": [32]
-}, [[0, "change", "fileTargetChanged"], [0, "attachment-file:remove", "removeUploadedFile"], [0, "attachment-file:validation", "handleChildValidation"], [0, "direct-upload:end", "fireChangeEvent"]]]);
+  "disabled": [4]
+}, [[0, "attachment-file:remove", "removeUploadedFile"], [0, "attachment-file:validation", "handleChildValidation"], [0, "direct-upload:end", "fireChangeEvent"]]]);
 var InputAttachment2 = InputAttachment$1;
 
 // dist/components/index.js
