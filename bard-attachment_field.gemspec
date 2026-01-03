@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Micah Geisel"]
   spec.email = ["micah@botandrose.com"]
 
-  spec.summary = "Enhanced file field"
-  spec.description = "Enhanced file field"
+  spec.summary = "Enhanced file upload field for Rails forms with drag-and-drop and previews"
+  spec.description = "An enhanced file upload field for Rails forms, powered by web components. Provides drag-and-drop uploads, image/video previews, and seamless ActiveStorage integration."
   spec.homepage = "https://github.com/botandrose/bard-attachment_field"
   spec.required_ruby_version = ">= 3.0.0"
 
