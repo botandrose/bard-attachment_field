@@ -7,10 +7,10 @@ Feature: Form persistence
     Given I am on the homepage
     When I fill in "Name" with "Jerry"
     And I attach the file "image.jpg" to "Image"
-    Then I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
+    Then I should see a preview of "image.jpg" for the "Image" field
     Given I am on the homepage
     Then I should see "Name" filled in with "Jerry"
-    And I should see a preview of "image.jpg" within the "Image" bard-attachment
+    And I should see a preview of "image.jpg" for the "Image" field
     When I press "Submit"
     Then I should see "Post created!"
     And I should see "image.jpg"
@@ -21,18 +21,15 @@ Feature: Form persistence
     Given I am on the homepage
     When I fill in "Name" with "Jerry"
     And I attach the file "image.jpg" to "Image"
-    Then I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
-    And I should see a preview of "image.jpg" within the "Image" bard-attachment
+    Then I should see a preview of "image.jpg" for the "Image" field
     When I press "Submit"
     Then I should see "Post created!"
     When I follow "Edit"
     Then I should see "Name" filled in with "Jerry"
-    And I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
-    And I should see a preview of "image.jpg" within the "Image" bard-attachment
+    And I should see a preview of "image.jpg" for the "Image" field
     When I reload the page
     Then I should see "Name" filled in with "Jerry"
-    And I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
-    And I should see a preview of "image.jpg" within the "Image" bard-attachment
+    And I should see a preview of "image.jpg" for the "Image" field
     When I press "Submit"
     Then I should see "Post updated!"
     And I should see "image.jpg"

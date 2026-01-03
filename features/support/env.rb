@@ -1,6 +1,10 @@
 require_relative "app"
 
 require "capybara"
+require "bard/attachment_field/cucumber"
+
+# Configure fixtures path for this bespoke test app
+Bard::AttachmentField::TestHelper.fixtures_path = -> { Rails.root.join("fixtures") }
 
 # Configure Capybara early so that cuprite-downloads can use it
 Capybara.app = BardAttachmentTest::Application

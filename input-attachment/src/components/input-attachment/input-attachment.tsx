@@ -210,6 +210,14 @@ export class InputAttachment {
     this.fileInput.value = null
   }
 
+  handleDrop = (event: DragEvent) => {
+    event.preventDefault()
+    if (this.isDisabled) return
+    if (event.dataTransfer?.files?.length) {
+      this.addFiles(event.dataTransfer.files)
+    }
+  }
+
   @Listen("attachment-file:remove")
   removeUploadedFile(event) {
     arrayRemove(this.files, event.detail)
@@ -254,7 +262,7 @@ export class InputAttachment {
             zIndex: '-999'
           }}
         />
-        <file-drop onClick={() => this.fileInput?.click()}>
+        <file-drop onClick={() => this.fileInput?.click()} onDrop={this.handleDrop}>
           <p part="title">
             <strong>Choose {this.multiple ? "files" : "file"} </strong>
             <span>or drag {this.multiple ? "them" : "it"} here.</span>

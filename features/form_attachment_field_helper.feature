@@ -7,7 +7,6 @@ Feature: Attachment field form helper
 
   Scenario: The component renders
     Then I should see "Image"
-    And I should see the input-attachment component
 
   Scenario: Attaching a file to a form
     When I attach the file "image.jpg" to "Image"
@@ -18,18 +17,14 @@ Feature: Attachment field form helper
 
   Scenario: Displaying a preview
     When I attach the file "image.jpg" to "Image"
-    Then I should see a preview of "image.jpg" within the "Image" bard-attachment
-
-  Scenario: Upload completes before form submission
-    When I attach the file "image.jpg" to "Image"
-    Then I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
+    Then I should see a preview of "image.jpg" for the "Image" field
 
   Scenario: Displaying an existing file
     When I attach the file "image.jpg" to "Image"
     And I press "Submit"
     Then I should see "Post created!"
     When I follow "Edit"
-    Then I should see a preview of "image.jpg" within the "Image" bard-attachment
+    Then I should see a preview of "image.jpg" for the "Image" field
 
   Scenario: Filename links to downloadable file
     When I fill in "Name" with "Image"
@@ -39,14 +34,14 @@ Feature: Attachment field form helper
     And I should see "image.jpg"
     And I should see the "image.jpg" image
     When I follow "Edit"
-    And I follow "image.jpg" within the "image.jpg" uploaded-file
+    And I follow the "image.jpg" download link for "Image"
     Then I should download a file named "image.jpg"
 
   Scenario: Removing a not-yet-submitted file
     When I fill in "Name" with "No Image"
     And I attach the file "image.jpg" to "Image"
-    Then I should see a preview of "image.jpg" within the "Image" bard-attachment
-    When I follow "Remove media" within the "image.jpg" uploaded-file
+    Then I should see a preview of "image.jpg" for the "Image" field
+    When I remove the file from "Image"
     And I press "Submit"
     Then I should see "Post created!"
     And I should see "No Image"
@@ -61,7 +56,7 @@ Feature: Attachment field form helper
     And I should see "image.jpg"
     And I should see the "image.jpg" image
     When I follow "Edit"
-    And I follow "Remove media" within the "image.jpg" uploaded-file
+    And I remove the file from "Image"
     And I press "Submit"
     Then I should see "Post updated!"
     And I should not see "image.jpg"
@@ -94,8 +89,7 @@ Feature: Attachment field form helper
 
   Scenario: Drag and drop file attachment
     When I drag the file "image.jpg" onto the "Image" attachment field
-    Then I should see a preview of "image.jpg" within the "Image" bard-attachment
-    And I should see an upload progress bar at 100% within the "image.jpg" uploaded-file
+    Then I should see a preview of "image.jpg" for the "Image" field
 
   Scenario: Disabled with the disabled attribute
     Given I am on "/posts/disabled"

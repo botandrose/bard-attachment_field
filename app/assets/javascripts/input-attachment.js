@@ -5867,6 +5867,14 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     this.addFiles(this.fileInput.files);
     this.fileInput.value = null;
   };
+  handleDrop = (event) => {
+    event.preventDefault();
+    if (this.isDisabled)
+      return;
+    if (event.dataTransfer?.files?.length) {
+      this.addFiles(event.dataTransfer.files);
+    }
+  };
   removeUploadedFile(event) {
     arrayRemove(this.files, event.detail);
     this.files = this.files;
@@ -5885,12 +5893,12 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "6a28dcfd10988dd4b3ffce0e6df43b6f53b7ecb7" }, h("input", { key: "2f3d024394ce6afaf73b2419f053d453ccebf9ce", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
+    return h(Host, { key: "c71c6869000f6fc105fe66f4417c4e64c3c70f68" }, h("input", { key: "4d03f907860f42f2c30d971360bd3ff9ffe19659", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
       opacity: "0.01",
       width: "1px",
       height: "1px",
       zIndex: "-999"
-    } }), h("file-drop", { key: "5ae9f28265be53abc0d1db6f687ac3d637cad09f", onClick: () => this.fileInput?.click() }, h("p", { key: "377f2db884843e72658e33690cd210bfe00d2e8f", part: "title" }, h("strong", { key: "2ea319d0b7a9bae089c22dc1f20c25080cf1dc49" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "f6f1adb08a799808b4f9e12ab2deac96463575a5" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "f33d4b74bd6836719895497bb62aba8df091b355", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "dd71b4bda5708c2d84d5d28ee47aa49f1121d45e" }))));
+    } }), h("file-drop", { key: "46a5e8eb22825afe03ce5e6e735d59143dec596a", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "c68e8157ec03306c00e03330fc39d3bdbec0b38b", part: "title" }, h("strong", { key: "c4803833fe77c48882b3414c1f375b050c0659a0" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "844abd650924319ae4836d2c6be9c13925232229" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "2f355ee03d3bc033fd37d392555ad3f890ef22cb", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "255e79285dd1575386418ffd34f2517c5d7c717a" }))));
   }
   componentDidRender() {
     if (this.files.length === 0) {

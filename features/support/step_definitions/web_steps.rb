@@ -41,50 +41,23 @@ When "I press {string}" do |button|
 end
 
 Then "I should see {string} filled in with {string}" do |field, value|
-  raise "Expected field '#{field}' to be '#{value}' but was '#{find_field(field).value}'" unless find_field(field).value == value
+  expect(find_field(field).value).to eq(value)
 end
 
 Then /^I should see "(.*?)"$/ do |text|
-  raise "Expected to see '#{text}' but it was not found" unless page.has_content?(text)
+  expect(page).to have_content(text)
 end
 
 Then /^I should not see "(.*?)"$/ do |text|
-  raise "Expected not to see '#{text}' but it was found" if page.has_content?(text)
+  expect(page).to have_no_content(text)
 end
 
 Then "I should see the {string} image" do |filename|
-  raise "Expected to see image with src ending in '#{filename}'" unless page.has_css?("img[src$='/#{filename}']")
+  expect(page).to have_css("img[src$='/#{filename}']")
 end
 
 Then "I should not see the {string} image" do |filename|
-  raise "Expected not to see image with src ending in '#{filename}'" if page.has_css?("img[src$='/#{filename}']")
-end
-
-# Legacy step name aliases (bard-attachment instead of attachment field)
-Then "the {string} bard-attachment should have a validation error containing {string}" do |field, message|
-  element = Bard::AttachmentField::TestHelper.find_field(page, field)
-
-  messages = []
-  messages << element.evaluate_script("this.validationMessage")
-  element.all("attachment-file").each do |e|
-    messages << e.evaluate_script("this.validationError")
-  end
-  messages = messages.select { |m| m && !m.empty? }
-
-  raise "Expected validation message '#{message}' but got #{messages.inspect}" unless messages.any? { |m| m.include?(message) }
-end
-
-Then "the {string} bard-attachment should have no validation errors" do |field|
-  element = Bard::AttachmentField::TestHelper.find_field(page, field)
-
-  messages = []
-  messages << element.evaluate_script("this.validationMessage")
-  element.all("attachment-file").each do |e|
-    messages << e.evaluate_script("this.validationError")
-  end
-  messages = messages.select { |m| m && !m.empty? }
-
-  raise "Expected no validation errors but got #{messages.inspect}" unless messages.empty?
+  expect(page).to have_no_css("img[src$='/#{filename}']")
 end
 
 # Debug helpers
