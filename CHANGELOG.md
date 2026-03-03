@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0] - 2026-03-03
+
+### Features
+
+- Prevent form submission when direct uploads fail, with retry button
+
+### Bug Fixes
+
+- Re-enable input-attachment after removing a file
+- Fix direct upload URL race condition on disconnected Stencil elements
+
 ## [0.1.0] - 2026-01-03
 
 Initial release of bard-attachment_field, a rewrite of bard-file_field.
