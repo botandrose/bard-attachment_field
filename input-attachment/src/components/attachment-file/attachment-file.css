@@ -82,6 +82,18 @@ progress-bar.error{
   color: transparent;
 }
 
+.retry-media{
+  color: #c00;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding-left: 8px;
+}
+
+.retry-media:hover{
+  color: #900;
+}
+
 .validation-error{
   color: #c00;
   font-size: 12px;

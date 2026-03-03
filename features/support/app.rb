@@ -315,6 +315,9 @@ Rails.application.routes.draw do
   # Suppress favicon errors
   get '/favicon.ico', to: ->(env) { [204, {}, []] }
 
+  # Simulate upload failure for testing
+  post "/fail_upload", to: ->(_env) { [422, { "Content-Type" => "text/plain" }, ["Upload failed"]] }
+
   # Mount full Active Storage routes - required for direct uploads and disk service
   scope ActiveStorage.routes_prefix do
     post "/direct_uploads" => "active_storage/direct_uploads#create", as: :rails_direct_uploads

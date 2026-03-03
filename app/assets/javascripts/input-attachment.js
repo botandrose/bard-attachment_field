@@ -5267,7 +5267,7 @@ var request = (verb, url, payload, headers) => {
   });
 };
 var get = (url, payload = {}, headers = {}) => request("get", url, payload, headers);
-var attachmentFileCss = `:host{display:block;width:100%;max-width:100%;font-size:13px}figure{margin:0}.progress-details{position:relative;display:flex;align-items:center}progress-bar{flex:1 0;padding:0 10px}progress-bar.pending{opacity:0.5}progress-bar.complete{opacity:0.8}progress-bar:not(.complete)+.progress-icon{display:none}progress-bar.complete+.progress-icon{content:url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve"><g><path d="M6.3,9.1c0.2,0,0.5,0.1,0.7,0.4c0.5,0.5,1,1,1.4,1.4c0.3,0.3,0.3,0.3,0.6,0c1.4-1.3,2.7-2.6,4-3.9c0.3-0.3,0.6-0.4,1-0.4 c0.5,0.1,0.9,0.6,0.7,1.1c-0.1,0.2-0.2,0.4-0.3,0.6c-1.6,1.6-3.2,3.2-4.8,4.8c-0.5,0.5-1,0.5-1.6,0c-0.8-0.7-1.5-1.5-2.3-2.3 c-0.3-0.3-0.5-0.6-0.3-1.1C5.5,9.3,5.8,9.1,6.3,9.1z"/></g></svg>');filter:invert(100%)}.progress-icon{display:inline-block;flex:0 0 20px;width:28px;height:28px;background-size:contain;position:absolute;right:30px;z-index:1}progress-bar.error{background:#f8b3b1;background:rgba(74, 70, 70, 0.25);opacity:1}.progress-bar a{color:#fff}.download-link{padding-right:20px;color:#fff}.remove-media{display:inline-block;content:url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><g><path d="M0,19.9C0.2,8.5,9.2-0.1,20.1,0C31.8,0.1,40.2,9.5,40,20.4c-0.2,11-8.9,19.7-20.1,19.6C8,39.9,0,30.5,0,19.9z M20,3.7 c-9,0-16.3,7-16.3,16.2C3.7,29,10.9,36.3,20,36.3c9,0,16.3-7.1,16.4-16.3C36.3,11,29.2,3.8,20,3.7z"/><path d="M17.3,20c-0.2-0.2-0.3-0.4-0.5-0.6c-1-1-2-1.9-2.9-2.9c-0.5-0.5-0.8-1.1-0.7-1.9c0.1-0.7,0.5-1.2,1.2-1.4 c0.8-0.2,1.5,0,2.1,0.6c1,1,2,2,3,3.1c0.3,0.4,0.6,0.3,0.9,0c1-1,2-2,3-3c0.3-0.3,0.7-0.5,1.1-0.6c0.8-0.2,1.6,0.1,2,0.8 c0.4,0.8,0.3,1.7-0.4,2.4c-1,1-2,2-3,3c-0.2,0.2-0.3,0.4-0.5,0.6c1.2,1.2,2.3,2.3,3.4,3.4c0.6,0.6,0.9,1.3,0.6,2.2 c-0.4,1.1-1.7,1.6-2.6,1c-0.3-0.2-0.5-0.4-0.8-0.6c-1-1-1.9-1.9-2.9-2.9c-0.3-0.3-0.5-0.3-0.9,0c-1,1-2,2.1-3,3 c-0.4,0.4-1,0.6-1.5,0.8c-0.6,0.1-1.2-0.2-1.5-0.8c-0.4-0.6-0.5-1.3-0.1-1.9c0.2-0.3,0.4-0.5,0.6-0.7C15.1,22.3,16.2,21.2,17.3,20z "/></g></svg>');flex:0 0 25px;width:25px;height:20px;align-items:center;opacity:0.25}.remove-media:hover{opacity:1;filter:invert(50%)sepia(100%)saturate(10000%)}.remove-media span{display:inline-block;text-indent:-9999px;color:transparent}.validation-error{color:#c00;font-size:12px;margin:4px 0 0 10px}`;
+var attachmentFileCss = `:host{display:block;width:100%;max-width:100%;font-size:13px}figure{margin:0}.progress-details{position:relative;display:flex;align-items:center}progress-bar{flex:1 0;padding:0 10px}progress-bar.pending{opacity:0.5}progress-bar.complete{opacity:0.8}progress-bar:not(.complete)+.progress-icon{display:none}progress-bar.complete+.progress-icon{content:url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve"><g><path d="M6.3,9.1c0.2,0,0.5,0.1,0.7,0.4c0.5,0.5,1,1,1.4,1.4c0.3,0.3,0.3,0.3,0.6,0c1.4-1.3,2.7-2.6,4-3.9c0.3-0.3,0.6-0.4,1-0.4 c0.5,0.1,0.9,0.6,0.7,1.1c-0.1,0.2-0.2,0.4-0.3,0.6c-1.6,1.6-3.2,3.2-4.8,4.8c-0.5,0.5-1,0.5-1.6,0c-0.8-0.7-1.5-1.5-2.3-2.3 c-0.3-0.3-0.5-0.6-0.3-1.1C5.5,9.3,5.8,9.1,6.3,9.1z"/></g></svg>');filter:invert(100%)}.progress-icon{display:inline-block;flex:0 0 20px;width:28px;height:28px;background-size:contain;position:absolute;right:30px;z-index:1}progress-bar.error{background:#f8b3b1;background:rgba(74, 70, 70, 0.25);opacity:1}.progress-bar a{color:#fff}.download-link{padding-right:20px;color:#fff}.remove-media{display:inline-block;content:url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><g><path d="M0,19.9C0.2,8.5,9.2-0.1,20.1,0C31.8,0.1,40.2,9.5,40,20.4c-0.2,11-8.9,19.7-20.1,19.6C8,39.9,0,30.5,0,19.9z M20,3.7 c-9,0-16.3,7-16.3,16.2C3.7,29,10.9,36.3,20,36.3c9,0,16.3-7.1,16.4-16.3C36.3,11,29.2,3.8,20,3.7z"/><path d="M17.3,20c-0.2-0.2-0.3-0.4-0.5-0.6c-1-1-2-1.9-2.9-2.9c-0.5-0.5-0.8-1.1-0.7-1.9c0.1-0.7,0.5-1.2,1.2-1.4 c0.8-0.2,1.5,0,2.1,0.6c1,1,2,2,3,3.1c0.3,0.4,0.6,0.3,0.9,0c1-1,2-2,3-3c0.3-0.3,0.7-0.5,1.1-0.6c0.8-0.2,1.6,0.1,2,0.8 c0.4,0.8,0.3,1.7-0.4,2.4c-1,1-2,2-3,3c-0.2,0.2-0.3,0.4-0.5,0.6c1.2,1.2,2.3,2.3,3.4,3.4c0.6,0.6,0.9,1.3,0.6,2.2 c-0.4,1.1-1.7,1.6-2.6,1c-0.3-0.2-0.5-0.4-0.8-0.6c-1-1-1.9-1.9-2.9-2.9c-0.3-0.3-0.5-0.3-0.9,0c-1,1-2,2.1-3,3 c-0.4,0.4-1,0.6-1.5,0.8c-0.6,0.1-1.2-0.2-1.5-0.8c-0.4-0.6-0.5-1.3-0.1-1.9c0.2-0.3,0.4-0.5,0.6-0.7C15.1,22.3,16.2,21.2,17.3,20z "/></g></svg>');flex:0 0 25px;width:25px;height:20px;align-items:center;opacity:0.25}.remove-media:hover{opacity:1;filter:invert(50%)sepia(100%)saturate(10000%)}.remove-media span{display:inline-block;text-indent:-9999px;color:transparent}.retry-media{color:#c00;font-size:12px;text-decoration:underline;cursor:pointer;padding-left:8px}.retry-media:hover{color:#900}.validation-error{color:#c00;font-size:12px;margin:4px 0 0 10px}`;
 var AttachmentFile = /* @__PURE__ */ proxyCustomElement(class AttachmentFile2 extends H {
   constructor(registerHost2) {
     super();
@@ -5302,9 +5302,20 @@ var AttachmentFile = /* @__PURE__ */ proxyCustomElement(class AttachmentFile2 ex
     this.controller?.cancel();
     this.removeEvent.emit(this);
   };
+  retryClicked = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    this.state = "pending";
+    this.percent = 0;
+    this.validationError = "";
+    this.uploadError = "";
+    this.controller = new DirectUploadController2(this.el, this._file);
+    this.controller.dispatch("initialize", { controller: this.controller });
+  };
   controller;
   _file;
   validationError = "";
+  uploadError = "";
   componentWillLoad() {
     this.setMissingFiletype();
   }
@@ -5348,7 +5359,7 @@ var AttachmentFile = /* @__PURE__ */ proxyCustomElement(class AttachmentFile2 ex
     event.preventDefault();
     const { error } = event.detail;
     this.state = "error";
-    this.validationError = error;
+    this.uploadError = error;
   }
   end(_event) {
     if (this.state !== "error") {
@@ -5357,7 +5368,7 @@ var AttachmentFile = /* @__PURE__ */ proxyCustomElement(class AttachmentFile2 ex
     }
   }
   render() {
-    return h(Host, { key: "b4ee8d4972ea0ed8406c9fe96c23dfc6ee48a980" }, h("slot", { key: "c8d48faeaf8a66f7dce8f28ba762fc1d4e568443" }), h("figure", { key: "1afd377c02f883e31cd4346c3f840c86c5fe9199" }, h("div", { key: "7c05e3b92dd5bd1598970ff2682d5a7fd3abcc05", class: "progress-details" }, h("progress-bar", { key: "c2b763ddb9b0de0f8bd95d9cc0f7b3f96763d810", percent: this.percent, class: this.state }, h("a", { key: "0426c1fcfc5f0f418e4fabbace84a6defaa4e4fb", class: "download-link", href: this.src, download: this.filename, onClick: (e) => e.stopPropagation() }, this.filename)), h("span", { key: "cc0accb102d91e5bb2dd84e97123675fa0c96afb", class: "progress-icon" }), h("a", { key: "830973ccad0e991b72868a2f33c84e1c772b3907", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "5f8f67d06ff5e85faa9ae5642c09a646ab5edbe3" }, "Remove media"))), this.validationError ? h("p", { class: "validation-error" }, this.validationError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
+    return h(Host, { key: "048e2ff577fe17addf864b61d83a039108016a12" }, h("slot", { key: "8be67080894acaff712da3384fc8d801a29ec577" }), h("figure", { key: "272c3a327466f2da4654e13627cdd724b5f0cd6a" }, h("div", { key: "cd4d689a99ee9f24c1440905e9c127b5aca2d54f", class: "progress-details" }, h("progress-bar", { key: "b96ddb30bf8bec245ebd2905df0eca909774a9f0", percent: this.percent, class: this.state }, h("a", { key: "a7999fb28b349a78705d8d3babc57d731e7161b4", class: "download-link", href: this.src, download: this.filename, onClick: (e) => e.stopPropagation() }, this.filename)), h("span", { key: "ea430736922cbb19e797796555be2316fc4a7615", class: "progress-icon" }), h("a", { key: "ad2af0cbdd7fffb8fd1b3250d82fa6e2f46c0147", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "5a1bfd7c33320b96472910b127c9f1d8c124e004" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
   }
   componentDidLoad() {
     if (this.state == "pending" && this._file) {
@@ -5421,14 +5432,12 @@ var FormController = class _FormController {
   controllers;
   submitted;
   processing;
-  errors;
   constructor(form) {
     this.element = form;
     this.progressTargetMap = {};
     this.controllers = [];
     this.submitted = false;
     this.processing = false;
-    this.errors = false;
     this.element.insertAdjacentHTML("beforeend", `<dialog id="form-controller-dialog">
         <div class="direct-upload-wrapper">
           <div class="direct-upload-content">
@@ -5482,8 +5491,16 @@ var FormController = class _FormController {
       this.submitForm();
     }
   }
+  hasUploadErrors() {
+    return Array.from(this.element.querySelectorAll("attachment-file")).some((el) => el.state === "error");
+  }
   submitForm() {
     if (this.submitted) {
+      if (this.hasUploadErrors()) {
+        this.dialog.close();
+        this.setInputAttachmentsDisabled(false);
+        return;
+      }
       this.setInputAttachmentsDisabled(true);
       window.setTimeout(() => {
         this.element.submit();
@@ -5529,6 +5546,7 @@ var FormController = class _FormController {
       document.getElementById(`direct-upload-${id2}`).remove();
       delete this.progressTargetMap[id2];
     }
+    requestAnimationFrame(() => this.submitForm());
   }
 };
 function arrayRemove(arr, e) {

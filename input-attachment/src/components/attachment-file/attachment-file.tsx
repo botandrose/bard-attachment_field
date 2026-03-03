@@ -40,9 +40,21 @@ export class AttachmentFile {
     this.removeEvent.emit(this)
   }
 
+  private retryClicked = event => {
+    event.stopPropagation()
+    event.preventDefault()
+    this.state = "pending"
+    this.percent = 0
+    this.validationError = ""
+    this.uploadError = ""
+    this.controller = new DirectUploadController(this.el, this._file)
+    this.controller.dispatch("initialize", { controller: this.controller })
+  }
+
   controller: DirectUploadController
   _file: File
   validationError: string = ""
+  uploadError: string = ""
 
   componentWillLoad() {
     this.setMissingFiletype()
@@ -99,7 +111,7 @@ export class AttachmentFile {
     event.preventDefault()
     const { error } = event.detail
     this.state = "error"
-    this.validationError = error
+    this.uploadError = error
   }
 
   @Listen("direct-upload:end")
@@ -126,8 +138,13 @@ export class AttachmentFile {
             <a class="remove-media" onClick={this.removeClicked} href="#">
               <span>Remove media</span>
             </a>
+            {this.uploadError && this._file ?
+              <a class="retry-media" onClick={this.retryClicked} href="#">
+                <span>Retry upload</span>
+              </a>
+            : ''}
           </div>
-          {this.validationError ? <p class="validation-error">{this.validationError}</p> : ''}
+          {(this.validationError || this.uploadError) ? <p class="validation-error">{this.validationError || this.uploadError}</p> : ''}
           {this.preview ? <attachment-preview src={this.src} filetype={this.filetype}></attachment-preview> : ''}
         </figure>
       </Host>

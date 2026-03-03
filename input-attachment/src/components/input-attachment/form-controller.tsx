@@ -13,7 +13,6 @@ export default class FormController {
   controllers: Array<DirectUploadController>
   submitted: boolean
   processing: boolean
-  errors: boolean
 
   constructor(form) {
     this.element = form
@@ -21,7 +20,6 @@ export default class FormController {
     this.controllers = []
     this.submitted = false
     this.processing = false
-    this.errors = false
 
     this.element.insertAdjacentHTML("beforeend",
       `<dialog id="form-controller-dialog">
@@ -85,8 +83,18 @@ export default class FormController {
     }
   }
 
+  hasUploadErrors() {
+    return Array.from(this.element.querySelectorAll("attachment-file"))
+      .some((el: any) => el.state === "error")
+  }
+
   submitForm() {
     if(this.submitted) {
+      if(this.hasUploadErrors()) {
+        this.dialog.close()
+        this.setInputAttachmentsDisabled(false)
+        return
+      }
       this.setInputAttachmentsDisabled(true)
       window.setTimeout(() => { // allow other async tasks to complete
         this.element.submit()
@@ -142,5 +150,6 @@ export default class FormController {
       document.getElementById(`direct-upload-${id}`).remove()
       delete this.progressTargetMap[id]
     }
+    requestAnimationFrame(() => this.submitForm())
   }
 }
