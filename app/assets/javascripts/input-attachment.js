@@ -5546,6 +5546,7 @@ var FormController = class _FormController {
       document.getElementById(`direct-upload-${id2}`).remove();
       delete this.progressTargetMap[id2];
     }
+    this.setInputAttachmentsDisabled(false);
     requestAnimationFrame(() => this.submitForm());
   }
 };

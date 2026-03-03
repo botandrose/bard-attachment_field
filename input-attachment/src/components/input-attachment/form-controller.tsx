@@ -150,6 +150,7 @@ export default class FormController {
       document.getElementById(`direct-upload-${id}`).remove()
       delete this.progressTargetMap[id]
     }
+    this.setInputAttachmentsDisabled(false)
     requestAnimationFrame(() => this.submitForm())
   }
 }
