@@ -5953,7 +5953,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
       const attachmentFile = document.createElement("attachment-file");
       attachmentFile.name = this.name;
       attachmentFile.preview = this.preview;
-      attachmentFile.url = this.directupload;
+      attachmentFile.setAttribute("url", this.directupload);
       attachmentFile.accepts = this.accepts;
       attachmentFile.max = this.max;
       attachmentFile.file = file;
