@@ -62,6 +62,17 @@ module Bard::AttachmentField::TestHelper
     end
   end
 
+  def wait_for_no_files(session, element_id, selector = "attachment-file", timeout: 10)
+    start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    loop do
+      count = session.evaluate_script("document.getElementById('#{element_id}').querySelectorAll('#{selector}').length")
+      break if count == 0
+      elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start
+      raise "Expected no #{selector} in ##{element_id}, found #{count} after #{timeout}s" if elapsed > timeout
+      sleep 0.1
+    end
+  end
+
   def wait_for_upload(session, element_id, timeout: 30)
     start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     loop do
@@ -189,11 +200,7 @@ When "I remove the file from {string}" do |field|
       removeLink.click();
     })(arguments[0])
   JS
-  # Wait for the file to be removed (refetch element to avoid stale reference)
-  page.document.synchronize(5, errors: [Capybara::ElementNotFound]) do
-    fresh_element = page.find("##{element_id}")
-    expect(fresh_element).to have_no_css("attachment-file")
-  end
+  Bard::AttachmentField::TestHelper.wait_for_no_files(page, element_id)
 end
 
 When "I remove {string} from {string}" do |filename, field|
@@ -208,11 +215,7 @@ When "I remove {string} from {string}" do |filename, field|
       removeLink.click();
     })(arguments[0], arguments[1])
   JS
-  # Wait for the file to be removed (refetch element to avoid stale reference)
-  page.document.synchronize(5, errors: [Capybara::ElementNotFound]) do
-    fresh_element = page.find("##{element_id}")
-    expect(fresh_element).to have_no_css("attachment-file[filename='#{filename}']")
-  end
+  Bard::AttachmentField::TestHelper.wait_for_no_files(page, element_id, "attachment-file[filename='#{filename}']")
 end
 
 When "I remove {string} from the {string} field" do |filename, field|
@@ -226,10 +229,7 @@ When "I remove {string} from the {string} field" do |filename, field|
       removeLink.click();
     })(arguments[0], arguments[1])
   JS
-  page.document.synchronize(5, errors: [Capybara::ElementNotFound]) do
-    fresh_element = page.find("##{element_id}")
-    expect(fresh_element).to have_no_css("attachment-file[filename='#{filename}']")
-  end
+  Bard::AttachmentField::TestHelper.wait_for_no_files(page, element_id, "attachment-file[filename='#{filename}']")
 end
 
 When "I drag the file {string} onto the {string} attachment field" do |path, field|
