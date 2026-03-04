@@ -28,6 +28,7 @@
 
 | Event                        | Description | Type               |
 | ---------------------------- | ----------- | ------------------ |
+| `attachment-file:ready`      |             | `CustomEvent<any>` |
 | `attachment-file:remove`     |             | `CustomEvent<any>` |
 | `attachment-file:validation` |             | `CustomEvent<any>` |
 

@@ -68,6 +68,7 @@ declare global {
     interface HTMLAttachmentFileElementEventMap {
         "attachment-file:remove": any;
         "attachment-file:validation": any;
+        "attachment-file:ready": any;
     }
     interface HTMLAttachmentFileElement extends Components.AttachmentFile, HTMLStencilElement {
         addEventListener<K extends keyof HTMLAttachmentFileElementEventMap>(type: K, listener: (this: HTMLAttachmentFileElement, ev: AttachmentFileCustomEvent<HTMLAttachmentFileElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -108,6 +109,7 @@ declare namespace LocalJSX {
         "filetype"?: string;
         "max"?: number;
         "name"?: string;
+        "onAttachment-file:ready"?: (event: AttachmentFileCustomEvent<any>) => void;
         "onAttachment-file:remove"?: (event: AttachmentFileCustomEvent<any>) => void;
         "onAttachment-file:validation"?: (event: AttachmentFileCustomEvent<any>) => void;
         /**

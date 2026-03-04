@@ -32,6 +32,7 @@ export class AttachmentFile {
 
   @Event({ eventName: "attachment-file:remove" }) removeEvent: EventEmitter
   @Event({ eventName: "attachment-file:validation" }) validationEvent: EventEmitter
+  @Event({ eventName: "attachment-file:ready" }) readyEvent: EventEmitter
 
   private removeClicked = event => {
     event.stopPropagation()
@@ -82,6 +83,7 @@ export class AttachmentFile {
         this.state = "complete"
         this.percent = 100
         this.value = val
+        this.readyEvent.emit(this)
       })
     }
   }

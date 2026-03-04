@@ -327,6 +327,7 @@ Rails.application.routes.draw do
     get  "/blobs/proxy/:signed_id/*filename" => "active_storage/blobs/proxy#show", as: :rails_service_blob_proxy
     get  "/representations/redirect/:signed_blob_id/:variation_key/*filename" => "active_storage/representations/redirect#show", as: :rails_blob_representation
     get  "/representations/proxy/:signed_blob_id/:variation_key/*filename" => "active_storage/representations/proxy#show", as: :rails_blob_representation_proxy
+    get  "/blobs/info/:signed_id" => "bard/attachment_field/blobs#show"
   end
 
   root 'posts#index'

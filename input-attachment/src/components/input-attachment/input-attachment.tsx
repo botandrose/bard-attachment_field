@@ -231,6 +231,11 @@ export class InputAttachment {
     this.updateFormValue()
   }
 
+  @Listen("attachment-file:ready")
+  handleChildReady(_event) {
+    this.updateFormValue()
+  }
+
   @Listen("direct-upload:end")
   fireChangeEvent() {
     requestAnimationFrame(() => {

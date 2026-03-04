@@ -5320,6 +5320,7 @@ var AttachmentFile = /* @__PURE__ */ proxyCustomElement(class AttachmentFile2 ex
     this.__attachShadow();
     this.removeEvent = createEvent(this, "attachment-file:remove", 7);
     this.validationEvent = createEvent(this, "attachment-file:validation", 7);
+    this.readyEvent = createEvent(this, "attachment-file:ready", 7);
   }
   get el() {
     return this;
@@ -5339,6 +5340,7 @@ var AttachmentFile = /* @__PURE__ */ proxyCustomElement(class AttachmentFile2 ex
   validationMessage;
   removeEvent;
   validationEvent;
+  readyEvent;
   removeClicked = (event) => {
     event.stopPropagation();
     event.preventDefault();
@@ -5382,6 +5384,7 @@ var AttachmentFile = /* @__PURE__ */ proxyCustomElement(class AttachmentFile2 ex
         this.state = "complete";
         this.percent = 100;
         this.value = val;
+        this.readyEvent.emit(this);
       });
     }
   }
@@ -5411,7 +5414,7 @@ var AttachmentFile = /* @__PURE__ */ proxyCustomElement(class AttachmentFile2 ex
     }
   }
   render() {
-    return h(Host, { key: "048e2ff577fe17addf864b61d83a039108016a12" }, h("slot", { key: "8be67080894acaff712da3384fc8d801a29ec577" }), h("figure", { key: "272c3a327466f2da4654e13627cdd724b5f0cd6a" }, h("div", { key: "cd4d689a99ee9f24c1440905e9c127b5aca2d54f", class: "progress-details" }, h("progress-bar", { key: "b96ddb30bf8bec245ebd2905df0eca909774a9f0", percent: this.percent, class: this.state }, h("a", { key: "a7999fb28b349a78705d8d3babc57d731e7161b4", class: "download-link", href: this.src, download: this.filename, onClick: (e) => e.stopPropagation() }, this.filename)), h("span", { key: "ea430736922cbb19e797796555be2316fc4a7615", class: "progress-icon" }), h("a", { key: "ad2af0cbdd7fffb8fd1b3250d82fa6e2f46c0147", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "5a1bfd7c33320b96472910b127c9f1d8c124e004" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
+    return h(Host, { key: "1af2d43e01a8714c658ea70a9ca68cce57bbda12" }, h("slot", { key: "deadfff4a159e17d52ed8f66d5d18aecc71fb44d" }), h("figure", { key: "7319a724f2d51c396734dacd7528b1864fb8e980" }, h("div", { key: "ce0794f4062073a8fc28e4f2398a91d711f00521", class: "progress-details" }, h("progress-bar", { key: "30c130654e71e87036beaaf02f15453e1d35ab7a", percent: this.percent, class: this.state }, h("a", { key: "12dcf70078803fe226e9abf265dcaacd0241bfe3", class: "download-link", href: this.src, download: this.filename, onClick: (e) => e.stopPropagation() }, this.filename)), h("span", { key: "e736b315d4e0c3ec601c0fdec08ce7cce5665bef", class: "progress-icon" }), h("a", { key: "dd356dcc5f72ad33a5a52de080aa60f4af7df284", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "c9976fdb30e8d3fa78bfc838eba1e8c33ff11c04" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
   }
   componentDidLoad() {
     if (this.state == "pending" && this._file) {
@@ -5948,6 +5951,9 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
   handleChildValidation(_event) {
     this.updateFormValue();
   }
+  handleChildReady(_event) {
+    this.updateFormValue();
+  }
   fireChangeEvent() {
     requestAnimationFrame(() => {
       this.updateFormValue();
@@ -5959,12 +5965,12 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "4ef61015f6e0abb87d50a3f9ff8e39f01dc44ead" }, h("input", { key: "fc02ff04ff705c2c26ef6bc9e21e23435eefe0d6", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
+    return h(Host, { key: "da0ceb39e5024d0dfe50511a4aa1139188dcb4a2" }, h("input", { key: "b9197faa99dcd580bf7c0fb7f356daa715d901d1", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
       opacity: "0.01",
       width: "1px",
       height: "1px",
       zIndex: "-999"
-    } }), h("file-drop", { key: "20ad744ab366a7af2404711a025240515198815f", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "c5289e9d5b03ced01d95f2d2152ab06dfaaaa8fb", part: "title" }, h("strong", { key: "ed48073458e73fad729caebc1eea8c1ed31fd021" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "daa4fbd6f33180060a306fdb5ea469d2a68a141b" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "83a5aaf4ee4bc0d7c2917a781ef77568ce9fb9a6", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "8ce39f9805a8f292cc08c9d77c8f91d2754152f7" }))));
+    } }), h("file-drop", { key: "ce0608a99601202d437b7228e87437b510ba639f", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "658d85fa352e7517789d95ad0c25756dafc79c08", part: "title" }, h("strong", { key: "7a160aa3132cdc8159e4319262cca69aa0b60d63" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "51ab69b28833c8d442d1907ead5ddc79a6820f53" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "a5bbee999e0575e27f7fc058640d8ee281ee0728", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "3a07d4e5aeaaf80fd5e37e9b135eb820dfcef757" }))));
   }
   componentDidRender() {
     if (this.files.length === 0) {
@@ -6041,7 +6047,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
   "max": [2],
   "preview": [4],
   "disabled": [4]
-}, [[0, "attachment-file:remove", "removeUploadedFile"], [0, "attachment-file:validation", "handleChildValidation"], [0, "direct-upload:end", "fireChangeEvent"]]]);
+}, [[0, "attachment-file:remove", "removeUploadedFile"], [0, "attachment-file:validation", "handleChildValidation"], [0, "attachment-file:ready", "handleChildReady"], [0, "direct-upload:end", "fireChangeEvent"]]]);
 var InputAttachment2 = InputAttachment$1;
 
 // dist/components/index.js
