@@ -42,9 +42,25 @@ When "I retry the errored upload in {string}" do |field|
       retryLink.click();
     })(arguments[0])
   JS
-  # The form may auto-submit after retry completes, navigating the page
-  # before wait_for_upload can check. Handle that gracefully.
+  # Wait for state to leave "error" before calling wait_for_upload,
+  # which treats "error" as a terminal state. The form may auto-submit
+  # after retry completes, navigating away before we can check.
+  start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
   begin
+    loop do
+      states = page.evaluate_script(<<~JS)
+        (() => {
+          const el = document.getElementById('#{element_id}');
+          if (!el) return null;
+          const files = el.querySelectorAll('attachment-file');
+          return Array.from(files).map(e => e.getAttribute('state'));
+        })()
+      JS
+      break if states.nil? || states.none? { |s| s == "error" }
+      elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start
+      raise "Retry did not clear error state after 10s" if elapsed > 10
+      sleep 0.1
+    end
     Bard::AttachmentField::TestHelper.wait_for_upload(page, element_id)
   rescue Ferrum::JavaScriptError
     # Page navigated due to auto-submit — upload succeeded
