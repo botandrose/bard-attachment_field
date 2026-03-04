@@ -5070,6 +5070,9 @@ var FetchResponse = class {
   get isTurboStream() {
     return this.contentType.match(/^text\/vnd\.turbo-stream\.html/);
   }
+  get isScript() {
+    return this.contentType.match(/\b(?:java|ecma)script\b/);
+  }
   async renderTurboStream() {
     if (this.isTurboStream) {
       if (window.Turbo) {
@@ -5079,6 +5082,22 @@ var FetchResponse = class {
       }
     } else {
       return Promise.reject(new Error(`Expected a Turbo Stream response but got "${this.contentType}" instead`));
+    }
+  }
+  async activeScript() {
+    if (this.isScript) {
+      const script = document.createElement("script");
+      const metaTag = document.querySelector("meta[name=csp-nonce]");
+      if (metaTag) {
+        const nonce = metaTag.nonce === "" ? metaTag.content : metaTag.nonce;
+        if (nonce) {
+          script.setAttribute("nonce", nonce);
+        }
+      }
+      script.innerHTML = await this.text;
+      document.body.appendChild(script);
+    } else {
+      return Promise.reject(new Error(`Expected a Script response but got "${this.contentType}" instead`));
     }
   }
 };
@@ -5126,7 +5145,7 @@ function stringEntriesFromFormData(formData) {
 function mergeEntries(searchParams, entries) {
   for (const [name, value] of entries) {
     if (value instanceof window.File) continue;
-    if (searchParams.has(name)) {
+    if (searchParams.has(name) && !name.includes("[]")) {
       searchParams.delete(name);
       searchParams.set(name, value);
     } else {
@@ -5149,11 +5168,16 @@ var FetchRequest = class {
     } catch (error) {
       console.error(error);
     }
-    const response = new FetchResponse(await window.fetch(this.url, this.fetchOptions));
+    const fetch = window.Turbo ? window.Turbo.fetch : window.fetch;
+    const response = new FetchResponse(await fetch(this.url, this.fetchOptions));
     if (response.unauthenticated && response.authenticationURL) {
       return Promise.reject(window.location.href = response.authenticationURL);
     }
-    if (response.ok && response.isTurboStream) {
+    if (response.isScript) {
+      await response.activeScript();
+    }
+    const responseStatusIsTurboStreamable = response.ok || response.unprocessableEntity;
+    if (responseStatusIsTurboStreamable && response.isTurboStream) {
       await response.renderTurboStream();
     }
     return response;
@@ -5163,27 +5187,38 @@ var FetchRequest = class {
     headers[key] = value;
     this.options.headers = headers;
   }
+  sameHostname() {
+    if (!this.originalUrl.startsWith("http:") && !this.originalUrl.startsWith("https:")) {
+      return true;
+    }
+    try {
+      return new URL(this.originalUrl).hostname === window.location.hostname;
+    } catch (_) {
+      return true;
+    }
+  }
   get fetchOptions() {
     return {
       method: this.method.toUpperCase(),
       headers: this.headers,
       body: this.formattedBody,
       signal: this.signal,
-      credentials: "same-origin",
-      redirect: this.redirect
+      credentials: this.credentials,
+      redirect: this.redirect,
+      keepalive: this.keepalive
     };
   }
   get headers() {
+    const baseHeaders = {
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": this.contentType,
+      Accept: this.accept
+    };
+    if (this.sameHostname()) {
+      baseHeaders["X-CSRF-Token"] = this.csrfToken;
+    }
     return compact(
-      Object.assign(
-        {
-          "X-Requested-With": "XMLHttpRequest",
-          "X-CSRF-Token": this.csrfToken,
-          "Content-Type": this.contentType,
-          Accept: this.accept
-        },
-        this.additionalHeaders
-      )
+      Object.assign(baseHeaders, this.additionalHeaders)
     );
   }
   get csrfToken() {
@@ -5207,6 +5242,8 @@ var FetchRequest = class {
         return "text/vnd.turbo-stream.html, text/html, application/xhtml+xml";
       case "json":
         return "application/json, application/vnd.api+json";
+      case "script":
+        return "text/javascript, application/javascript";
       default:
         return "*/*";
     }
@@ -5241,6 +5278,12 @@ var FetchRequest = class {
   get redirect() {
     return this.options.redirect || "follow";
   }
+  get credentials() {
+    return this.options.credentials || "same-origin";
+  }
+  get keepalive() {
+    return this.options.keepalive || false;
+  }
   get additionalHeaders() {
     return this.options.headers || {};
   }
@@ -5256,7 +5299,7 @@ var FetchRequest = class {
 var request = (verb, url, payload, headers) => {
   const req = new FetchRequest(verb, url, {
     headers: { Accept: "application/json", ...headers },
-    body: payload
+    ...{ query: payload }
   });
   return req.perform().then((response) => {
     if (response.response.ok) {
@@ -5466,6 +5509,8 @@ var FormController = class _FormController {
     }
   }
   submit(event) {
+    if (this.controllers.length === 0 && !this.hasUploadErrors())
+      return;
     event.preventDefault();
     this.submitted = true;
     this.startNextController();
@@ -5814,11 +5859,13 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
   set value(val) {
     const newValue = val || [];
     if (JSON.stringify(this.value) !== JSON.stringify(newValue)) {
-      this.files = newValue.map((signedId) => Object.assign(new AttachmentFile(), {
-        name: this.name,
-        preview: this.preview,
-        signedId
-      }));
+      this.files = newValue.map((signedId) => {
+        const attachmentFile = document.createElement("attachment-file");
+        attachmentFile.name = this.name;
+        attachmentFile.preview = this.preview;
+        attachmentFile.signedId = signedId;
+        return attachmentFile;
+      });
     }
   }
   // For form-persistence: store complete attachment data (not just signed_ids)
@@ -5912,12 +5959,12 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "c71c6869000f6fc105fe66f4417c4e64c3c70f68" }, h("input", { key: "4d03f907860f42f2c30d971360bd3ff9ffe19659", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
+    return h(Host, { key: "4ef61015f6e0abb87d50a3f9ff8e39f01dc44ead" }, h("input", { key: "fc02ff04ff705c2c26ef6bc9e21e23435eefe0d6", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
       opacity: "0.01",
       width: "1px",
       height: "1px",
       zIndex: "-999"
-    } }), h("file-drop", { key: "46a5e8eb22825afe03ce5e6e735d59143dec596a", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "c68e8157ec03306c00e03330fc39d3bdbec0b38b", part: "title" }, h("strong", { key: "c4803833fe77c48882b3414c1f375b050c0659a0" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "844abd650924319ae4836d2c6be9c13925232229" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "2f355ee03d3bc033fd37d392555ad3f890ef22cb", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "255e79285dd1575386418ffd34f2517c5d7c717a" }))));
+    } }), h("file-drop", { key: "20ad744ab366a7af2404711a025240515198815f", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "c5289e9d5b03ced01d95f2d2152ab06dfaaaa8fb", part: "title" }, h("strong", { key: "ed48073458e73fad729caebc1eea8c1ed31fd021" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "daa4fbd6f33180060a306fdb5ea469d2a68a141b" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "83a5aaf4ee4bc0d7c2917a781ef77568ce9fb9a6", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "8ce39f9805a8f292cc08c9d77c8f91d2754152f7" }))));
   }
   componentDidRender() {
     if (this.files.length === 0) {

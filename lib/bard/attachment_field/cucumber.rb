@@ -24,7 +24,11 @@ module Bard::AttachmentField::TestHelper
   end
 
   def find_field(session, label)
-    label_element = session.find("label", text: /^#{Regexp.escape(label)}$/)
+    label_element = begin
+      session.find("label", exact_text: label, visible: :all, match: :first)
+    rescue Capybara::ElementNotFound
+      session.find("label", text: /^#{Regexp.escape(label)}/, visible: :all, match: :first)
+    end
     element_id = label_element[:for]
     session.find("input-attachment##{element_id}")
   end
@@ -34,7 +38,7 @@ module Bard::AttachmentField::TestHelper
   def attach_files(session, element_id, file_paths)
     session.execute_script("document.body.insertAdjacentHTML('beforeend', '<input type=\"file\" id=\"_cdp_file_helper\" multiple style=\"display:none\">')")
 
-    temp_input = session.find("#_cdp_file_helper", visible: :all)
+    temp_input = session.document.find("#_cdp_file_helper", visible: :all)
     temp_input.native.node.select_file(file_paths)
 
     session.execute_script(<<~JS)
@@ -47,12 +51,32 @@ module Bard::AttachmentField::TestHelper
     JS
   end
 
+  def wait_for_files(session, element_id, minimum, timeout: 15)
+    start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    loop do
+      count = session.evaluate_script("document.getElementById('#{element_id}').querySelectorAll('attachment-file').length")
+      break if count >= minimum
+      elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start
+      raise "Expected at least #{minimum} attachment-file(s) in ##{element_id}, found #{count} after #{timeout}s" if elapsed > timeout
+      sleep 0.1
+    end
+  end
+
   def wait_for_upload(session, element_id, timeout: 30)
-    session.document.synchronize(timeout, errors: [RuntimeError]) do
-      states = session.evaluate_script(<<~JS)
-        Array.from(document.getElementById('#{element_id}').querySelectorAll('attachment-file')).map(e => e.getAttribute('state'))
+    start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    loop do
+      result = session.evaluate_script(<<~JS)
+        (() => {
+          const files = document.getElementById('#{element_id}').querySelectorAll('attachment-file');
+          return Array.from(files).map(e => ({ state: e.getAttribute('state'), value: e.value }));
+        })()
       JS
-      raise "Uploads not complete (states=#{states})" unless states.all? { |s| s == "complete" || s == "error" }
+      states_done = result.all? { |f| f["state"] == "complete" || f["state"] == "error" }
+      values_set = result.all? { |f| f["state"] == "error" || (f["value"] && !f["value"].empty?) }
+      break if states_done && values_set
+      elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start
+      raise "Uploads not complete after #{timeout}s (files=#{result})" if elapsed > timeout
+      sleep 0.1
     end
   end
 
@@ -116,6 +140,7 @@ class Chop::Form::AttachmentField < Chop::Form::Field
     end
 
     Bard::AttachmentField::TestHelper.attach_files(session, field[:id], file_paths)
+    Bard::AttachmentField::TestHelper.wait_for_files(session, field[:id], file_paths.length)
     Bard::AttachmentField::TestHelper.wait_for_upload(session, field[:id])
   end
 end
@@ -123,29 +148,32 @@ end
 # Step definitions
 
 When "I attach the file {string} to {string}" do |path, field|
-  element = Bard::AttachmentField::TestHelper.find_field(page, field)
   file_path_full = Bard::AttachmentField::TestHelper.resolve_fixture_path(path)
 
-  Bard::AttachmentField::TestHelper.attach_files(page, element[:id], [file_path_full])
-
-  page.document.synchronize(15, errors: [Capybara::ElementNotFound]) do
-    element.find("attachment-file")
+  begin
+    element = Bard::AttachmentField::TestHelper.find_field(page, field)
+  rescue Capybara::ElementNotFound
+    attach_file field, file_path_full
+    next
   end
 
+  Bard::AttachmentField::TestHelper.attach_files(page, element[:id], [file_path_full])
+  Bard::AttachmentField::TestHelper.wait_for_files(page, element[:id], 1)
   Bard::AttachmentField::TestHelper.wait_for_upload(page, element[:id])
 end
 
 When "I attach the following files to {string}:" do |field, table|
   files = table.raw.map(&:first).map { |filename| Bard::AttachmentField::TestHelper.resolve_fixture_path(filename) }
 
-  element = Bard::AttachmentField::TestHelper.find_field(page, field)
-
-  Bard::AttachmentField::TestHelper.attach_files(page, element[:id], files)
-
-  page.document.synchronize(15, errors: [Capybara::ElementNotFound]) do
-    element.all("attachment-file", minimum: files.length)
+  begin
+    element = Bard::AttachmentField::TestHelper.find_field(page, field)
+  rescue Capybara::ElementNotFound
+    attach_file field, files
+    next
   end
 
+  Bard::AttachmentField::TestHelper.attach_files(page, element[:id], files)
+  Bard::AttachmentField::TestHelper.wait_for_files(page, element[:id], files.length)
   Bard::AttachmentField::TestHelper.wait_for_upload(page, element[:id], timeout: 60)
 end
 
@@ -181,6 +209,23 @@ When "I remove {string} from {string}" do |filename, field|
     })(arguments[0], arguments[1])
   JS
   # Wait for the file to be removed (refetch element to avoid stale reference)
+  page.document.synchronize(5, errors: [Capybara::ElementNotFound]) do
+    fresh_element = page.find("##{element_id}")
+    expect(fresh_element).to have_no_css("attachment-file[filename='#{filename}']")
+  end
+end
+
+When "I remove {string} from the {string} field" do |filename, field|
+  element = Bard::AttachmentField::TestHelper.find_field(page, field)
+  element_id = element[:id]
+  page.execute_script(<<~JS, element_id, filename)
+    ((elementId, filename) => {
+      const host = document.getElementById(elementId);
+      const attachmentFile = host.querySelector(`attachment-file[filename='${filename}']`);
+      const removeLink = attachmentFile.shadowRoot.querySelector('a.remove-media');
+      removeLink.click();
+    })(arguments[0], arguments[1])
+  JS
   page.document.synchronize(5, errors: [Capybara::ElementNotFound]) do
     fresh_element = page.find("##{element_id}")
     expect(fresh_element).to have_no_css("attachment-file[filename='#{filename}']")
@@ -225,6 +270,13 @@ end
 Then "I should see a preview of {string} for the {string} field" do |filename, field|
   element = Bard::AttachmentField::TestHelper.find_field(page, field)
   expect(element.find("attachment-file")[:filename]).to eq(filename)
+end
+
+Then "I should see the following media previews for the {string} field:" do |field, table|
+  element = Bard::AttachmentField::TestHelper.find_field(page, field)
+  element.assert_selector("attachment-file", minimum: table.raw.length)
+  actual = Bard::AttachmentField::TestHelper.get_files(element).map { |f| [f] }
+  table.diff! actual
 end
 
 When "I follow the {string} download link for {string}" do |filename, field|

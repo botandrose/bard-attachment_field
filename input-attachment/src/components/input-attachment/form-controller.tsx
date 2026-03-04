@@ -56,6 +56,7 @@ export default class FormController {
   }
 
   submit(event) {
+    if(this.controllers.length === 0 && !this.hasUploadErrors()) return
     event.preventDefault()
     this.submitted = true
     this.startNextController()

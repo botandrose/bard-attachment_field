@@ -1,6 +1,5 @@
 import { Component, Element, Prop, Listen, Host, h, forceUpdate } from '@stencil/core';
 import FormController from "./form-controller"
-import { AttachmentFile } from "../attachment-file/attachment-file"
 import { arrayRemove } from "../../utils/utils"
 import '@botandrose/file-drop'
 import '@botandrose/progress-bar'
@@ -125,11 +124,13 @@ export class InputAttachment {
   set value(val) {
     const newValue = val || []
     if(JSON.stringify(this.value) !== JSON.stringify(newValue)) { // this is insane. javascript is fucking garbage.
-      this.files = newValue.map(signedId => Object.assign(new AttachmentFile(), {
-        name: this.name,
-        preview: this.preview,
-        signedId,
-      }))
+      this.files = newValue.map(signedId => {
+        const attachmentFile = document.createElement('attachment-file') as any
+        attachmentFile.name = this.name
+        attachmentFile.preview = this.preview
+        attachmentFile.signedId = signedId
+        return attachmentFile
+      })
     }
   }
 
