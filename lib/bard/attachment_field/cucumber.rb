@@ -54,7 +54,7 @@ module Bard::AttachmentField::TestHelper
   def wait_for_files(session, element_id, minimum, timeout: 15)
     start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     loop do
-      count = session.evaluate_script("document.getElementById('#{element_id}').querySelectorAll('attachment-file').length")
+      count = session.evaluate_script("document.getElementById(`#{element_id}`).querySelectorAll('attachment-file').length")
       break if count >= minimum
       elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start
       raise "Expected at least #{minimum} attachment-file(s) in ##{element_id}, found #{count} after #{timeout}s" if elapsed > timeout
@@ -65,7 +65,7 @@ module Bard::AttachmentField::TestHelper
   def wait_for_no_files(session, element_id, selector = "attachment-file", timeout: 10)
     start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     loop do
-      count = session.evaluate_script("document.getElementById('#{element_id}').querySelectorAll('#{selector}').length")
+      count = session.evaluate_script("document.getElementById(`#{element_id}`).querySelectorAll(`#{selector}`).length")
       break if count == 0
       elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start
       raise "Expected no #{selector} in ##{element_id}, found #{count} after #{timeout}s" if elapsed > timeout
