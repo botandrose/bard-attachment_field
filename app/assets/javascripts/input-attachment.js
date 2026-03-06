@@ -5515,9 +5515,9 @@ var FormController = class _FormController {
       return;
     }
     this.setInputAttachmentsDisabled(true);
-    window.setTimeout(() => {
+    requestAnimationFrame(() => {
       this.element.submit();
-    }, 10);
+    });
   }
   setControllerInputDisabled(controller, disabled) {
     const inputAttachment = controller.uploadedFile.closest("input-attachment");

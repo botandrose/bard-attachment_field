@@ -104,9 +104,9 @@ export default class FormController {
       return
     }
     this.setInputAttachmentsDisabled(true)
-    window.setTimeout(() => { // allow other async tasks to complete
+    requestAnimationFrame(() => { // run after pending rAF callbacks (e.g. updateFormValue)
       this.element.submit()
-    }, 10)
+    })
   }
 
   setControllerInputDisabled(controller: DirectUploadController, disabled: boolean) {

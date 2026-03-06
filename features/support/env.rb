@@ -51,6 +51,7 @@ Before do
 end
 
 After do
+  page.execute_script("localStorage.clear()") rescue nil
   Capybara.reset_sessions!
   DatabaseCleaner.clean
 end
