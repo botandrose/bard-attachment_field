@@ -26,7 +26,15 @@ Feature: Attachment field disabled state during uploads
 
   # Class 2: Submitting the form while uploads are in progress
 
-  Scenario: Form waits for in-progress uploads then submits
+  Scenario: Form waits for single in-progress upload then submits
+    Given uploads are held
+    When I begin attaching the file "image.jpg" to "Image"
+    And I press "Submit"
+    Then the "Image" attachment field should be disabled
+    When uploads are released
+    Then I should see "Post created!"
+
+  Scenario: Form waits for multiple in-progress uploads then submits
     Given uploads are held
     When I begin attaching the file "image.jpg" to "Image"
     And I begin attaching the file "image2.jpg" to "Images"

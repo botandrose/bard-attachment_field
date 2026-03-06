@@ -21,7 +21,10 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "extensionsToTreatAsEsm": [".ts", ".tsx"],
+    "extensionsToTreatAsEsm": [
+      ".ts",
+      ".tsx"
+    ],
     "globals": {
       "ts-jest": {
         "useESM": true
@@ -53,5 +56,8 @@
       "import": "./dist/components/index.js"
     }
   },
-  "license": "MIT"
+  "license": "MIT",
+  "volta": {
+    "node": "22.22.1"
+  }
 }

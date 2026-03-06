@@ -54,7 +54,7 @@ export default class FormController {
   }
 
   submit(event) {
-    if(this.controllers.length === 0 && !this.hasUploadErrors()) return
+    if(this.controllers.length === 0 && !this.hasUploadErrors() && !this.processing) return
     event.preventDefault()
     this.submitted = true
     this.setInputAttachmentsDisabled(true)

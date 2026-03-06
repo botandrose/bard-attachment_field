@@ -5467,7 +5467,7 @@ var FormController = class _FormController {
     }
   }
   submit(event) {
-    if (this.controllers.length === 0 && !this.hasUploadErrors())
+    if (this.controllers.length === 0 && !this.hasUploadErrors() && !this.processing)
       return;
     event.preventDefault();
     this.submitted = true;
