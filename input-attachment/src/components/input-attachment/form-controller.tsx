@@ -59,6 +59,7 @@ export default class FormController {
     if(this.controllers.length === 0 && !this.hasUploadErrors()) return
     event.preventDefault()
     this.submitted = true
+    this.setInputAttachmentsDisabled(true)
     this.startNextController()
     if(this.processing) {
       this.dialog.showModal()
@@ -71,10 +72,18 @@ export default class FormController {
     const controller = this.controllers.shift()
     if(controller) {
       this.processing = true
-      this.setInputAttachmentsDisabled(true)
+      if (this.submitted) {
+        this.setInputAttachmentsDisabled(true)
+      } else {
+        this.setControllerInputDisabled(controller, true)
+      }
       controller.start(error => {
-        if(error) {
-          this.setInputAttachmentsDisabled(false)
+        if (this.submitted) {
+          if(error) {
+            this.setInputAttachmentsDisabled(false)
+          }
+        } else {
+          this.setControllerInputDisabled(controller, false)
         }
         this.processing = false
         this.startNextController()
@@ -90,16 +99,22 @@ export default class FormController {
   }
 
   submitForm() {
-    if(this.submitted) {
-      if(this.hasUploadErrors()) {
-        this.dialog.close()
-        this.setInputAttachmentsDisabled(false)
-        return
-      }
-      this.setInputAttachmentsDisabled(true)
-      window.setTimeout(() => { // allow other async tasks to complete
-        this.element.submit()
-      }, 10)
+    if(!this.submitted) return
+    if(this.hasUploadErrors()) {
+      this.dialog.close()
+      this.setInputAttachmentsDisabled(false)
+      return
+    }
+    this.setInputAttachmentsDisabled(true)
+    window.setTimeout(() => { // allow other async tasks to complete
+      this.element.submit()
+    }, 10)
+  }
+
+  setControllerInputDisabled(controller: DirectUploadController, disabled: boolean) {
+    const inputAttachment = (controller.uploadedFile as any).closest('input-attachment')
+    if (inputAttachment) {
+      inputAttachment.disabled = disabled
     }
   }
 

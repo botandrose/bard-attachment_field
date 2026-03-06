@@ -309,6 +309,22 @@ Then "the {string} attachment field should be disabled" do |field|
   expect(is_disabled).to be true
 end
 
+Then "the {string} attachment field should not be disabled" do |field|
+  element = Bard::AttachmentField::TestHelper.find_field(page, field)
+
+  is_disabled = page.evaluate_script(<<~JS)
+    (function() {
+      const element = document.getElementById('#{element[:id]}');
+      if (element.hasAttribute('disabled')) return true;
+      if (element.closest('fieldset[disabled]')) return true;
+      const fileInput = element.shadowRoot?.querySelector('input[type="file"]');
+      return fileInput?.disabled || false;
+    })()
+  JS
+
+  expect(is_disabled).to be false
+end
+
 Then "the {string} attachment field should have a validation error containing {string}" do |field, message|
   element = Bard::AttachmentField::TestHelper.find_field(page, field)
   messages = Bard::AttachmentField::TestHelper.validation_messages(page, element)

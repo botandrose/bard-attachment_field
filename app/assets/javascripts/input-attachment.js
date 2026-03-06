@@ -5516,6 +5516,7 @@ var FormController = class _FormController {
       return;
     event.preventDefault();
     this.submitted = true;
+    this.setInputAttachmentsDisabled(true);
     this.startNextController();
     if (this.processing) {
       this.dialog.showModal();
@@ -5527,10 +5528,18 @@ var FormController = class _FormController {
     const controller = this.controllers.shift();
     if (controller) {
       this.processing = true;
-      this.setInputAttachmentsDisabled(true);
+      if (this.submitted) {
+        this.setInputAttachmentsDisabled(true);
+      } else {
+        this.setControllerInputDisabled(controller, true);
+      }
       controller.start((error) => {
-        if (error) {
-          this.setInputAttachmentsDisabled(false);
+        if (this.submitted) {
+          if (error) {
+            this.setInputAttachmentsDisabled(false);
+          }
+        } else {
+          this.setControllerInputDisabled(controller, false);
         }
         this.processing = false;
         this.startNextController();
@@ -5543,16 +5552,22 @@ var FormController = class _FormController {
     return Array.from(this.element.querySelectorAll("attachment-file")).some((el) => el.state === "error");
   }
   submitForm() {
-    if (this.submitted) {
-      if (this.hasUploadErrors()) {
-        this.dialog.close();
-        this.setInputAttachmentsDisabled(false);
-        return;
-      }
-      this.setInputAttachmentsDisabled(true);
-      window.setTimeout(() => {
-        this.element.submit();
-      }, 10);
+    if (!this.submitted)
+      return;
+    if (this.hasUploadErrors()) {
+      this.dialog.close();
+      this.setInputAttachmentsDisabled(false);
+      return;
+    }
+    this.setInputAttachmentsDisabled(true);
+    window.setTimeout(() => {
+      this.element.submit();
+    }, 10);
+  }
+  setControllerInputDisabled(controller, disabled) {
+    const inputAttachment = controller.uploadedFile.closest("input-attachment");
+    if (inputAttachment) {
+      inputAttachment.disabled = disabled;
     }
   }
   setInputAttachmentsDisabled(disabled) {
