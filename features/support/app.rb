@@ -42,9 +42,10 @@ module BardAttachmentTest
     config.assets.enabled = true
     config.assets.paths = [
       File.expand_path('../../app/assets/javascripts', __dir__),
-      File.expand_path('../../app/assets', __dir__)
+      File.expand_path('../../app/assets', __dir__),
+      SUPPORT_ROOT.join('javascripts'),
     ]
-    config.assets.precompile += ['input-attachment.js']
+    config.assets.precompile += ['input-attachment.js', 'form-persistence.min.js']
     config.assets.digest = false
     config.assets.debug = true
 
