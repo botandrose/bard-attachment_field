@@ -51,5 +51,6 @@ Before do
 end
 
 After do
+  Capybara.reset_sessions!
   DatabaseCleaner.clean
 end

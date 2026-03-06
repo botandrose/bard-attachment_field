@@ -7,6 +7,7 @@ require 'action_view/railtie'
 require 'active_record'
 require 'active_storage/engine'
 require 'sprockets/rails'
+require 'turbo-rails'
 
 # Load the gem we're testing
 $LOAD_PATH.unshift(File.expand_path('../../lib', __dir__))
@@ -45,7 +46,7 @@ module BardAttachmentTest
       File.expand_path('../../app/assets', __dir__),
       SUPPORT_ROOT.join('javascripts'),
     ]
-    config.assets.precompile += ['input-attachment.js', 'form-persistence.min.js']
+    config.assets.precompile += ['input-attachment.js', 'form-persistence.min.js', 'turbo.js']
     config.assets.digest = false
     config.assets.debug = true
 

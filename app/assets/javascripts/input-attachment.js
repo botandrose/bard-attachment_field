@@ -5070,9 +5070,6 @@ var FetchResponse = class {
   get isTurboStream() {
     return this.contentType.match(/^text\/vnd\.turbo-stream\.html/);
   }
-  get isScript() {
-    return this.contentType.match(/\b(?:java|ecma)script\b/);
-  }
   async renderTurboStream() {
     if (this.isTurboStream) {
       if (window.Turbo) {
@@ -5082,22 +5079,6 @@ var FetchResponse = class {
       }
     } else {
       return Promise.reject(new Error(`Expected a Turbo Stream response but got "${this.contentType}" instead`));
-    }
-  }
-  async activeScript() {
-    if (this.isScript) {
-      const script = document.createElement("script");
-      const metaTag = document.querySelector("meta[name=csp-nonce]");
-      if (metaTag) {
-        const nonce = metaTag.nonce === "" ? metaTag.content : metaTag.nonce;
-        if (nonce) {
-          script.setAttribute("nonce", nonce);
-        }
-      }
-      script.innerHTML = await this.text;
-      document.body.appendChild(script);
-    } else {
-      return Promise.reject(new Error(`Expected a Script response but got "${this.contentType}" instead`));
     }
   }
 };
@@ -5145,7 +5126,7 @@ function stringEntriesFromFormData(formData) {
 function mergeEntries(searchParams, entries) {
   for (const [name, value] of entries) {
     if (value instanceof window.File) continue;
-    if (searchParams.has(name) && !name.includes("[]")) {
+    if (searchParams.has(name)) {
       searchParams.delete(name);
       searchParams.set(name, value);
     } else {
@@ -5168,16 +5149,11 @@ var FetchRequest = class {
     } catch (error) {
       console.error(error);
     }
-    const fetch = window.Turbo ? window.Turbo.fetch : window.fetch;
-    const response = new FetchResponse(await fetch(this.url, this.fetchOptions));
+    const response = new FetchResponse(await window.fetch(this.url, this.fetchOptions));
     if (response.unauthenticated && response.authenticationURL) {
       return Promise.reject(window.location.href = response.authenticationURL);
     }
-    if (response.isScript) {
-      await response.activeScript();
-    }
-    const responseStatusIsTurboStreamable = response.ok || response.unprocessableEntity;
-    if (responseStatusIsTurboStreamable && response.isTurboStream) {
+    if (response.ok && response.isTurboStream) {
       await response.renderTurboStream();
     }
     return response;
@@ -5187,38 +5163,27 @@ var FetchRequest = class {
     headers[key] = value;
     this.options.headers = headers;
   }
-  sameHostname() {
-    if (!this.originalUrl.startsWith("http:") && !this.originalUrl.startsWith("https:")) {
-      return true;
-    }
-    try {
-      return new URL(this.originalUrl).hostname === window.location.hostname;
-    } catch (_) {
-      return true;
-    }
-  }
   get fetchOptions() {
     return {
       method: this.method.toUpperCase(),
       headers: this.headers,
       body: this.formattedBody,
       signal: this.signal,
-      credentials: this.credentials,
-      redirect: this.redirect,
-      keepalive: this.keepalive
+      credentials: "same-origin",
+      redirect: this.redirect
     };
   }
   get headers() {
-    const baseHeaders = {
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": this.contentType,
-      Accept: this.accept
-    };
-    if (this.sameHostname()) {
-      baseHeaders["X-CSRF-Token"] = this.csrfToken;
-    }
     return compact(
-      Object.assign(baseHeaders, this.additionalHeaders)
+      Object.assign(
+        {
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-Token": this.csrfToken,
+          "Content-Type": this.contentType,
+          Accept: this.accept
+        },
+        this.additionalHeaders
+      )
     );
   }
   get csrfToken() {
@@ -5242,8 +5207,6 @@ var FetchRequest = class {
         return "text/vnd.turbo-stream.html, text/html, application/xhtml+xml";
       case "json":
         return "application/json, application/vnd.api+json";
-      case "script":
-        return "text/javascript, application/javascript";
       default:
         return "*/*";
     }
@@ -5277,12 +5240,6 @@ var FetchRequest = class {
   }
   get redirect() {
     return this.options.redirect || "follow";
-  }
-  get credentials() {
-    return this.options.credentials || "same-origin";
-  }
-  get keepalive() {
-    return this.options.keepalive || false;
   }
   get additionalHeaders() {
     return this.options.headers || {};
@@ -5494,9 +5451,7 @@ var FormController = class _FormController {
       </dialog>`);
     this.dialog = this.element.querySelector("#form-controller-dialog");
     this.progressContainerTarget = this.dialog.querySelector("#progress-container");
-    if (this.element.dataset.remote !== "true" && (this.element.dataset.turbo == "false" || !window.Turbo?.session?.enabled)) {
-      this.element.addEventListener("submit", (event) => this.submit(event));
-    }
+    this.element.addEventListener("submit", (event) => this.submit(event));
     window.addEventListener("beforeunload", (event) => this.beforeUnload(event));
     this.element.addEventListener("direct-upload:initialize", (event) => this.init(event));
     this.element.addEventListener("direct-upload:start", (event) => this.start(event));

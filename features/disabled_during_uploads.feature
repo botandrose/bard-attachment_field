@@ -35,3 +35,14 @@ Feature: Attachment field disabled state during uploads
     And the "Images" attachment field should be disabled
     When uploads are released
     Then I should see "Post created!"
+
+  Scenario: Form waits for in-progress uploads then submits (with Turbo)
+    Given I am on "/?turbo=1"
+    And uploads are held
+    When I begin attaching the file "image.jpg" to "Image"
+    And I begin attaching the file "image2.jpg" to "Images"
+    And I press "Submit"
+    Then the "Image" attachment field should be disabled
+    And the "Images" attachment field should be disabled
+    When uploads are released
+    Then I should see "Post created!"

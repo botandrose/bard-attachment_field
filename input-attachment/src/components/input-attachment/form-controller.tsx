@@ -34,9 +34,7 @@ export default class FormController {
     this.dialog = this.element.querySelector("#form-controller-dialog")
     this.progressContainerTarget = this.dialog.querySelector("#progress-container")
 
-    if(this.element.dataset.remote !== "true" && (this.element.dataset.turbo == "false" || !(window as any).Turbo?.session?.enabled)) {
-      this.element.addEventListener("submit", event => this.submit(event))
-    }
+    this.element.addEventListener("submit", event => this.submit(event))
     window.addEventListener("beforeunload", event => this.beforeUnload(event))
 
     this.element.addEventListener("direct-upload:initialize", event => this.init(event))
