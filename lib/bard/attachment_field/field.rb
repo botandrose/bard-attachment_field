@@ -6,6 +6,9 @@ module Bard
           "directupload" => "/rails/active_storage/direct_uploads",
           "preview" => true,
         })
+        if options.key?("upload-dialog") && options["upload-dialog"] == false
+          options["upload-dialog"] = "false"
+        end
         add_default_name_and_id(options)
 
         content_tag("input-attachment", options) do

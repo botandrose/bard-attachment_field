@@ -58,6 +58,10 @@ export namespace Components {
           * @default false
          */
         "required": boolean;
+        /**
+          * @default true
+         */
+        "uploadDialog": boolean;
     }
 }
 export interface AttachmentFileCustomEvent<T> extends CustomEvent<T> {
@@ -158,6 +162,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "required"?: boolean;
+        /**
+          * @default true
+         */
+        "uploadDialog"?: boolean;
     }
     interface IntrinsicElements {
         "attachment-file": AttachmentFile;

@@ -22,6 +22,7 @@ export class InputAttachment {
   @Prop() max: number
   @Prop() preview: boolean = true
   @Prop() disabled: boolean = false
+  @Prop({ attribute: "upload-dialog" }) uploadDialog: boolean = true
 
 
   form: HTMLFormElement
@@ -37,7 +38,7 @@ export class InputAttachment {
     this.form = this.internals.form
     if (this.form) {
       this.form.addEventListener("reset", () => this.reset())
-      FormController.instance(this.form)
+      FormController.instance(this.form, { uploadDialog: this.uploadDialog })
     }
 
     // Note: Server-rendered children may not be available yet during componentWillLoad

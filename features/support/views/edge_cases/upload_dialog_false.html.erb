@@ -1,0 +1,10 @@
+<h1>Upload dialog false</h1>
+
+<%= form_with model: @post, url: request.fullpath, method: :patch do |form| %>
+  <p>
+    <%= form.label :image %>
+    <%= form.attachment_field :image, accepts: "image", "upload-dialog": false %>
+  </p>
+
+  <p><%= form.submit "Submit" %></p>
+<% end %>

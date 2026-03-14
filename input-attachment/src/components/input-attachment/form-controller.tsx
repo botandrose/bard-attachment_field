@@ -1,8 +1,8 @@
 import DirectUploadController from "../attachment-file/direct-upload-controller"
 
 export default class FormController {
-  static instance(form) {
-    return form.inputAttachmentFormController ||= new FormController(form)
+  static instance(form, options = {}) {
+    return form.inputAttachmentFormController ||= new FormController(form, options)
   }
 
   progressContainerTarget: HTMLElement
@@ -14,25 +14,27 @@ export default class FormController {
   submitted: boolean
   processing: boolean
 
-  constructor(form) {
+  constructor(form, { uploadDialog = true } = {}) {
     this.element = form
     this.progressTargetMap = {}
     this.controllers = []
     this.submitted = false
     this.processing = false
 
-    this.element.insertAdjacentHTML("beforeend",
-      `<dialog id="form-controller-dialog">
-        <div class="direct-upload-wrapper">
-          <div class="direct-upload-content">
-            <h3>Uploading your media</h3>
-            <div id="progress-container"></div>
+    if (uploadDialog) {
+      this.element.insertAdjacentHTML("beforeend",
+        `<dialog id="form-controller-dialog">
+          <div class="direct-upload-wrapper">
+            <div class="direct-upload-content">
+              <h3>Uploading your media</h3>
+              <div id="progress-container"></div>
+            </div>
           </div>
-        </div>
-      </dialog>`)
+        </dialog>`)
 
-    this.dialog = this.element.querySelector("#form-controller-dialog")
-    this.progressContainerTarget = this.dialog.querySelector("#progress-container")
+      this.dialog = this.element.querySelector("#form-controller-dialog")
+      this.progressContainerTarget = this.dialog.querySelector("#progress-container")
+    }
 
     this.element.addEventListener("submit", event => this.submit(event))
     window.addEventListener("beforeunload", event => this.beforeUnload(event))
@@ -60,7 +62,7 @@ export default class FormController {
     this.setInputAttachmentsDisabled(true)
     this.startNextController()
     if(this.processing) {
-      this.dialog.showModal()
+      this.dialog?.showModal()
     }
   }
 
@@ -99,7 +101,7 @@ export default class FormController {
   submitForm() {
     if(!this.submitted) return
     if(this.hasUploadErrors()) {
-      this.dialog.close()
+      this.dialog?.close()
       this.setInputAttachmentsDisabled(false)
       return
     }
@@ -126,42 +128,46 @@ export default class FormController {
   init(event) {
     const { id, file, controller } = event.detail
 
-    this.progressContainerTarget.insertAdjacentHTML("beforebegin", `
-      <progress-bar id="direct-upload-${id}" class="direct-upload--pending">${file?.name || 'Uploading...'}</progress-bar>
-    `)
-    const progressTarget = document.getElementById(`direct-upload-${id}`)
-    this.progressTargetMap[id] = progressTarget
+    if (this.progressContainerTarget) {
+      this.progressContainerTarget.insertAdjacentHTML("beforebegin", `
+        <progress-bar id="direct-upload-${id}" class="direct-upload--pending">${file?.name || 'Uploading...'}</progress-bar>
+      `)
+      this.progressTargetMap[id] = document.getElementById(`direct-upload-${id}`)
+    }
 
     this.controllers.push(controller)
     this.startNextController()
   }
 
   start(event) {
-    this.progressTargetMap[event.detail.id].classList.remove("direct-upload--pending")
+    this.progressTargetMap[event.detail.id]?.classList.remove("direct-upload--pending")
   }
 
   progress(event) {
     const { id, progress } = event.detail
-    this.progressTargetMap[id].percent = progress
+    const target = this.progressTargetMap[id]
+    if (target) target.percent = progress
   }
 
   error(event) {
     event.preventDefault()
     const { id, error } = event.detail
     const target = this.progressTargetMap[id]
-    target.classList.add("direct-upload--error")
-    target.title = error
+    if (target) {
+      target.classList.add("direct-upload--error")
+      target.title = error
+    }
   }
 
   end(event) {
-    this.progressTargetMap[event.detail.id].classList.add("direct-upload--complete")
+    this.progressTargetMap[event.detail.id]?.classList.add("direct-upload--complete")
   }
 
   removeUploadedFile(event) {
     const uploadedFile = event.detail
     const id = uploadedFile.controller?.directUpload?.id
     if(id) {
-      document.getElementById(`direct-upload-${id}`).remove()
+      document.getElementById(`direct-upload-${id}`)?.remove()
       delete this.progressTargetMap[id]
     }
     this.setInputAttachmentsDisabled(false)

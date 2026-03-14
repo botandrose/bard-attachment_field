@@ -5425,8 +5425,8 @@ var AttachmentPreview3 = AttachmentPreview;
 
 // dist/components/input-attachment.js
 var FormController = class _FormController {
-  static instance(form) {
-    return form.inputAttachmentFormController ||= new _FormController(form);
+  static instance(form, options = {}) {
+    return form.inputAttachmentFormController ||= new _FormController(form, options);
   }
   progressContainerTarget;
   dialog;
@@ -5435,22 +5435,24 @@ var FormController = class _FormController {
   controllers;
   submitted;
   processing;
-  constructor(form) {
+  constructor(form, { uploadDialog = true } = {}) {
     this.element = form;
     this.progressTargetMap = {};
     this.controllers = [];
     this.submitted = false;
     this.processing = false;
-    this.element.insertAdjacentHTML("beforeend", `<dialog id="form-controller-dialog">
-        <div class="direct-upload-wrapper">
-          <div class="direct-upload-content">
-            <h3>Uploading your media</h3>
-            <div id="progress-container"></div>
+    if (uploadDialog) {
+      this.element.insertAdjacentHTML("beforeend", `<dialog id="form-controller-dialog">
+          <div class="direct-upload-wrapper">
+            <div class="direct-upload-content">
+              <h3>Uploading your media</h3>
+              <div id="progress-container"></div>
+            </div>
           </div>
-        </div>
-      </dialog>`);
-    this.dialog = this.element.querySelector("#form-controller-dialog");
-    this.progressContainerTarget = this.dialog.querySelector("#progress-container");
+        </dialog>`);
+      this.dialog = this.element.querySelector("#form-controller-dialog");
+      this.progressContainerTarget = this.dialog.querySelector("#progress-container");
+    }
     this.element.addEventListener("submit", (event) => this.submit(event));
     window.addEventListener("beforeunload", (event) => this.beforeUnload(event));
     this.element.addEventListener("direct-upload:initialize", (event) => this.init(event));
@@ -5474,7 +5476,7 @@ var FormController = class _FormController {
     this.setInputAttachmentsDisabled(true);
     this.startNextController();
     if (this.processing) {
-      this.dialog.showModal();
+      this.dialog?.showModal();
     }
   }
   startNextController() {
@@ -5510,7 +5512,7 @@ var FormController = class _FormController {
     if (!this.submitted)
       return;
     if (this.hasUploadErrors()) {
-      this.dialog.close();
+      this.dialog?.close();
       this.setInputAttachmentsDisabled(false);
       return;
     }
@@ -5532,36 +5534,41 @@ var FormController = class _FormController {
   }
   init(event) {
     const { id: id2, file, controller } = event.detail;
-    this.progressContainerTarget.insertAdjacentHTML("beforebegin", `
-      <progress-bar id="direct-upload-${id2}" class="direct-upload--pending">${file?.name || "Uploading..."}</progress-bar>
-    `);
-    const progressTarget = document.getElementById(`direct-upload-${id2}`);
-    this.progressTargetMap[id2] = progressTarget;
+    if (this.progressContainerTarget) {
+      this.progressContainerTarget.insertAdjacentHTML("beforebegin", `
+        <progress-bar id="direct-upload-${id2}" class="direct-upload--pending">${file?.name || "Uploading..."}</progress-bar>
+      `);
+      this.progressTargetMap[id2] = document.getElementById(`direct-upload-${id2}`);
+    }
     this.controllers.push(controller);
     this.startNextController();
   }
   start(event) {
-    this.progressTargetMap[event.detail.id].classList.remove("direct-upload--pending");
+    this.progressTargetMap[event.detail.id]?.classList.remove("direct-upload--pending");
   }
   progress(event) {
     const { id: id2, progress } = event.detail;
-    this.progressTargetMap[id2].percent = progress;
+    const target = this.progressTargetMap[id2];
+    if (target)
+      target.percent = progress;
   }
   error(event) {
     event.preventDefault();
     const { id: id2, error } = event.detail;
     const target = this.progressTargetMap[id2];
-    target.classList.add("direct-upload--error");
-    target.title = error;
+    if (target) {
+      target.classList.add("direct-upload--error");
+      target.title = error;
+    }
   }
   end(event) {
-    this.progressTargetMap[event.detail.id].classList.add("direct-upload--complete");
+    this.progressTargetMap[event.detail.id]?.classList.add("direct-upload--complete");
   }
   removeUploadedFile(event) {
     const uploadedFile = event.detail;
     const id2 = uploadedFile.controller?.directUpload?.id;
     if (id2) {
-      document.getElementById(`direct-upload-${id2}`).remove();
+      document.getElementById(`direct-upload-${id2}`)?.remove();
       delete this.progressTargetMap[id2];
     }
     this.setInputAttachmentsDisabled(false);
@@ -5746,6 +5753,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
   max;
   preview = true;
   disabled = false;
+  uploadDialog = true;
   form;
   internals;
   fileInput;
@@ -5762,7 +5770,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     this.form = this.internals.form;
     if (this.form) {
       this.form.addEventListener("reset", () => this.reset());
-      FormController.instance(this.form);
+      FormController.instance(this.form, { uploadDialog: this.uploadDialog });
     }
     const existingFiles = Array.from(this.el.children).filter((e) => e.tagName == "ATTACHMENT-FILE");
     if (existingFiles.length > 0)
@@ -5935,12 +5943,12 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "da0ceb39e5024d0dfe50511a4aa1139188dcb4a2" }, h("input", { key: "b9197faa99dcd580bf7c0fb7f356daa715d901d1", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
+    return h(Host, { key: "e63c2624a4d88232adacc7d1610983fac89eb9db" }, h("input", { key: "baea544d4d62e31e1228d92ba8b0356d40e75ce5", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
       opacity: "0.01",
       width: "1px",
       height: "1px",
       zIndex: "-999"
-    } }), h("file-drop", { key: "ce0608a99601202d437b7228e87437b510ba639f", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "658d85fa352e7517789d95ad0c25756dafc79c08", part: "title" }, h("strong", { key: "7a160aa3132cdc8159e4319262cca69aa0b60d63" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "51ab69b28833c8d442d1907ead5ddc79a6820f53" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "a5bbee999e0575e27f7fc058640d8ee281ee0728", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "3a07d4e5aeaaf80fd5e37e9b135eb820dfcef757" }))));
+    } }), h("file-drop", { key: "0b5621010445988462b8056cb360bf18ac6b0b59", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "718fe6b91ed9cdc5c5a2b54317fad8f1f25b3cd4", part: "title" }, h("strong", { key: "f28b9ffc58bb086bb1941ee01e943fe5068482a4" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "eeca7b2f619a7a4d7863f98ba37218d6a66fdcfd" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "2a1d0a824139f5c26833611a5523354965be0d9d", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "59455a857d01dfabd7aa5e697616f4be72cbbb20" }))));
   }
   componentDidRender() {
     if (this.files.length === 0) {
@@ -6016,7 +6024,8 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
   "accepts": [1],
   "max": [2],
   "preview": [4],
-  "disabled": [4]
+  "disabled": [4],
+  "uploadDialog": [4, "upload-dialog"]
 }, [[0, "attachment-file:remove", "removeUploadedFile"], [0, "attachment-file:validation", "handleChildValidation"], [0, "attachment-file:ready", "handleChildReady"], [0, "direct-upload:end", "fireChangeEvent"]]]);
 var InputAttachment2 = InputAttachment$1;
 

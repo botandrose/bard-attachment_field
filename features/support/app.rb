@@ -295,6 +295,21 @@ class EdgeCasesController < ApplicationController
     render 'edge_cases/rails_validation_error'
   end
 
+  def upload_dialog_false
+    @post = Post.new
+    render 'edge_cases/upload_dialog_false'
+  end
+
+  def create_upload_dialog_false
+    @post = Post.create(post_params)
+    if @post.persisted?
+      flash[:notice] = 'Post created!'
+      redirect_to edge_cases_upload_dialog_false_path
+    else
+      render 'edge_cases/upload_dialog_false'
+    end
+  end
+
   def create_rails_validation_error
     @post = Post.new(post_params)
     if @post.save
@@ -360,5 +375,8 @@ Rails.application.routes.draw do
   namespace :edge_cases do
     get :rails_validation_error
     patch :rails_validation_error, action: :create_rails_validation_error
+
+    get :upload_dialog_false
+    patch :upload_dialog_false, action: :create_upload_dialog_false
   end
 end

@@ -7,16 +7,17 @@
 
 ## Properties
 
-| Property       | Attribute      | Description | Type      | Default     |
-| -------------- | -------------- | ----------- | --------- | ----------- |
-| `accepts`      | `accepts`      |             | `string`  | `undefined` |
-| `directupload` | `directupload` |             | `string`  | `undefined` |
-| `disabled`     | `disabled`     |             | `boolean` | `false`     |
-| `max`          | `max`          |             | `number`  | `undefined` |
-| `multiple`     | `multiple`     |             | `boolean` | `false`     |
-| `name`         | `name`         |             | `string`  | `undefined` |
-| `preview`      | `preview`      |             | `boolean` | `true`      |
-| `required`     | `required`     |             | `boolean` | `false`     |
+| Property       | Attribute       | Description | Type      | Default     |
+| -------------- | --------------- | ----------- | --------- | ----------- |
+| `accepts`      | `accepts`       |             | `string`  | `undefined` |
+| `directupload` | `directupload`  |             | `string`  | `undefined` |
+| `disabled`     | `disabled`      |             | `boolean` | `false`     |
+| `max`          | `max`           |             | `number`  | `undefined` |
+| `multiple`     | `multiple`      |             | `boolean` | `false`     |
+| `name`         | `name`          |             | `string`  | `undefined` |
+| `preview`      | `preview`       |             | `boolean` | `true`      |
+| `required`     | `required`      |             | `boolean` | `false`     |
+| `uploadDialog` | `upload-dialog` |             | `boolean` | `true`      |
 
 
 ## Shadow Parts
