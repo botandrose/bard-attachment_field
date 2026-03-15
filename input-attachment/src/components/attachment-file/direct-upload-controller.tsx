@@ -8,6 +8,8 @@ export default class DirectUploadController {
   recordXHR: XMLHttpRequest
   uploadXHR: XMLHttpRequest
   callback = null
+  cancelled = false
+  completed = false
 
   constructor(uploadedFile, file: File) {
     this.uploadedFile = uploadedFile
@@ -16,16 +18,14 @@ export default class DirectUploadController {
   }
 
   cancel() {
-    this.directUpload.url = null
+    this.cancelled = true
     this.abortXHR(this.recordXHR)
     this.abortXHR(this.uploadXHR)
+    this.complete("aborted", {})
   }
 
   abortXHR(xhr) {
     if(!xhr) return
-    xhr.addEventListener("abort", () => {
-      this.complete("aborted", {})
-    })
     xhr.abort()
   }
 
@@ -38,6 +38,8 @@ export default class DirectUploadController {
   }
 
   complete(error, _attributes) {
+    if (this.completed) return
+    this.completed = true
     if (error) {
       this.dispatchError(error)
     }
@@ -69,12 +71,14 @@ export default class DirectUploadController {
   }
   directUploadWillCreateBlobWithXHR(xhr) {
     this.recordXHR = xhr
+    if (this.cancelled) { xhr.send = () => {}; return }
     this.dispatch("before-blob-request", {
       xhr: xhr
     });
   }
   directUploadWillStoreFileWithXHR(xhr) {
     this.uploadXHR = xhr
+    if (this.cancelled) { xhr.send = () => {}; return }
     this.uploadedFile.value = this.recordXHR.response.signed_id
     this.dispatch("before-storage-request", {
       xhr: xhr

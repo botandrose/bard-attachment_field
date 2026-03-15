@@ -4864,22 +4864,22 @@ var DirectUploadController2 = class {
   recordXHR;
   uploadXHR;
   callback = null;
+  cancelled = false;
+  completed = false;
   constructor(uploadedFile, file) {
     this.uploadedFile = uploadedFile;
     this.file = file;
     this.directUpload = new DirectUpload(this.file, this.uploadedFile.url, this);
   }
   cancel() {
-    this.directUpload.url = null;
+    this.cancelled = true;
     this.abortXHR(this.recordXHR);
     this.abortXHR(this.uploadXHR);
+    this.complete("aborted", {});
   }
   abortXHR(xhr) {
     if (!xhr)
       return;
-    xhr.addEventListener("abort", () => {
-      this.complete("aborted", {});
-    });
     xhr.abort();
   }
   start(callback) {
@@ -4890,6 +4890,9 @@ var DirectUploadController2 = class {
     });
   }
   complete(error, _attributes) {
+    if (this.completed)
+      return;
+    this.completed = true;
     if (error) {
       this.dispatchError(error);
     }
@@ -4920,12 +4923,22 @@ var DirectUploadController2 = class {
   }
   directUploadWillCreateBlobWithXHR(xhr) {
     this.recordXHR = xhr;
+    if (this.cancelled) {
+      xhr.send = () => {
+      };
+      return;
+    }
     this.dispatch("before-blob-request", {
       xhr
     });
   }
   directUploadWillStoreFileWithXHR(xhr) {
     this.uploadXHR = xhr;
+    if (this.cancelled) {
+      xhr.send = () => {
+      };
+      return;
+    }
     this.uploadedFile.value = this.recordXHR.response.signed_id;
     this.dispatch("before-storage-request", {
       xhr
