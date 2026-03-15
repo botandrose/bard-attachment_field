@@ -2,13 +2,10 @@ module Bard
   module AttachmentField
     class Field < ActionView::Helpers::Tags::TextField
       def render &block
-        options = @options.stringify_keys.reverse_merge({
+        options = @options.transform_keys { _1.to_s.dasherize }.reverse_merge({
           "directupload" => "/rails/active_storage/direct_uploads",
           "preview" => true,
         })
-        if options.key?("upload-dialog") && options["upload-dialog"] == false
-          options["upload-dialog"] = "false"
-        end
         add_default_name_and_id(options)
 
         content_tag("input-attachment", options) do
