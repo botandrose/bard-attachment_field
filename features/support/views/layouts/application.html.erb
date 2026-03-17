@@ -8,17 +8,30 @@
       <script type="module" src="/assets/turbo.js"></script>
     <% end %>
     <% if params[:form_persistence] %>
-      <script defer src="/assets/form-persistence.min.js"></script>
-    <% end %>
-    <script defer>
-      document.addEventListener('DOMContentLoaded', function() {
+      <script type="module">
+        import FormPersistence from "/assets/form-persistence.min.js"
         document.querySelectorAll('form[id]').forEach(function(form) {
-          if (typeof FormPersistence !== 'undefined') {
-            FormPersistence.persist(form);
-          }
+          FormPersistence.persist(form, {
+            afterSerialize: function(form, data) {
+              form.querySelectorAll('input-attachment[name]').forEach(function(el) {
+                data[el.getAttribute('name')] = el.value;
+              });
+              return data;
+            },
+            beforeDeserialize: function(form, data) {
+              form.querySelectorAll('input-attachment[name]').forEach(function(el) {
+                var name = el.getAttribute('name');
+                if (data[name]) {
+                  el.value = data[name];
+                  delete data[name];
+                }
+              });
+              return data;
+            },
+          });
         });
-      });
-    </script>
+      </script>
+    <% end %>
   </head>
   <body>
     <div class="alert"><%= flash.alert %></div>

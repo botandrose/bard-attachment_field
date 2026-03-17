@@ -10,40 +10,20 @@ Given "an ActiveStorage blob exists for {string}" do |filename|
   )
 end
 
-When "I set the {string} attachment field value to the blob's signed ID" do |label|
+When "I set the {string} attachment field value to the blob" do |label|
   field = Bard::AttachmentField::TestHelper.find_field(page, label)
-  signed_id = @blobs.first.signed_id
-  page.execute_script(<<~JS, field[:id], signed_id)
-    const field = document.getElementById(arguments[0])
-    field.value = [arguments[1]]
+  blob = @blobs.first
+  value = JSON.generate([{ value: blob.signed_id, filename: blob.filename.to_s }])
+  page.execute_script(<<~JS, field[:id], value)
+    document.getElementById(arguments[0]).value = arguments[1]
   JS
-  # Wait for the async signedId resolution to complete
-  Timeout.timeout(15) do
-    loop do
-      values = page.evaluate_script(<<~JS, field[:id])
-        document.getElementById(arguments[0]).value
-      JS
-      break if values.all? { |v| v.present? }
-      sleep 0.1
-    end
-  end
 end
 
-When "I set the {string} attachment field value to all blob signed IDs" do |label|
+When "I set the {string} attachment field value to all blobs" do |label|
   field = Bard::AttachmentField::TestHelper.find_field(page, label)
-  signed_ids = @blobs.map(&:signed_id)
-  page.execute_script(<<~JS, field[:id], signed_ids)
-    const field = document.getElementById(arguments[0])
-    field.value = arguments[1]
+  data = @blobs.map { |b| { value: b.signed_id, filename: b.filename.to_s } }
+  value = JSON.generate(data)
+  page.execute_script(<<~JS, field[:id], value)
+    document.getElementById(arguments[0]).value = arguments[1]
   JS
-  # Wait for all async signedId resolutions to complete
-  Timeout.timeout(15) do
-    loop do
-      values = page.evaluate_script(<<~JS, field[:id])
-        document.getElementById(arguments[0]).value
-      JS
-      break if values.all? { |v| v.present? }
-      sleep 0.1
-    end
-  end
 end

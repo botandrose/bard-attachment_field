@@ -46,63 +46,13 @@ export class InputAttachment {
     const existingFiles = Array.from(this.el.children).filter(e => e.tagName == "ATTACHMENT-FILE");
     if(existingFiles.length > 0) this.files = existingFiles
 
-    // Restore from localStorage BEFORE setting initial validity (which triggers saveToLocalStorage)
-    this.restoreFromLocalStorage()
-
     // Set initial validity state (only if we have files from above)
     if(this.files.length > 0) this.updateFormValue()
   }
 
   componentDidLoad() {
-    // Clear persistence data when form is submitted
-    if (this.form) {
-      this.form.addEventListener('submit', () => this.clearLocalStorage())
-    }
-
     // Listen for file input changes directly (JSX onChange doesn't reliably work in shadow DOM)
     this.fileInput?.addEventListener('change', this.handleFileInputChange)
-  }
-
-  get localStorageKey() {
-    if (!this.form || !this.name) return null
-    const formId = this.form.id || this.form.action || 'form'
-    return `input-attachment:${formId}:${this.name}`
-  }
-
-  saveToLocalStorage() {
-    const key = this.localStorageKey
-    if (!key) return
-
-    const data = this.persistenceData
-    if (data.length > 0) {
-      localStorage.setItem(key, JSON.stringify(data))
-    } else {
-      localStorage.removeItem(key)
-    }
-  }
-
-  restoreFromLocalStorage() {
-    const key = this.localStorageKey
-    if (!key || this.files.length > 0) return
-
-    try {
-      const stored = localStorage.getItem(key)
-      if (stored) {
-        const data = JSON.parse(stored)
-        if (Array.isArray(data) && data.length > 0) {
-          this.restoreFromPersistence(data)
-        }
-      }
-    } catch (e) {
-      // Invalid JSON, ignore
-    }
-  }
-
-  clearLocalStorage() {
-    const key = this.localStorageKey
-    if (key) {
-      localStorage.removeItem(key)
-    }
   }
 
   // Methods
@@ -119,25 +69,7 @@ export class InputAttachment {
   }
 
   get value() {
-    return this.files.map(e => e.value)
-  }
-
-  set value(val) {
-    const newValue = val || []
-    if(JSON.stringify(this.value) !== JSON.stringify(newValue)) { // this is insane. javascript is fucking garbage.
-      this.files = newValue.map(signedId => {
-        const attachmentFile = document.createElement('attachment-file') as any
-        attachmentFile.name = this.name
-        attachmentFile.preview = this.preview
-        attachmentFile.signedId = signedId
-        return attachmentFile
-      })
-    }
-  }
-
-  // For form-persistence: store complete attachment data (not just signed_ids)
-  get persistenceData() {
-    return this.files.map(f => ({
+    return JSON.stringify(this.files.map(f => ({
       value: f.value,
       filename: f.filename,
       src: f.src,
@@ -145,12 +77,15 @@ export class InputAttachment {
       percent: f.percent,
       size: f.size,
       filetype: f.filetype,
-    }))
+    })))
   }
 
-  restoreFromPersistence(data: any[]) {
-    if (!Array.isArray(data) || data.length === 0) return
-
+  set value(val) {
+    const data = JSON.parse(val || "[]")
+    if (data.length === 0) {
+      this.files = []
+      return
+    }
     this.files = data.map(item => {
       const attachmentFile = document.createElement('attachment-file') as any
       attachmentFile.name = this.name
@@ -170,7 +105,7 @@ export class InputAttachment {
   updateFormValue() {
     if (!this.name || !this.internals?.setFormValue) return
     const formData = new FormData()
-    const values = this.value.filter(v => v) // filter out empty values
+    const values = this.files.map(f => f.value).filter(v => v)
     if (this.multiple) {
       // For has_many_attached: append each signed_id separately
       values.forEach(signedId => formData.append(this.name, signedId))
@@ -181,9 +116,6 @@ export class InputAttachment {
       formData.set(this.name, values[0] || '')
     }
     this.internals.setFormValue(formData)
-
-    // Save to localStorage for persistence across page reloads
-    this.saveToLocalStorage()
 
     // Update validity state - check for required and child validation errors
     if (this.required && this.files.length === 0) {
@@ -202,8 +134,7 @@ export class InputAttachment {
   }
 
   reset() {
-    this.value = []
-    this.clearLocalStorage()
+    this.files = []
   }
 
   handleFileInputChange = () => {

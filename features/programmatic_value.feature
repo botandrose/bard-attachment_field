@@ -1,22 +1,21 @@
 Feature: Programmatic value setter
   Setting the `value` property on an `<input-attachment>` element programmatically
-  (e.g. `element.value = [signedId1, signedId2]`) should populate the form data
-  after the async blob info requests resolve.
+  should populate the form data and render previews.
 
-  Scenario: Setting value programmatically with a single signed ID
+  Scenario: Setting value programmatically with a single blob
     Given an ActiveStorage blob exists for "image.jpg"
     And I am on the homepage
-    When I set the "Image" attachment field value to the blob's signed ID
+    When I set the "Image" attachment field value to the blob
     And I press "Submit"
     Then I should see "Post created!"
     And I should see "image.jpg"
     And I should see the "image.jpg" image
 
-  Scenario: Setting value programmatically with multiple signed IDs
+  Scenario: Setting value programmatically with multiple blobs
     Given an ActiveStorage blob exists for "image.jpg"
     And an ActiveStorage blob exists for "image2.jpg"
     And I am on the homepage
-    When I set the "Images" attachment field value to all blob signed IDs
+    When I set the "Images" attachment field value to all blobs
     And I press "Submit"
     Then I should see "Post created!"
     And I should see "image.jpg"

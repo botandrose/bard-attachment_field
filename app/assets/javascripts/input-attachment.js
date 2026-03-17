@@ -5788,53 +5788,11 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     const existingFiles = Array.from(this.el.children).filter((e) => e.tagName == "ATTACHMENT-FILE");
     if (existingFiles.length > 0)
       this.files = existingFiles;
-    this.restoreFromLocalStorage();
     if (this.files.length > 0)
       this.updateFormValue();
   }
   componentDidLoad() {
-    if (this.form) {
-      this.form.addEventListener("submit", () => this.clearLocalStorage());
-    }
     this.fileInput?.addEventListener("change", this.handleFileInputChange);
-  }
-  get localStorageKey() {
-    if (!this.form || !this.name)
-      return null;
-    const formId = this.form.id || this.form.action || "form";
-    return `input-attachment:${formId}:${this.name}`;
-  }
-  saveToLocalStorage() {
-    const key = this.localStorageKey;
-    if (!key)
-      return;
-    const data = this.persistenceData;
-    if (data.length > 0) {
-      localStorage.setItem(key, JSON.stringify(data));
-    } else {
-      localStorage.removeItem(key);
-    }
-  }
-  restoreFromLocalStorage() {
-    const key = this.localStorageKey;
-    if (!key || this.files.length > 0)
-      return;
-    try {
-      const stored = localStorage.getItem(key);
-      if (stored) {
-        const data = JSON.parse(stored);
-        if (Array.isArray(data) && data.length > 0) {
-          this.restoreFromPersistence(data);
-        }
-      }
-    } catch (e) {
-    }
-  }
-  clearLocalStorage() {
-    const key = this.localStorageKey;
-    if (key) {
-      localStorage.removeItem(key);
-    }
   }
   // Methods
   get files() {
@@ -5848,23 +5806,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     this.fireChangeEvent();
   }
   get value() {
-    return this.files.map((e) => e.value);
-  }
-  set value(val) {
-    const newValue = val || [];
-    if (JSON.stringify(this.value) !== JSON.stringify(newValue)) {
-      this.files = newValue.map((signedId) => {
-        const attachmentFile = document.createElement("attachment-file");
-        attachmentFile.name = this.name;
-        attachmentFile.preview = this.preview;
-        attachmentFile.signedId = signedId;
-        return attachmentFile;
-      });
-    }
-  }
-  // For form-persistence: store complete attachment data (not just signed_ids)
-  get persistenceData() {
-    return this.files.map((f) => ({
+    return JSON.stringify(this.files.map((f) => ({
       value: f.value,
       filename: f.filename,
       src: f.src,
@@ -5872,11 +5814,14 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
       percent: f.percent,
       size: f.size,
       filetype: f.filetype
-    }));
+    })));
   }
-  restoreFromPersistence(data) {
-    if (!Array.isArray(data) || data.length === 0)
+  set value(val) {
+    const data = JSON.parse(val || "[]");
+    if (data.length === 0) {
+      this.files = [];
       return;
+    }
     this.files = data.map((item) => {
       const attachmentFile = document.createElement("attachment-file");
       attachmentFile.name = this.name;
@@ -5896,7 +5841,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     if (!this.name || !this.internals?.setFormValue)
       return;
     const formData = new FormData();
-    const values = this.value.filter((v) => v);
+    const values = this.files.map((f) => f.value).filter((v) => v);
     if (this.multiple) {
       values.forEach((signedId) => formData.append(this.name, signedId));
       if (values.length === 0)
@@ -5905,7 +5850,6 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
       formData.set(this.name, values[0] || "");
     }
     this.internals.setFormValue(formData);
-    this.saveToLocalStorage();
     if (this.required && this.files.length === 0) {
       this.internals.setValidity({ valueMissing: true }, "Please select a file.", this.fileInput);
     } else {
@@ -5918,8 +5862,7 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     }
   }
   reset() {
-    this.value = [];
-    this.clearLocalStorage();
+    this.files = [];
   }
   handleFileInputChange = () => {
     if (!this.fileInput?.files?.length)
@@ -5956,12 +5899,12 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "e63c2624a4d88232adacc7d1610983fac89eb9db" }, h("input", { key: "baea544d4d62e31e1228d92ba8b0356d40e75ce5", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
+    return h(Host, { key: "d6cdfb923931f8232c1a6118dcb38889266cc5d0" }, h("input", { key: "e77f98d380aa090cabc70f712fd0787c0cf1373b", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
       opacity: "0.01",
       width: "1px",
       height: "1px",
       zIndex: "-999"
-    } }), h("file-drop", { key: "0b5621010445988462b8056cb360bf18ac6b0b59", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "718fe6b91ed9cdc5c5a2b54317fad8f1f25b3cd4", part: "title" }, h("strong", { key: "f28b9ffc58bb086bb1941ee01e943fe5068482a4" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "eeca7b2f619a7a4d7863f98ba37218d6a66fdcfd" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "2a1d0a824139f5c26833611a5523354965be0d9d", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "59455a857d01dfabd7aa5e697616f4be72cbbb20" }))));
+    } }), h("file-drop", { key: "87f1d105a94d63b1ff23061cca0787d6dcf909cf", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "97fbb415cf9d528f1813a4c4ab512819f63e1838", part: "title" }, h("strong", { key: "f856b14d87bee688d2bec237b0cdef748f9ddc33" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "c51929dd34c8826a434ee15dc577ce8ae4e65c72" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "9a847df1d30360e515f6dd69652841ff56efb915", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "e2d06462bddde0191f1071eb6f1fd78b04c4b49a" }))));
   }
   componentDidRender() {
     if (this.files.length === 0) {
