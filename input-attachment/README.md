@@ -159,20 +159,64 @@ checkValidity(): boolean
 
 ## Styling
 
-The component uses Shadow DOM with customizable CSS custom properties:
+The components use Shadow DOM, so external CSS cannot reach their internals. Instead, all visual properties are exposed as CSS custom properties that pierce the shadow boundary. Set them on the `input-attachment` element or any ancestor.
+
+### CSS Custom Properties
+
+#### Text & Drop Zone
+
+| Property | Default | Description |
+| -------- | ------- | ----------- |
+| `--input-attachment-text-color` | `#000` | Main text color |
+| `--input-attachment-drop-bg` | `rgba(255,255,255, 0.25)` | Drop zone background |
+| `--input-attachment-drop-border` | `rgba(0,0,0, 0.25)` | Drop zone dashed border |
+| `--input-attachment-drop-color` | `#444` | Drop zone text color |
+| `--input-attachment-drop-bg-active` | `rgba(255,255,255, 0.5)` | Drop zone background during drag-over |
+
+#### Upload Dialog
+
+| Property | Default | Description |
+| -------- | ------- | ----------- |
+| `--input-attachment-overlay-bg` | `rgba(51, 51, 51, 0.9)` | Modal overlay background |
+| `--input-attachment-dialog-bg` | `#fcfcfc` | Dialog content background |
+| `--input-attachment-dialog-border` | `#1f1f1f` | Dialog heading border |
+
+#### Errors
+
+| Property | Default | Description |
+| -------- | ------- | ----------- |
+| `--input-attachment-error-color` | `#c00` | Validation error and retry link text |
+| `--input-attachment-error-color-hover` | `#900` | Retry link hover color |
+| `--input-attachment-error-bg` | `rgba(74, 70, 70, 0.25)` | Error state progress bar background |
+
+### Dark Mode
+
+The components automatically adapt to dark color schemes via `prefers-color-scheme: dark`. No configuration is needed — if the user's OS or browser is set to dark mode, the components will use appropriate colors.
+
+To manually apply a dark theme (e.g., for a toggle-based dark mode), set the custom properties yourself:
 
 ```css
-input-attachment {
-  --input-attachment-text-color: #000;
+.dark-theme input-attachment {
+  --input-attachment-text-color: #e0e0e0;
+  --input-attachment-drop-bg: rgba(255,255,255, 0.08);
+  --input-attachment-drop-border: rgba(255,255,255, 0.25);
+  --input-attachment-drop-color: #bbb;
+  --input-attachment-drop-bg-active: rgba(255,255,255, 0.15);
+  --input-attachment-dialog-bg: #2a2a2a;
+  --input-attachment-dialog-border: #555;
+  --input-attachment-error-color: #f66;
+  --input-attachment-error-color-hover: #f99;
+  --input-attachment-error-bg: rgba(200, 100, 100, 0.2);
 }
 ```
 
-Style the file-drop area using the `::part()` pseudo-element:
+### Parts
+
+Style the file-drop title using the `::part()` pseudo-element:
 
 ```css
 input-attachment::part(title) {
   font-size: 16px;
-  color: #333;
 }
 ```
 

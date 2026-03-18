@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@botandrose/file-drop": "^0.1.0",
-    "@botandrose/progress-bar": "^0.1.1",
+    "@botandrose/progress-bar": "^0.1.2",
     "@rails/activestorage": "^8.1.0",
     "@rails/request.js": "0.0.13",
     "@stencil/core": "^4.38.2",
