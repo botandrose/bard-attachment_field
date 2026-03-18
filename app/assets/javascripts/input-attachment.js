@@ -5109,6 +5109,9 @@ var r = (r2) => {
     customElements.get(transformTag(e2.is)) || customElements.define(transformTag(e2.is), e2, r2);
   }));
 };
+
+// src/entry.js
+r();
 export {
   r as defineCustomElements,
   getAssetPath,
@@ -5135,4 +5138,3 @@ export {
    * https://github.com/angular/angular/blob/master/packages/compiler/src/shadow_css.ts
    *)
 */
-defineCustomElements();

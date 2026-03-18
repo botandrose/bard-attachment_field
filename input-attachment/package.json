@@ -11,7 +11,7 @@
   "scripts": {
     "prepublishOnly": "bun run build",
     "build": "bunx stencil build --docs && bun run bundle",
-    "bundle": "bunx esbuild dist/components/index.js --bundle --format=esm --outfile=dist/input-attachment.esm.js --footer:js='defineCustomElements();'",
+    "bundle": "bunx esbuild src/entry.js --bundle --format=esm --outfile=dist/input-attachment.esm.js",
     "start": "bunx stencil build --docs --watch --serve",
     "test": "NODE_OPTIONS=--experimental-vm-modules bunx stencil test --spec --e2e --max-workers=1",
     "test:spec": "NODE_OPTIONS=--experimental-vm-modules bunx stencil test --spec --max-workers=1",
