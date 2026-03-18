@@ -165,6 +165,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
         "max"?: number;
         /**
           * @default false
@@ -186,10 +190,42 @@ declare namespace LocalJSX {
     }
     interface UploadDialog {
     }
+
+    interface AttachmentFileAttributes {
+        "name": string;
+        "accepts": string;
+        "max": number;
+        "url": string;
+        "value": string;
+        "filename": string;
+        "src": string;
+        "filetype": string;
+        "size": number;
+        "state": string;
+        "percent": number;
+        "preview": boolean;
+        "validationMessage": string;
+    }
+    interface AttachmentPreviewAttributes {
+        "src": string;
+        "filetype": string;
+    }
+    interface InputAttachmentAttributes {
+        "name": string;
+        "directupload": string;
+        "multiple": boolean;
+        "required": boolean;
+        "accepts": string;
+        "max": number;
+        "preview": boolean;
+        "disabled": boolean;
+        "uploadDialog": boolean;
+    }
+
     interface IntrinsicElements {
-        "attachment-file": AttachmentFile;
-        "attachment-preview": AttachmentPreview;
-        "input-attachment": InputAttachment;
+        "attachment-file": Omit<AttachmentFile, keyof AttachmentFileAttributes> & { [K in keyof AttachmentFile & keyof AttachmentFileAttributes]?: AttachmentFile[K] } & { [K in keyof AttachmentFile & keyof AttachmentFileAttributes as `attr:${K}`]?: AttachmentFileAttributes[K] } & { [K in keyof AttachmentFile & keyof AttachmentFileAttributes as `prop:${K}`]?: AttachmentFile[K] };
+        "attachment-preview": Omit<AttachmentPreview, keyof AttachmentPreviewAttributes> & { [K in keyof AttachmentPreview & keyof AttachmentPreviewAttributes]?: AttachmentPreview[K] } & { [K in keyof AttachmentPreview & keyof AttachmentPreviewAttributes as `attr:${K}`]?: AttachmentPreviewAttributes[K] } & { [K in keyof AttachmentPreview & keyof AttachmentPreviewAttributes as `prop:${K}`]?: AttachmentPreview[K] };
+        "input-attachment": Omit<InputAttachment, keyof InputAttachmentAttributes> & { [K in keyof InputAttachment & keyof InputAttachmentAttributes]?: InputAttachment[K] } & { [K in keyof InputAttachment & keyof InputAttachmentAttributes as `attr:${K}`]?: InputAttachmentAttributes[K] } & { [K in keyof InputAttachment & keyof InputAttachmentAttributes as `prop:${K}`]?: InputAttachment[K] };
         "upload-dialog": UploadDialog;
     }
 }
@@ -197,10 +233,10 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "attachment-file": LocalJSX.AttachmentFile & JSXBase.HTMLAttributes<HTMLAttachmentFileElement>;
-            "attachment-preview": LocalJSX.AttachmentPreview & JSXBase.HTMLAttributes<HTMLAttachmentPreviewElement>;
-            "input-attachment": LocalJSX.InputAttachment & JSXBase.HTMLAttributes<HTMLInputAttachmentElement>;
-            "upload-dialog": LocalJSX.UploadDialog & JSXBase.HTMLAttributes<HTMLUploadDialogElement>;
+            "attachment-file": LocalJSX.IntrinsicElements["attachment-file"] & JSXBase.HTMLAttributes<HTMLAttachmentFileElement>;
+            "attachment-preview": LocalJSX.IntrinsicElements["attachment-preview"] & JSXBase.HTMLAttributes<HTMLAttachmentPreviewElement>;
+            "input-attachment": LocalJSX.IntrinsicElements["input-attachment"] & JSXBase.HTMLAttributes<HTMLInputAttachmentElement>;
+            "upload-dialog": LocalJSX.IntrinsicElements["upload-dialog"] & JSXBase.HTMLAttributes<HTMLUploadDialogElement>;
         }
     }
 }
