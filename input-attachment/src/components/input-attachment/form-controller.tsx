@@ -1,39 +1,28 @@
 import DirectUploadController from "../attachment-file/direct-upload-controller"
+import "../upload-dialog/upload-dialog"
 
 export default class FormController {
   static instance(form, options = {}) {
     return form.inputAttachmentFormController ||= new FormController(form, options)
   }
 
-  progressContainerTarget: HTMLElement
-  dialog: HTMLDialogElement
+  dialog: HTMLElement
 
   element: HTMLFormElement
-  progressTargetMap: {}
   controllers: Array<DirectUploadController>
   submitted: boolean
   processing: boolean
 
   constructor(form, { uploadDialog = true } = {}) {
     this.element = form
-    this.progressTargetMap = {}
     this.controllers = []
     this.submitted = false
     this.processing = false
 
     if (uploadDialog) {
-      this.element.insertAdjacentHTML("beforeend",
-        `<dialog id="form-controller-dialog">
-          <div class="direct-upload-wrapper">
-            <div class="direct-upload-content">
-              <h3>Uploading your media</h3>
-              <div id="progress-container"></div>
-            </div>
-          </div>
-        </dialog>`)
-
-      this.dialog = this.element.querySelector("#form-controller-dialog")
-      this.progressContainerTarget = this.dialog.querySelector("#progress-container")
+      this.dialog = document.createElement("upload-dialog")
+      this.dialog.id = "form-controller-dialog"
+      this.element.appendChild(this.dialog)
     }
 
     this.element.addEventListener("submit", event => this.submit(event))
@@ -62,7 +51,7 @@ export default class FormController {
     this.setInputAttachmentsDisabled(true)
     this.startNextController()
     if(this.processing) {
-      this.dialog?.showModal()
+      (this.dialog as any)?.open()
     }
   }
 
@@ -101,7 +90,7 @@ export default class FormController {
   submitForm() {
     if(!this.submitted) return
     if(this.hasUploadErrors()) {
-      this.dialog?.close()
+      (this.dialog as any)?.close()
       this.setInputAttachmentsDisabled(false)
       return
     }
@@ -127,48 +116,35 @@ export default class FormController {
 
   init(event) {
     const { id, file, controller } = event.detail
-
-    if (this.progressContainerTarget) {
-      this.progressContainerTarget.insertAdjacentHTML("beforebegin", `
-        <progress-bar id="direct-upload-${id}" class="direct-upload--pending">${file?.name || 'Uploading...'}</progress-bar>
-      `)
-      this.progressTargetMap[id] = document.getElementById(`direct-upload-${id}`)
-    }
-
+    ;(this.dialog as any)?.addUpload(`direct-upload-${id}`, file?.name || "Uploading...")
     this.controllers.push(controller)
     this.startNextController()
   }
 
   start(event) {
-    this.progressTargetMap[event.detail.id]?.classList.remove("direct-upload--pending")
+    ;(this.dialog as any)?.startUpload(`direct-upload-${event.detail.id}`)
   }
 
   progress(event) {
     const { id, progress } = event.detail
-    const target = this.progressTargetMap[id]
-    if (target) target.percent = progress
+    ;(this.dialog as any)?.updateProgress(`direct-upload-${id}`, progress)
   }
 
   error(event) {
     event.preventDefault()
     const { id, error } = event.detail
-    const target = this.progressTargetMap[id]
-    if (target) {
-      target.classList.add("direct-upload--error")
-      target.title = error
-    }
+    ;(this.dialog as any)?.setError(`direct-upload-${id}`, error)
   }
 
   end(event) {
-    this.progressTargetMap[event.detail.id]?.classList.add("direct-upload--complete")
+    ;(this.dialog as any)?.completeUpload(`direct-upload-${event.detail.id}`)
   }
 
   removeUploadedFile(event) {
     const uploadedFile = event.detail
     const id = uploadedFile.controller?.directUpload?.id
     if(id) {
-      document.getElementById(`direct-upload-${id}`)?.remove()
-      delete this.progressTargetMap[id]
+      (this.dialog as any)?.removeUpload(`direct-upload-${id}`)
     }
     this.setInputAttachmentsDisabled(false)
     requestAnimationFrame(() => this.submitForm())

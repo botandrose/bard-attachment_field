@@ -5436,35 +5436,108 @@ var AttachmentFile3 = AttachmentFile;
 // dist/components/attachment-preview.js
 var AttachmentPreview3 = AttachmentPreview;
 
+// dist/components/index2.js
+var ProgressBar = class extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this._percent = 0;
+  }
+  connectedCallback() {
+    this.render();
+    this.updateBar();
+  }
+  get percent() {
+    return this._percent;
+  }
+  set percent(value) {
+    this._percent = Number(value) || 0;
+    this.setAttribute("percent", this._percent);
+    this.updateBar();
+  }
+  static get observedAttributes() {
+    return ["percent"];
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "percent") {
+      this._percent = Number(newValue) || 0;
+      this.updateBar();
+    }
+  }
+  updateBar() {
+    const bar = this.shadowRoot?.querySelector(".bar");
+    if (bar) {
+      bar.style.width = `${this._percent}%`;
+    }
+  }
+  render() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          --progress-color: rgb(57, 137, 39);
+          --progress-duration: 120ms;
+          --bar-height: 32px;
+          --bar-radius: 4px;
+          --bar-padding: 8px;
+          --bar-border-color: #999;
+
+          display: block;
+          position: relative;
+          padding: var(--bar-padding);
+          border: 1px solid var(--bar-border-color);
+          border-radius: var(--bar-radius);
+        }
+
+        .bar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          background: var(--progress-color);
+          width: 0%;
+          transition: width var(--progress-duration) ease, opacity 60ms ease;
+          border-radius: var(--bar-radius);
+        }
+
+        .content {
+          position: relative;
+          display: block;
+          color: white;
+          font-size: 13px;
+          z-index: 1;
+        }
+      </style>
+
+      <div class="bar"></div>
+      <span class="content">
+        <slot></slot>
+      </span>
+    `;
+  }
+};
+if (!customElements.get("progress-bar")) {
+  customElements.define("progress-bar", ProgressBar);
+}
+
 // dist/components/input-attachment.js
 var FormController = class _FormController {
   static instance(form, options = {}) {
     return form.inputAttachmentFormController ||= new _FormController(form, options);
   }
-  progressContainerTarget;
   dialog;
   element;
-  progressTargetMap;
   controllers;
   submitted;
   processing;
   constructor(form, { uploadDialog = true } = {}) {
     this.element = form;
-    this.progressTargetMap = {};
     this.controllers = [];
     this.submitted = false;
     this.processing = false;
     if (uploadDialog) {
-      this.element.insertAdjacentHTML("beforeend", `<dialog id="form-controller-dialog">
-          <div class="direct-upload-wrapper">
-            <div class="direct-upload-content">
-              <h3>Uploading your media</h3>
-              <div id="progress-container"></div>
-            </div>
-          </div>
-        </dialog>`);
-      this.dialog = this.element.querySelector("#form-controller-dialog");
-      this.progressContainerTarget = this.dialog.querySelector("#progress-container");
+      this.dialog = document.createElement("upload-dialog");
+      this.dialog.id = "form-controller-dialog";
+      this.element.appendChild(this.dialog);
     }
     this.element.addEventListener("submit", (event) => this.submit(event));
     window.addEventListener("beforeunload", (event) => this.beforeUnload(event));
@@ -5489,7 +5562,7 @@ var FormController = class _FormController {
     this.setInputAttachmentsDisabled(true);
     this.startNextController();
     if (this.processing) {
-      this.dialog?.showModal();
+      this.dialog?.open();
     }
   }
   startNextController() {
@@ -5547,42 +5620,30 @@ var FormController = class _FormController {
   }
   init(event) {
     const { id: id2, file, controller } = event.detail;
-    if (this.progressContainerTarget) {
-      this.progressContainerTarget.insertAdjacentHTML("beforebegin", `
-        <progress-bar id="direct-upload-${id2}" class="direct-upload--pending">${file?.name || "Uploading..."}</progress-bar>
-      `);
-      this.progressTargetMap[id2] = document.getElementById(`direct-upload-${id2}`);
-    }
+    this.dialog?.addUpload(`direct-upload-${id2}`, file?.name || "Uploading...");
     this.controllers.push(controller);
     this.startNextController();
   }
   start(event) {
-    this.progressTargetMap[event.detail.id]?.classList.remove("direct-upload--pending");
+    this.dialog?.startUpload(`direct-upload-${event.detail.id}`);
   }
   progress(event) {
     const { id: id2, progress } = event.detail;
-    const target = this.progressTargetMap[id2];
-    if (target)
-      target.percent = progress;
+    this.dialog?.updateProgress(`direct-upload-${id2}`, progress);
   }
   error(event) {
     event.preventDefault();
     const { id: id2, error } = event.detail;
-    const target = this.progressTargetMap[id2];
-    if (target) {
-      target.classList.add("direct-upload--error");
-      target.title = error;
-    }
+    this.dialog?.setError(`direct-upload-${id2}`, error);
   }
   end(event) {
-    this.progressTargetMap[event.detail.id]?.classList.add("direct-upload--complete");
+    this.dialog?.completeUpload(`direct-upload-${event.detail.id}`);
   }
   removeUploadedFile(event) {
     const uploadedFile = event.detail;
     const id2 = uploadedFile.controller?.directUpload?.id;
     if (id2) {
-      document.getElementById(`direct-upload-${id2}`)?.remove();
-      delete this.progressTargetMap[id2];
+      this.dialog?.removeUpload(`direct-upload-${id2}`);
     }
     this.setInputAttachmentsDisabled(false);
     requestAnimationFrame(() => this.submitForm());
@@ -5673,88 +5734,7 @@ var FileDrop = class extends HTMLElement {
 if (!customElements.get("file-drop")) {
   customElements.define("file-drop", FileDrop);
 }
-var ProgressBar = class extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this._percent = 0;
-  }
-  connectedCallback() {
-    this.render();
-    this.updateBar();
-  }
-  get percent() {
-    return this._percent;
-  }
-  set percent(value) {
-    this._percent = Number(value) || 0;
-    this.setAttribute("percent", this._percent);
-    this.updateBar();
-  }
-  static get observedAttributes() {
-    return ["percent"];
-  }
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === "percent") {
-      this._percent = Number(newValue) || 0;
-      this.updateBar();
-    }
-  }
-  updateBar() {
-    const bar = this.shadowRoot?.querySelector(".bar");
-    if (bar) {
-      bar.style.width = `${this._percent}%`;
-    }
-  }
-  render() {
-    this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          --progress-color: rgb(57, 137, 39);
-          --progress-duration: 120ms;
-          --bar-height: 32px;
-          --bar-radius: 4px;
-          --bar-padding: 8px;
-          --bar-border-color: #999;
-
-          display: block;
-          position: relative;
-          padding: var(--bar-padding);
-          border: 1px solid var(--bar-border-color);
-          border-radius: var(--bar-radius);
-        }
-
-        .bar {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          background: var(--progress-color);
-          width: 0%;
-          transition: width var(--progress-duration) ease, opacity 60ms ease;
-          border-radius: var(--bar-radius);
-        }
-
-        .content {
-          position: relative;
-          display: block;
-          color: white;
-          font-size: 13px;
-          z-index: 1;
-        }
-      </style>
-
-      <div class="bar"></div>
-      <span class="content">
-        <slot></slot>
-      </span>
-    `;
-  }
-};
-if (!customElements.get("progress-bar")) {
-  customElements.define("progress-bar", ProgressBar);
-}
-var inputAttachmentCss = ":host{display:block;padding:25px;color:var(--input-attachment-text-color, #000);font-size:13px}:host *{box-sizing:border-box;position:relative}file-drop{cursor:pointer;display:block;outline-offset:-10px;background:var(--input-attachment-drop-bg, rgba(255,255,255, 0.25));padding:20px;text-align:center;transition:all 0.15s;outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25));color:var(--input-attachment-drop-color, #444);font-size:14px}file-drop.-full{width:100%}p{padding:10px 20px;margin:0}.-dragover{background:var(--input-attachment-drop-bg-active, rgba(255,255,255,0.5));outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25))}.media-preview{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center}// UPLOADER .direct-upload-wrapper{position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:var(--input-attachment-overlay-bg, rgba(#333, 0.9))}.direct-upload-content{display:block;background:var(--input-attachment-dialog-bg, #fcfcfc);color:var(--input-attachment-text-color, #000);padding:40px 60px 60px;border-radius:3px;width:60vw}.direct-upload-content h3{border-bottom:2px solid var(--input-attachment-dialog-border, #1f1f1f);margin-bottom:20px}.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}.direct-upload--pending{opacity:0.6}.direct-upload--complete{opacity:0.4}.direct-upload--error{border-color:var(--input-attachment-error-color, red)}input[type=file][data-direct-upload-url][disabled]{display:none}:host.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}@media (prefers-color-scheme: dark){:host{--input-attachment-text-color:#e0e0e0;--input-attachment-drop-bg:rgba(255,255,255, 0.08);--input-attachment-drop-border:rgba(255,255,255, 0.25);--input-attachment-drop-color:#bbb;--input-attachment-drop-bg-active:rgba(255,255,255, 0.15);--input-attachment-dialog-bg:#2a2a2a;--input-attachment-dialog-border:#555;--input-attachment-error-color:#f66}}";
+var inputAttachmentCss = ":host{display:block;padding:25px;color:var(--input-attachment-text-color, #000);font-size:13px}:host *{box-sizing:border-box;position:relative}file-drop{cursor:pointer;display:block;outline-offset:-10px;background:var(--input-attachment-drop-bg, rgba(255,255,255, 0.25));padding:20px;text-align:center;transition:all 0.15s;outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25));color:var(--input-attachment-drop-color, #444);font-size:14px}file-drop.-full{width:100%}p{padding:10px 20px;margin:0}.-dragover{background:var(--input-attachment-drop-bg-active, rgba(255,255,255,0.5));outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25))}.media-preview{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center}:host.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}@media (prefers-color-scheme: dark){:host{--input-attachment-text-color:#e0e0e0;--input-attachment-drop-bg:rgba(255,255,255, 0.08);--input-attachment-drop-border:rgba(255,255,255, 0.25);--input-attachment-drop-color:#bbb;--input-attachment-drop-bg-active:rgba(255,255,255, 0.15);--input-attachment-error-color:#f66}}";
 var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment extends H {
   get el() {
     return this;
@@ -5900,12 +5880,12 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "d6cdfb923931f8232c1a6118dcb38889266cc5d0" }, h("input", { key: "e77f98d380aa090cabc70f712fd0787c0cf1373b", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
+    return h(Host, { key: "6a45fb4254e303d6bdc0e904129d5db9f94799b3" }, h("input", { key: "68df3d0b0b7ea59551a6a2ef78a59f0ac77cb848", ref: (el) => this.fileInput = el, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && this.files.length === 0, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: {
       opacity: "0.01",
       width: "1px",
       height: "1px",
       zIndex: "-999"
-    } }), h("file-drop", { key: "87f1d105a94d63b1ff23061cca0787d6dcf909cf", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "97fbb415cf9d528f1813a4c4ab512819f63e1838", part: "title" }, h("strong", { key: "f856b14d87bee688d2bec237b0cdef748f9ddc33" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "c51929dd34c8826a434ee15dc577ce8ae4e65c72" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "9a847df1d30360e515f6dd69652841ff56efb915", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "e2d06462bddde0191f1071eb6f1fd78b04c4b49a" }))));
+    } }), h("file-drop", { key: "4af1e60084b31e232bbda03a540d0a87e301ee1e", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "c714acafc22ec669b2978065b04559cd0f097e57", part: "title" }, h("strong", { key: "3fab310e5ee4e1d8ceb65076a88f67a9a51a3a4d" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "694f5681825da6005f65d6f8038fb75170b5dfca" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "8a0d60e85928524d2adbcf58b24bbce095cc9a11", class: `media-preview ${this.multiple ? "-stacked" : ""}` }, h("slot", { key: "5b8ee7c5eb04099451d2d5059095d62b39b430b5" }))));
   }
   componentDidRender() {
     if (this.files.length === 0) {
@@ -5986,13 +5966,80 @@ var InputAttachment$1 = /* @__PURE__ */ proxyCustomElement(class InputAttachment
 }, [[0, "attachment-file:remove", "removeUploadedFile"], [0, "attachment-file:validation", "handleChildValidation"], [0, "attachment-file:ready", "handleChildReady"], [0, "direct-upload:end", "fireChangeEvent"]]]);
 var InputAttachment2 = InputAttachment$1;
 
+// dist/components/upload-dialog.js
+var uploadDialogCss = "dialog{border:none;padding:0;background:transparent;max-width:100vw;max-height:100vh}dialog::backdrop{background:transparent}.direct-upload-wrapper{position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:var(--input-attachment-overlay-bg, rgba(51, 51, 51, 0.9))}.direct-upload-content{display:block;background:var(--input-attachment-dialog-bg, #fcfcfc);color:var(--input-attachment-text-color, #000);padding:40px 60px 60px;border-radius:3px;width:60vw}.direct-upload-content h3{border-bottom:2px solid var(--input-attachment-dialog-border, #1f1f1f);margin-bottom:20px}.direct-upload--pending{opacity:0.6}.direct-upload--complete{opacity:0.4}.direct-upload--error{border-color:var(--input-attachment-error-color, red)}@media (prefers-color-scheme: dark){:host{--input-attachment-dialog-bg:#2a2a2a;--input-attachment-dialog-border:#555;--input-attachment-error-color:#f66}}";
+var UploadDialog$1 = /* @__PURE__ */ proxyCustomElement(class UploadDialog extends H {
+  constructor(registerHost2) {
+    super();
+    if (registerHost2 !== false) {
+      this.__registerHost();
+    }
+    this.__attachShadow();
+  }
+  dialog;
+  uploads = [];
+  async open() {
+    this.dialog.showModal();
+  }
+  async close() {
+    this.dialog.close();
+  }
+  async addUpload(id2, filename) {
+    this.uploads = [...this.uploads, {
+      id: id2,
+      filename,
+      pending: true,
+      percent: 0,
+      complete: false,
+      error: null
+    }];
+  }
+  async startUpload(id2) {
+    this.uploads = this.uploads.map((u) => u.id === id2 ? { ...u, pending: false } : u);
+  }
+  async updateProgress(id2, percent) {
+    this.uploads = this.uploads.map((u) => u.id === id2 ? { ...u, percent } : u);
+  }
+  async setError(id2, error) {
+    this.uploads = this.uploads.map((u) => u.id === id2 ? { ...u, error } : u);
+  }
+  async completeUpload(id2) {
+    this.uploads = this.uploads.map((u) => u.id === id2 ? { ...u, complete: true } : u);
+  }
+  async removeUpload(id2) {
+    this.uploads = this.uploads.filter((u) => u.id !== id2);
+  }
+  render() {
+    return h(Host, { key: "76874b06863ae2cab526de1f0e491bb04300c6fc" }, h("dialog", { key: "55b715d6d5fc6ee0c6a16df16c6374ca6e285aee", ref: (el) => this.dialog = el }, h("div", { key: "bab0ae4ed41bb5a909351866d92f0da330858691", class: "direct-upload-wrapper" }, h("div", { key: "23fe0a67bd942f5f4a53df1bd61bec8863104b2c", class: "direct-upload-content" }, h("h3", { key: "d2e349d855c046a541c9dc3ac837873bcd75da22" }, "Uploading your media"), this.uploads.map((upload) => h("progress-bar", { key: upload.id, class: {
+      "direct-upload--pending": upload.pending,
+      "direct-upload--complete": upload.complete,
+      "direct-upload--error": !!upload.error
+    }, percent: upload.percent, title: upload.error || void 0 }, upload.filename))))));
+  }
+  static get style() {
+    return uploadDialogCss;
+  }
+}, [257, "upload-dialog", {
+  "uploads": [32],
+  "open": [64],
+  "close": [64],
+  "addUpload": [64],
+  "startUpload": [64],
+  "updateProgress": [64],
+  "setError": [64],
+  "completeUpload": [64],
+  "removeUpload": [64]
+}]);
+var UploadDialog2 = UploadDialog$1;
+
 // dist/components/index.js
 var defineCustomElements = (opts) => {
   if (typeof customElements !== "undefined") {
     [
       AttachmentFile3,
       AttachmentPreview3,
-      InputAttachment2
+      InputAttachment2,
+      UploadDialog2
     ].forEach((cmp) => {
       if (!customElements.get(cmp.is)) {
         customElements.define(cmp.is, cmp, opts);

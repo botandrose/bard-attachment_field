@@ -63,6 +63,16 @@ export namespace Components {
          */
         "uploadDialog": boolean;
     }
+    interface UploadDialog {
+        "addUpload": (id: string, filename: string) => Promise<void>;
+        "close": () => Promise<void>;
+        "completeUpload": (id: string) => Promise<void>;
+        "open": () => Promise<void>;
+        "removeUpload": (id: string) => Promise<void>;
+        "setError": (id: string, error: string) => Promise<void>;
+        "startUpload": (id: string) => Promise<void>;
+        "updateProgress": (id: string, percent: number) => Promise<void>;
+    }
 }
 export interface AttachmentFileCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -100,10 +110,17 @@ declare global {
         prototype: HTMLInputAttachmentElement;
         new (): HTMLInputAttachmentElement;
     };
+    interface HTMLUploadDialogElement extends Components.UploadDialog, HTMLStencilElement {
+    }
+    var HTMLUploadDialogElement: {
+        prototype: HTMLUploadDialogElement;
+        new (): HTMLUploadDialogElement;
+    };
     interface HTMLElementTagNameMap {
         "attachment-file": HTMLAttachmentFileElement;
         "attachment-preview": HTMLAttachmentPreviewElement;
         "input-attachment": HTMLInputAttachmentElement;
+        "upload-dialog": HTMLUploadDialogElement;
     }
 }
 declare namespace LocalJSX {
@@ -167,10 +184,13 @@ declare namespace LocalJSX {
          */
         "uploadDialog"?: boolean;
     }
+    interface UploadDialog {
+    }
     interface IntrinsicElements {
         "attachment-file": AttachmentFile;
         "attachment-preview": AttachmentPreview;
         "input-attachment": InputAttachment;
+        "upload-dialog": UploadDialog;
     }
 }
 export { LocalJSX as JSX };
@@ -180,6 +200,7 @@ declare module "@stencil/core" {
             "attachment-file": LocalJSX.AttachmentFile & JSXBase.HTMLAttributes<HTMLAttachmentFileElement>;
             "attachment-preview": LocalJSX.AttachmentPreview & JSXBase.HTMLAttributes<HTMLAttachmentPreviewElement>;
             "input-attachment": LocalJSX.InputAttachment & JSXBase.HTMLAttributes<HTMLInputAttachmentElement>;
+            "upload-dialog": LocalJSX.UploadDialog & JSXBase.HTMLAttributes<HTMLUploadDialogElement>;
         }
     }
 }

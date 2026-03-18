@@ -30,7 +30,8 @@ export const config: Config = {
     useESModules: true,
     moduleNameMapper: {
       "^@botandrose/progress-bar$": "<rootDir>/test-mocks/progress-bar.cjs",
-      "^@botandrose/file-drop$": "<rootDir>/test-mocks/file-drop.cjs"
+      "^@botandrose/file-drop$": "<rootDir>/test-mocks/file-drop.cjs",
+      "\\.\\./upload-dialog/upload-dialog$": "<rootDir>/test-mocks/upload-dialog.cjs"
     },
     transformIgnorePatterns: [
       "node_modules/(?!(rails-request-json|@botandrose/progress-bar|@botandrose/file-drop|@rails/request\.js))"

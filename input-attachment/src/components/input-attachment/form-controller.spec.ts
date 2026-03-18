@@ -12,24 +12,21 @@ afterEach(() => {
 
 describe("FormController", () => {
   describe("default (uploadDialog: true)", () => {
-    it("creates the dialog and progress container", () => {
+    it("creates the upload-dialog element", () => {
       const form = createForm()
       const controller = FormController.instance(form)
       expect(controller.dialog).toBeTruthy()
-      expect(controller.progressContainerTarget).toBeTruthy()
+      expect(controller.dialog.tagName.toLowerCase()).toBe("upload-dialog")
       expect(form.querySelector("#form-controller-dialog")).toBeTruthy()
-      expect(form.querySelector("#progress-container")).toBeTruthy()
     })
   })
 
   describe("uploadDialog: false", () => {
-    it("does not create the dialog or progress container", () => {
+    it("does not create the dialog", () => {
       const form = createForm()
       const controller = FormController.instance(form, { uploadDialog: false })
       expect(controller.dialog).toBeFalsy()
-      expect(controller.progressContainerTarget).toBeFalsy()
       expect(form.querySelector("#form-controller-dialog")).toBeNull()
-      expect(form.querySelector("#progress-container")).toBeNull()
     })
 
     it("still registers event listeners and queues controllers", () => {

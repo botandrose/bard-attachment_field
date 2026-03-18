@@ -44,56 +44,6 @@ p{
   justify-content: center;
 }
 
-// UPLOADER
-
-.direct-upload-wrapper{
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--input-attachment-overlay-bg, rgba(#333, 0.9));
-}
-
-.direct-upload-content{
-  display: block;
-  background: var(--input-attachment-dialog-bg, #fcfcfc);
-  color: var(--input-attachment-text-color, #000);
-  padding: 40px 60px 60px;
-  border-radius: 3px;
-  width: 60vw;
-}
-.direct-upload-content h3{
-  border-bottom: 2px solid var(--input-attachment-dialog-border, #1f1f1f);
-  margin-bottom: 20px;
-}
-
-.separate-upload{
-  padding: 0 10px;
-  margin-top: 10px;
-  font-size: 0.9em;
-}
-
-.direct-upload--pending{
-  opacity: 0.6;
-}
-
-.direct-upload--complete {
-  opacity: 0.4;
-}
-
-.direct-upload--error{
-  border-color: var(--input-attachment-error-color, red);
-}
-
-input[type=file][data-direct-upload-url][disabled]{
-  display: none;
-}
-
 :host.separate-upload{
   padding: 0 10px;
   margin-top: 10px;
@@ -107,8 +57,6 @@ input[type=file][data-direct-upload-url][disabled]{
     --input-attachment-drop-border: rgba(255,255,255, 0.25);
     --input-attachment-drop-color: #bbb;
     --input-attachment-drop-bg-active: rgba(255,255,255, 0.15);
-    --input-attachment-dialog-bg: #2a2a2a;
-    --input-attachment-dialog-border: #555;
     --input-attachment-error-color: #f66;
   }
 }
