@@ -33,7 +33,7 @@ When "I attach a file of type {string} to {string}" do |extension, field|
 end
 
 When "I follow {string}" do |link|
-  find_link(link).trigger "click"
+  click_link link
 end
 
 When "I press {string}" do |button|

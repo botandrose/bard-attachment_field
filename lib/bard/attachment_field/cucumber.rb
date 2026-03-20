@@ -4,9 +4,9 @@
 #
 # Provides step definitions and helpers for testing attachment fields.
 #
-# Note: CDP's DOM.setFileInputFiles silently fails for file inputs inside shadow DOM.
-# This integration uses a workaround that creates a temporary regular DOM input to
-# receive files via CDP, then transfers them to the component via its addFiles() method.
+# Note: Browser automation APIs can't reliably set files on inputs inside shadow DOM.
+# This integration uses a workaround that creates a temporary regular DOM input,
+# sets files on it, then transfers them to the component via its addFiles() method.
 
 require "active_support/core_ext/module/attribute_accessors"
 require "chop"
@@ -33,17 +33,17 @@ module Bard::AttachmentField::TestHelper
     session.find("input-attachment##{element_id}")
   end
 
-  # CDP's setFileInputFiles fails silently for file inputs inside shadow DOM,
+  # File inputs inside shadow DOM can't be set directly by browser automation,
   # so we use a temp regular DOM input and transfer files via JavaScript.
   def attach_files(session, element_id, file_paths)
-    session.execute_script("document.body.insertAdjacentHTML('beforeend', '<input type=\"file\" id=\"_cdp_file_helper\" multiple style=\"display:none\">')")
+    session.execute_script("document.body.insertAdjacentHTML('beforeend', '<input type=\"file\" id=\"_pw_file_helper\" multiple style=\"opacity:0;position:absolute;pointer-events:none\">')")
 
-    temp_input = session.document.find("#_cdp_file_helper", visible: :all)
-    temp_input.native.node.select_file(file_paths)
+    temp_input = session.document.find("#_pw_file_helper", visible: :all)
+    temp_input.set(file_paths)
 
     session.execute_script(<<~JS)
       (() => {
-        const temp = document.getElementById('_cdp_file_helper');
+        const temp = document.getElementById('_pw_file_helper');
         const host = document.getElementById('#{element_id}');
         host.addFiles(temp.files);
         temp.remove();
@@ -236,14 +236,14 @@ When "I drag the file {string} onto the {string} attachment field" do |path, fie
   element = Bard::AttachmentField::TestHelper.find_field(page, field)
   file_path_full = Bard::AttachmentField::TestHelper.resolve_fixture_path(path)
 
-  # Create temp input to get File objects via CDP, then dispatch drop event on file-drop
-  page.execute_script("document.body.insertAdjacentHTML('beforeend', '<input type=\"file\" id=\"_cdp_file_helper\" multiple style=\"display:none\">')")
-  temp_input = page.find("#_cdp_file_helper", visible: :all)
-  temp_input.native.node.select_file([file_path_full])
+  # Create temp input to get File objects, then dispatch drop event on file-drop
+  page.execute_script("document.body.insertAdjacentHTML('beforeend', '<input type=\"file\" id=\"_pw_file_helper\" multiple style=\"opacity:0;position:absolute;pointer-events:none\">')")
+  temp_input = page.find("#_pw_file_helper", visible: :all)
+  temp_input.set([file_path_full])
 
   page.execute_script(<<~JS, element[:id])
     ((elementId) => {
-      const temp = document.getElementById('_cdp_file_helper');
+      const temp = document.getElementById('_pw_file_helper');
       const host = document.getElementById(elementId);
       const fileDrop = host.shadowRoot.querySelector('file-drop');
 

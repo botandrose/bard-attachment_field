@@ -6,39 +6,29 @@ require "bard/attachment_field/cucumber"
 # Configure fixtures path for this bespoke test app
 Bard::AttachmentField::TestHelper.fixtures_path = -> { Rails.root.join("fixtures") }
 
-# Configure Capybara early so that cuprite-downloads can use it
+# Configure Capybara early so that downloads can be saved
 Capybara.app = BardAttachmentTest::Application
 Capybara.server = :puma, { Silent: true }
-Capybara.save_path = Pathname.new(__dir__).join('../../tmp/capybara')
+Capybara.save_path = Pathname.new(__dir__).join("../../tmp/capybara")
 
-require "capybara/cuprite"
-require "cuprite/downloads/cucumber"
-require "capybara/shadowdom"
+require "capybara-playwright-driver"
 require "capybara-screenshot/cucumber" unless ENV["CI"]
 
 # Include Capybara DSL methods in the World
 require "capybara/dsl"
 World(Capybara::DSL)
 
-Capybara.register_driver(:cuprite) do |app|
-  options = {
-    window_size: [1920, 2160],
-    timeout: 600,
-    process_timeout: 60,
-    js_errors: true,
+browser_type = (ENV["BROWSER"] || "chromium").to_sym
+
+Capybara.register_driver(:playwright) do |app|
+  Capybara::Playwright::Driver.new(app,
+    browser_type: browser_type,
     headless: true,
-  }
-
-  if ENV["BROWSER_PATH"] && !ENV["BROWSER_PATH"].empty?
-    options[:browser_path] = ENV["BROWSER_PATH"]
-  elsif ENV["CI"]
-    options[:browser_path] = "/usr/bin/google-chrome"
-  end
-
-  Capybara::Cuprite::Driver.new(app, **options)
+    viewport: { width: 1920, height: 2160 },
+  )
 end
 
-Capybara.default_driver = :cuprite
+Capybara.default_driver = :playwright
 Capybara.default_normalize_ws = true
 Capybara.default_max_wait_time = ENV["CI"] ? 10 : 2
 
@@ -51,7 +41,7 @@ Before do
 end
 
 After do
-  page.execute_script("localStorage.clear()") rescue nil
+  page.execute_script("localStorage.clear()") rescue Playwright::Error
   Capybara.reset_sessions!
   DatabaseCleaner.clean
 end

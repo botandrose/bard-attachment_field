@@ -37,9 +37,54 @@ jobs:
         BUNDLE_GEMFILE: gemfiles/${{ matrix.rails-version }}.gemfile
       run: bundle install
 
+    - name: Install Playwright browser
+      run: bunx playwright install --with-deps chromium
+
     - name: Run Cucumber tests
       env:
         BUNDLE_GEMFILE: gemfiles/${{ matrix.rails-version }}.gemfile
+      run: bundle exec cucumber --retry 3
+
+  test-browsers:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: ['firefox', 'webkit']
+
+    name: Browser - ${{ matrix.browser }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4'
+        bundler-cache: false
+
+    - name: Install Bun
+      uses: oven-sh/setup-bun@v1
+
+    - name: Install bun dependencies
+      run: cd input-attachment && bun install
+
+    - name: Build JavaScript assets
+      run: cd input-attachment && bun run build
+
+    - name: Install dependencies
+      env:
+        BUNDLE_GEMFILE: gemfiles/rails_8.1.gemfile
+      run: bundle install
+
+    - name: Install Playwright browser
+      run: bunx playwright install --with-deps ${{ matrix.browser }}
+
+    - name: Run Cucumber tests
+      env:
+        BUNDLE_GEMFILE: gemfiles/rails_8.1.gemfile
+        BROWSER: ${{ matrix.browser }}
       run: bundle exec cucumber --retry 3
 
   input-attachment:

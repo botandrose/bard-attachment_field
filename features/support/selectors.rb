@@ -14,7 +14,7 @@ module WithinHelpers
       bard_attachment = find("input-attachment##{element_id}")
 
     when /the "(.+)" uploaded-file/
-      page.document.synchronize 5, errors: [Capybara::ElementNotFound, Ferrum::JavaScriptError] do
+      page.document.synchronize 5, errors: [Capybara::ElementNotFound, Playwright::Error] do
         find("attachment-file[filename='#{$1}']").shadow_root.find("figure")
       end
 

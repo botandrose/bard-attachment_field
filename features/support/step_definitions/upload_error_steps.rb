@@ -62,7 +62,7 @@ When "I retry the errored upload in {string}" do |field|
       sleep 0.1
     end
     Bard::AttachmentField::TestHelper.wait_for_upload(page, element_id)
-  rescue Ferrum::JavaScriptError, Ferrum::NoExecutionContextError
+  rescue Playwright::Error
     # Page navigated due to auto-submit — upload succeeded
   end
 end
