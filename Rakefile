@@ -8,3 +8,11 @@ task :test do
 end
 
 task default: %i[test]
+
+task :compile do
+  sh <<~BASH.split("\n").join(" && ")
+    cd input-attachment
+    bun run build
+    cp dist/input-attachment.esm.js ../app/assets/javascripts/input-attachment.js
+  BASH
+end
