@@ -98,15 +98,3 @@ progress-bar.error{
   font-size: 12px;
   margin: 4px 0 0 10px;
 }
-
-@media (prefers-color-scheme: dark) {
-  :host {
-    --input-attachment-error-color: #f66;
-    --input-attachment-error-color-hover: #f99;
-    --input-attachment-error-bg: rgba(200, 100, 100, 0.2);
-  }
-
-  .remove-media {
-    filter: invert(1);
-  }
-}

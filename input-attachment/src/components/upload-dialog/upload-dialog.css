@@ -48,11 +48,3 @@ dialog::backdrop {
 .direct-upload--error {
   border-color: var(--input-attachment-error-color, red);
 }
-
-@media (prefers-color-scheme: dark) {
-  :host {
-    --input-attachment-dialog-bg: #2a2a2a;
-    --input-attachment-dialog-border: #555;
-    --input-attachment-error-color: #f66;
-  }
-}
