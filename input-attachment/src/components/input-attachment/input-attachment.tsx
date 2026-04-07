@@ -188,6 +188,7 @@ export class InputAttachment {
         <input
           ref={el => this.fileInput = el}
           type="file"
+          aria-label={`Choose ${this.multiple ? "files" : "file"}`}
           multiple={this.multiple}
           accept={this.accepts}
           required={this.required && this.files.length === 0}

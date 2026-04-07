@@ -53,10 +53,10 @@ p{
 @media (prefers-color-scheme: dark) {
   :host {
     --input-attachment-text-color: #e0e0e0;
-    --input-attachment-drop-bg: rgba(255,255,255, 0.08);
+    --input-attachment-drop-bg: #333;
     --input-attachment-drop-border: rgba(255,255,255, 0.25);
     --input-attachment-drop-color: #bbb;
-    --input-attachment-drop-bg-active: rgba(255,255,255, 0.15);
+    --input-attachment-drop-bg-active: #444;
     --input-attachment-error-color: #f66;
   }
 }

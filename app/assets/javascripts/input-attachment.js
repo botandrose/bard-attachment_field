@@ -4889,7 +4889,7 @@ var o2 = class _o {
     i2 && this.dialog?.removeUpload("direct-upload-" + i2), this.setInputAttachmentsDisabled(false), requestAnimationFrame((() => this.submitForm()));
   }
 };
-var d2 = class extends HTMLElement {
+var l2 = class extends HTMLElement {
   constructor() {
     super(), this.handleDragOver = this.handleDragOver.bind(this), this.handleDragLeave = this.handleDragLeave.bind(this), this.handleDrop = this.handleDrop.bind(this);
   }
@@ -4931,8 +4931,8 @@ var d2 = class extends HTMLElement {
     }
   }
 };
-customElements.get("file-drop") || customElements.define("file-drop", d2);
-var l2 = proxyCustomElement(class extends H {
+customElements.get("file-drop") || customElements.define("file-drop", l2);
+var d2 = proxyCustomElement(class extends H {
   get el() {
     return this;
   }
@@ -5015,7 +5015,7 @@ var l2 = proxyCustomElement(class extends H {
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "6a45fb4254e303d6bdc0e904129d5db9f94799b3" }, h("input", { key: "68df3d0b0b7ea59551a6a2ef78a59f0ac77cb848", ref: (t) => this.fileInput = t, type: "file", multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: { opacity: "0.01", width: "1px", height: "1px", zIndex: "-999" } }), h("file-drop", { key: "4af1e60084b31e232bbda03a540d0a87e301ee1e", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "c714acafc22ec669b2978065b04559cd0f097e57", part: "title" }, h("strong", { key: "3fab310e5ee4e1d8ceb65076a88f67a9a51a3a4d" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "694f5681825da6005f65d6f8038fb75170b5dfca" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "8a0d60e85928524d2adbcf58b24bbce095cc9a11", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "5b8ee7c5eb04099451d2d5059095d62b39b430b5" }))));
+    return h(Host, { key: "6a45fb4254e303d6bdc0e904129d5db9f94799b3" }, h("input", { key: "93ce74b844ae92450b526209aa4a7a50f1b3195e", ref: (t) => this.fileInput = t, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: { opacity: "0.01", width: "1px", height: "1px", zIndex: "-999" } }), h("file-drop", { key: "b6a85d8c0f6293a5797394f84459c68ae51cf50b", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "db21308765a43e470f7498f9af4fa2115dcebe1a", part: "title" }, h("strong", { key: "dc7af1ff4ab0a691005c2389c5c2733b3c6510ee" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "0876a9b640be39081265252373196cb19bf291d8" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "31a2aa334cf416934f947549479afde627f3166c", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "ac3208347ce232eeab80626c712ad4cbb3a1cdbf" }))));
   }
   componentDidRender() {
     if (0 === this.files.length) {
@@ -5058,10 +5058,10 @@ var l2 = proxyCustomElement(class extends H {
     return true;
   }
   static get style() {
-    return ":host{display:block;padding:25px;color:var(--input-attachment-text-color, #000);font-size:13px}:host *{box-sizing:border-box;position:relative}file-drop{cursor:pointer;display:block;outline-offset:-10px;background:var(--input-attachment-drop-bg, rgba(255,255,255, 0.25));padding:20px;text-align:center;transition:all 0.15s;outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25));color:var(--input-attachment-drop-color, #444);font-size:14px}file-drop.-full{width:100%}p{padding:10px 20px;margin:0}.-dragover{background:var(--input-attachment-drop-bg-active, rgba(255,255,255,0.5));outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25))}.media-preview{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center}:host.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}@media (prefers-color-scheme: dark){:host{--input-attachment-text-color:#e0e0e0;--input-attachment-drop-bg:rgba(255,255,255, 0.08);--input-attachment-drop-border:rgba(255,255,255, 0.25);--input-attachment-drop-color:#bbb;--input-attachment-drop-bg-active:rgba(255,255,255, 0.15);--input-attachment-error-color:#f66}}";
+    return ":host{display:block;padding:25px;color:var(--input-attachment-text-color, #000);font-size:13px}:host *{box-sizing:border-box;position:relative}file-drop{cursor:pointer;display:block;outline-offset:-10px;background:var(--input-attachment-drop-bg, rgba(255,255,255, 0.25));padding:20px;text-align:center;transition:all 0.15s;outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25));color:var(--input-attachment-drop-color, #444);font-size:14px}file-drop.-full{width:100%}p{padding:10px 20px;margin:0}.-dragover{background:var(--input-attachment-drop-bg-active, rgba(255,255,255,0.5));outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25))}.media-preview{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center}:host.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}@media (prefers-color-scheme: dark){:host{--input-attachment-text-color:#e0e0e0;--input-attachment-drop-bg:#333;--input-attachment-drop-border:rgba(255,255,255, 0.25);--input-attachment-drop-color:#bbb;--input-attachment-drop-bg-active:#444;--input-attachment-error-color:#f66}}";
   }
 }, [833, "input-attachment", { name: [1], directupload: [1], multiple: [4], required: [4], accepts: [1], max: [2], preview: [4], disabled: [4], uploadDialog: [4, "upload-dialog"] }, [[0, "attachment-file:remove", "removeUploadedFile"], [0, "attachment-file:validation", "handleChildValidation"], [0, "attachment-file:ready", "handleChildReady"], [0, "direct-upload:end", "fireChangeEvent"]]]);
-var c3 = l2;
+var c3 = d2;
 
 // dist/components/upload-dialog.js
 var d3 = proxyCustomElement(class extends H {
