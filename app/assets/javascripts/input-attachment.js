@@ -4978,7 +4978,7 @@ var d2 = proxyCustomElement(class extends H {
   }
   updateFormValue() {
     if (!this.name || !this.internals?.setFormValue) return;
-    const t = new FormData(), e2 = this.files.map(((t2) => t2.value)).filter(((t2) => t2));
+    const t = new FormData(), e2 = this.files.map(((t2) => t2.value)).filter(((t2) => t2 && "string" != typeof t2 ? (console.error("[input-attachment] Non-string value detected on attachment-file:", typeof t2, t2, Error().stack), false) : "string" == typeof t2 && t2.length > 0));
     if (this.multiple ? (e2.forEach(((e3) => t.append(this.name, e3))), 0 === e2.length && t.append(this.name, "")) : t.set(this.name, e2[0] || ""), this.internals.setFormValue(t), this.required && 0 === this.files.length) this.internals.setValidity({ valueMissing: true }, "Please select a file.", this.fileInput);
     else {
       const t2 = this.files.map(((t3) => t3.validationError)).filter(((t3) => t3 && t3.length > 0));
@@ -5015,7 +5015,7 @@ var d2 = proxyCustomElement(class extends H {
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "6a45fb4254e303d6bdc0e904129d5db9f94799b3" }, h("input", { key: "93ce74b844ae92450b526209aa4a7a50f1b3195e", ref: (t) => this.fileInput = t, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: { opacity: "0.01", width: "1px", height: "1px", zIndex: "-999" } }), h("file-drop", { key: "b6a85d8c0f6293a5797394f84459c68ae51cf50b", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "db21308765a43e470f7498f9af4fa2115dcebe1a", part: "title" }, h("strong", { key: "dc7af1ff4ab0a691005c2389c5c2733b3c6510ee" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "0876a9b640be39081265252373196cb19bf291d8" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "31a2aa334cf416934f947549479afde627f3166c", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "ac3208347ce232eeab80626c712ad4cbb3a1cdbf" }))));
+    return h(Host, { key: "59748e20522a9e4ab161e9810b42bd19e9f53680" }, h("input", { key: "cc5f6962b35c384637ac8f7045ce45475fdbce65", ref: (t) => this.fileInput = t, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange(), style: { opacity: "0.01", width: "1px", height: "1px", zIndex: "-999" } }), h("file-drop", { key: "c8c1a0bd09ef1ceb74984d395ee61a89c39bcf55", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "84cb3dc7ec7e455508930d4d70ae22937b4aa482", part: "title" }, h("strong", { key: "44e73eb2cceb6b2f5a50a8638e9181e4b1e04f0a" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "fae91c4bfecd5bc981fc6d7d064de8dd55cfe6fd" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "66f595ffec50b8f0bbf59ae7fd595851d0064e9a", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "3068b234382f2a906ecaf6ef43a0f66b9b4878c0" }))));
   }
   componentDidRender() {
     if (0 === this.files.length) {

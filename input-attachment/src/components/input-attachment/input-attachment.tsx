@@ -105,7 +105,13 @@ export class InputAttachment {
   updateFormValue() {
     if (!this.name || !this.internals?.setFormValue) return
     const formData = new FormData()
-    const values = this.files.map(f => f.value).filter(v => v)
+    const values = this.files.map(f => f.value).filter(v => {
+      if (v && typeof v !== "string") {
+        console.error("[input-attachment] Non-string value detected on attachment-file:", typeof v, v, new Error().stack)
+        return false
+      }
+      return typeof v === "string" && v.length > 0
+    })
     if (this.multiple) {
       // For has_many_attached: append each signed_id separately
       values.forEach(signedId => formData.append(this.name, signedId))

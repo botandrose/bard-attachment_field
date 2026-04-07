@@ -378,5 +378,6 @@ Rails.application.routes.draw do
 
     get :upload_dialog_false
     patch :upload_dialog_false, action: :create_upload_dialog_false
+
   end
 end

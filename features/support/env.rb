@@ -12,6 +12,7 @@ Capybara.server = :puma, { Silent: true }
 Capybara.save_path = Pathname.new(__dir__).join("../../tmp/capybara")
 
 require "capybara-playwright-driver"
+require_relative "playwright_patch"
 require "capybara-screenshot/cucumber" unless ENV["CI"]
 
 # Include Capybara DSL methods in the World
