@@ -20,7 +20,7 @@ describe('input-attachment', () => {
     expect(page.root).toEqualHtml(`
       <input-attachment>
         <mock:shadow-root>
-          <input aria-label="Choose file" type="file" style="opacity: 0.01; width: 1px; height: 1px; z-index: -999;">
+          <input aria-label="Choose file" type="file">
           <file-drop>
             <p part="title">
               <strong>Choose file </strong>

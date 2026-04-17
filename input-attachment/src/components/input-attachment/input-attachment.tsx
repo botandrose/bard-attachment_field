@@ -200,12 +200,6 @@ export class InputAttachment {
           required={this.required && this.files.length === 0}
           disabled={this.isDisabled}
           onChange={() => this.handleFileInputChange()}
-          style={{
-            opacity: '0.01',
-            width: '1px',
-            height: '1px',
-            zIndex: '-999'
-          }}
         />
         <file-drop onClick={() => this.fileInput?.click()} onDrop={this.handleDrop}>
           <p part="title">

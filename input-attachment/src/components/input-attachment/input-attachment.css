@@ -49,3 +49,10 @@ p{
   margin-top: 10px;
   font-size: 0.9em;
 }
+
+input[type="file"] {
+  opacity: 0.01;
+  width: 1px;
+  height: 1px;
+  z-index: -999;
+}
