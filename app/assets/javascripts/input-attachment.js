@@ -188,10 +188,10 @@ var registerHost = (hostElement, cmpMeta) => {
     hostRef.$renderCount$ = 0;
   }
   if (BUILD.method && BUILD.lazyLoad) {
-    hostRef.$onInstancePromise$ = new Promise((r3) => hostRef.$onInstanceResolve$ = r3);
+    hostRef.$onInstancePromise$ = new Promise((r4) => hostRef.$onInstanceResolve$ = r4);
   }
   if (BUILD.asyncLoading) {
-    hostRef.$onReadyPromise$ = new Promise((r3) => hostRef.$onReadyResolve$ = r3);
+    hostRef.$onReadyPromise$ = new Promise((r4) => hostRef.$onReadyResolve$ = r4);
     hostElement["s-p"] = [];
     hostElement["s-rc"] = [];
   }
@@ -1834,13 +1834,13 @@ var convertColonRule = (cssText, regExp, partReplacer) => {
   return cssText.replace(regExp, (...m2) => {
     if (m2[2]) {
       const parts = m2[2].split(",");
-      const r3 = [];
+      const r4 = [];
       for (let i2 = 0; i2 < parts.length; i2++) {
-        const p2 = parts[i2].trim();
-        if (!p2) break;
-        r3.push(partReplacer(_polyfillHostNoCombinator, p2, m2[3]));
+        const p3 = parts[i2].trim();
+        if (!p3) break;
+        r4.push(partReplacer(_polyfillHostNoCombinator, p3, m2[3]));
       }
-      return r3.join(",");
+      return r4.join(",");
     } else {
       return _polyfillHostNoCombinator + m2[3];
     }
@@ -1927,15 +1927,15 @@ var applyStrictSelectorScope = (selector, scopeSelector2, hostSelector) => {
   const isRe = /\[is=([^\]]*)\]/g;
   scopeSelector2 = scopeSelector2.replace(isRe, (_, ...parts) => parts[0]);
   const className = "." + scopeSelector2;
-  const _scopeSelectorPart = (p2) => {
-    let scopedP = p2.trim();
+  const _scopeSelectorPart = (p3) => {
+    let scopedP = p3.trim();
     if (!scopedP) {
       return "";
     }
-    if (p2.indexOf(_polyfillHostNoCombinator) > -1) {
-      scopedP = applySimpleSelectorScope(p2, scopeSelector2, hostSelector);
+    if (p3.indexOf(_polyfillHostNoCombinator) > -1) {
+      scopedP = applySimpleSelectorScope(p3, scopeSelector2, hostSelector);
     } else {
-      const t = p2.replace(_polyfillHostRe, "");
+      const t = p3.replace(_polyfillHostRe, "");
       if (t.length > 0) {
         scopedP = injectScopingSelector(t, className);
       }
@@ -2029,9 +2029,9 @@ var expandPartSelectors = (cssText) => {
         const before = m2[1].trimEnd();
         const partNames = m2[2].trim().split(/\s+/);
         const after = m2[3] || "";
-        const partAttr = partNames.flatMap((p2) => {
-          if (!rule.selector.includes(`[part~="${p2}"]`)) {
-            return [`[part~="${p2}"]`];
+        const partAttr = partNames.flatMap((p3) => {
+          if (!rule.selector.includes(`[part~="${p3}"]`)) {
+            return [`[part~="${p3}"]`];
           }
           return [];
         }).join("");
@@ -2783,7 +2783,7 @@ var markSlotContentForRelocation = (elm) => {
         node = hostContentNodes[j2];
         if (!node["s-cn"] && !node["s-nr"] && node["s-hn"] !== childNode["s-hn"] && (!node["s-sh"] || node["s-sh"] !== childNode["s-hn"])) {
           if (isNodeLocatedInSlot(node, slotName)) {
-            let relocateNodeData = relocateNodes.find((r3) => r3.$nodeToRelocate$ === node);
+            let relocateNodeData = relocateNodes.find((r4) => r4.$nodeToRelocate$ === node);
             checkSlotFallbackVisibility = true;
             node["s-sn"] = node["s-sn"] || slotName;
             if (relocateNodeData) {
@@ -2799,14 +2799,14 @@ var markSlotContentForRelocation = (elm) => {
             if (node["s-sr"]) {
               relocateNodes.map((relocateNode) => {
                 if (isNodeLocatedInSlot(relocateNode.$nodeToRelocate$, node["s-sn"])) {
-                  relocateNodeData = relocateNodes.find((r3) => r3.$nodeToRelocate$ === node);
+                  relocateNodeData = relocateNodes.find((r4) => r4.$nodeToRelocate$ === node);
                   if (relocateNodeData && !relocateNode.$slotRefNode$) {
                     relocateNode.$slotRefNode$ = relocateNodeData.$slotRefNode$;
                   }
                 }
               });
             }
-          } else if (!relocateNodes.some((r3) => r3.$nodeToRelocate$ === node)) {
+          } else if (!relocateNodes.some((r4) => r4.$nodeToRelocate$ === node)) {
             relocateNodes.push({
               $nodeToRelocate$: node
             });
@@ -3046,9 +3046,9 @@ var attachToAncestor = (hostRef, ancestorComponent) => {
   if (BUILD.asyncLoading && ancestorComponent && !hostRef.$onRenderResolve$ && ancestorComponent["s-p"]) {
     const index = ancestorComponent["s-p"].push(
       new Promise(
-        (r3) => hostRef.$onRenderResolve$ = () => {
+        (r4) => hostRef.$onRenderResolve$ = () => {
           ancestorComponent["s-p"].splice(index - 1, 1);
-          r3();
+          r4();
         }
       )
     );
@@ -4114,8 +4114,8 @@ var a2 = { exports: {} };
 a2.exports = (function() {
   var t = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
   function e2(t2, e3) {
-    var i3 = t2[0], s2 = t2[1], r4 = t2[2], n4 = t2[3];
-    s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r4 | ~s2 & n4) + e3[0] - 680876936 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r4) + e3[1] - 389564586 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[2] + 606105819 | 0) << 17 | r4 >>> 15) + n4 | 0) & n4 | ~r4 & i3) + e3[3] - 1044525330 | 0) << 22 | s2 >>> 10) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r4 | ~s2 & n4) + e3[4] - 176418897 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r4) + e3[5] + 1200080426 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[6] - 1473231341 | 0) << 17 | r4 >>> 15) + n4 | 0) & n4 | ~r4 & i3) + e3[7] - 45705983 | 0) << 22 | s2 >>> 10) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r4 | ~s2 & n4) + e3[8] + 1770035416 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r4) + e3[9] - 1958414417 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[10] - 42063 | 0) << 17 | r4 >>> 15) + n4 | 0) & n4 | ~r4 & i3) + e3[11] - 1990404162 | 0) << 22 | s2 >>> 10) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r4 | ~s2 & n4) + e3[12] + 1804603682 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r4) + e3[13] - 40341101 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[14] - 1502002290 | 0) << 17 | r4 >>> 15) + n4 | 0) & n4 | ~r4 & i3) + e3[15] + 1236535329 | 0) << 22 | s2 >>> 10) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r4 & ~n4) + e3[1] - 165796510 | 0) << 5 | i3 >>> 27) + s2 | 0) & r4 | s2 & ~r4) + e3[6] - 1069501632 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[11] + 643717713 | 0) << 14 | r4 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[0] - 373897302 | 0) << 20 | s2 >>> 12) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r4 & ~n4) + e3[5] - 701558691 | 0) << 5 | i3 >>> 27) + s2 | 0) & r4 | s2 & ~r4) + e3[10] + 38016083 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[15] - 660478335 | 0) << 14 | r4 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[4] - 405537848 | 0) << 20 | s2 >>> 12) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r4 & ~n4) + e3[9] + 568446438 | 0) << 5 | i3 >>> 27) + s2 | 0) & r4 | s2 & ~r4) + e3[14] - 1019803690 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[3] - 187363961 | 0) << 14 | r4 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[8] + 1163531501 | 0) << 20 | s2 >>> 12) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r4 & ~n4) + e3[13] - 1444681467 | 0) << 5 | i3 >>> 27) + s2 | 0) & r4 | s2 & ~r4) + e3[2] - 51403784 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[7] + 1735328473 | 0) << 14 | r4 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[12] - 1926607734 | 0) << 20 | s2 >>> 12) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r4 ^ n4) + e3[5] - 378558 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r4) + e3[8] - 2022574463 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[11] + 1839030562 | 0) << 16 | r4 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[14] - 35309556 | 0) << 23 | s2 >>> 9) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r4 ^ n4) + e3[1] - 1530992060 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r4) + e3[4] + 1272893353 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[7] - 155497632 | 0) << 16 | r4 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[10] - 1094730640 | 0) << 23 | s2 >>> 9) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r4 ^ n4) + e3[13] + 681279174 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r4) + e3[0] - 358537222 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[3] - 722521979 | 0) << 16 | r4 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[6] + 76029189 | 0) << 23 | s2 >>> 9) + r4 | 0, s2 = ((s2 += ((r4 = ((r4 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r4 ^ n4) + e3[9] - 640364487 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r4) + e3[12] - 421815835 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[15] + 530742520 | 0) << 16 | r4 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[2] - 995338651 | 0) << 23 | s2 >>> 9) + r4 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r4 ^ (s2 | ~n4)) + e3[0] - 198630844 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r4)) + e3[7] + 1126891415 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r4 = ((r4 += (i3 ^ (n4 | ~s2)) + e3[14] - 1416354905 | 0) << 15 | r4 >>> 17) + n4 | 0) | ~i3)) + e3[5] - 57434055 | 0) << 21 | s2 >>> 11) + r4 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r4 ^ (s2 | ~n4)) + e3[12] + 1700485571 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r4)) + e3[3] - 1894986606 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r4 = ((r4 += (i3 ^ (n4 | ~s2)) + e3[10] - 1051523 | 0) << 15 | r4 >>> 17) + n4 | 0) | ~i3)) + e3[1] - 2054922799 | 0) << 21 | s2 >>> 11) + r4 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r4 ^ (s2 | ~n4)) + e3[8] + 1873313359 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r4)) + e3[15] - 30611744 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r4 = ((r4 += (i3 ^ (n4 | ~s2)) + e3[6] - 1560198380 | 0) << 15 | r4 >>> 17) + n4 | 0) | ~i3)) + e3[13] + 1309151649 | 0) << 21 | s2 >>> 11) + r4 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r4 ^ (s2 | ~n4)) + e3[4] - 145523070 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r4)) + e3[11] - 1120210379 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r4 = ((r4 += (i3 ^ (n4 | ~s2)) + e3[2] + 718787259 | 0) << 15 | r4 >>> 17) + n4 | 0) | ~i3)) + e3[9] - 343485551 | 0) << 21 | s2 >>> 11) + r4 | 0, t2[0] = i3 + t2[0] | 0, t2[1] = s2 + t2[1] | 0, t2[2] = r4 + t2[2] | 0, t2[3] = n4 + t2[3] | 0;
+    var i3 = t2[0], s2 = t2[1], r5 = t2[2], n4 = t2[3];
+    s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e3[0] - 680876936 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e3[1] - 389564586 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[2] + 606105819 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e3[3] - 1044525330 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e3[4] - 176418897 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e3[5] + 1200080426 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[6] - 1473231341 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e3[7] - 45705983 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e3[8] + 1770035416 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e3[9] - 1958414417 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[10] - 42063 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e3[11] - 1990404162 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e3[12] + 1804603682 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e3[13] - 40341101 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[14] - 1502002290 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e3[15] + 1236535329 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e3[1] - 165796510 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e3[6] - 1069501632 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[11] + 643717713 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[0] - 373897302 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e3[5] - 701558691 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e3[10] + 38016083 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[15] - 660478335 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[4] - 405537848 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e3[9] + 568446438 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e3[14] - 1019803690 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[3] - 187363961 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[8] + 1163531501 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e3[13] - 1444681467 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e3[2] - 51403784 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[7] + 1735328473 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[12] - 1926607734 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e3[5] - 378558 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e3[8] - 2022574463 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[11] + 1839030562 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[14] - 35309556 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e3[1] - 1530992060 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e3[4] + 1272893353 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[7] - 155497632 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[10] - 1094730640 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e3[13] + 681279174 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e3[0] - 358537222 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[3] - 722521979 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[6] + 76029189 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e3[9] - 640364487 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e3[12] - 421815835 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[15] + 530742520 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[2] - 995338651 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e3[0] - 198630844 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e3[7] + 1126891415 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e3[14] - 1416354905 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e3[5] - 57434055 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e3[12] + 1700485571 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e3[3] - 1894986606 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e3[10] - 1051523 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e3[1] - 2054922799 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e3[8] + 1873313359 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e3[15] - 30611744 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e3[6] - 1560198380 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e3[13] + 1309151649 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e3[4] - 145523070 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e3[11] - 1120210379 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e3[2] + 718787259 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e3[9] - 343485551 | 0) << 21 | s2 >>> 11) + r5 | 0, t2[0] = i3 + t2[0] | 0, t2[1] = s2 + t2[1] | 0, t2[2] = r5 + t2[2] | 0, t2[3] = n4 + t2[3] | 0;
   }
   function i2(t2) {
     var e3, i3 = [];
@@ -4127,10 +4127,10 @@ a2.exports = (function() {
     for (e3 = 0; e3 < 64; e3 += 4) i3[e3 >> 2] = t2[e3] + (t2[e3 + 1] << 8) + (t2[e3 + 2] << 16) + (t2[e3 + 3] << 24);
     return i3;
   }
-  function r3(t2) {
-    var s2, r4, n4, o4, a4, h4, c6 = t2.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
+  function r4(t2) {
+    var s2, r5, n4, o4, a4, h4, c6 = t2.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
     for (s2 = 64; s2 <= c6; s2 += 64) e2(l3, i2(t2.substring(s2 - 64, s2)));
-    for (r4 = (t2 = t2.substring(s2 - 64)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], s2 = 0; s2 < r4; s2 += 1) n4[s2 >> 2] |= t2.charCodeAt(s2) << (s2 % 4 << 3);
+    for (r5 = (t2 = t2.substring(s2 - 64)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], s2 = 0; s2 < r5; s2 += 1) n4[s2 >> 2] |= t2.charCodeAt(s2) << (s2 % 4 << 3);
     if (n4[s2 >> 2] |= 128 << (s2 % 4 << 3), s2 > 55) for (e2(l3, n4), s2 = 0; s2 < 16; s2 += 1) n4[s2] = 0;
     return o4 = (o4 = 8 * c6).toString(16).match(/(.*?)(.{0,8})$/), a4 = parseInt(o4[2], 16), h4 = parseInt(o4[1], 16) || 0, n4[14] = a4, n4[15] = h4, e2(l3, n4), l3;
   }
@@ -4155,25 +4155,25 @@ a2.exports = (function() {
   function c5() {
     this.reset();
   }
-  return o3(r3("hello")), "undefined" == typeof ArrayBuffer || ArrayBuffer.prototype.slice || (function() {
+  return o3(r4("hello")), "undefined" == typeof ArrayBuffer || ArrayBuffer.prototype.slice || (function() {
     function t2(t3, e3) {
       return (t3 = 0 | t3 || 0) < 0 ? Math.max(t3 + e3, 0) : Math.min(t3, e3);
     }
     ArrayBuffer.prototype.slice = function(e3, i3) {
-      var s2, r4, n4, o4, a4 = this.byteLength, h4 = t2(e3, a4), c6 = a4;
-      return void 0 !== i3 && (c6 = t2(i3, a4)), h4 > c6 ? new ArrayBuffer(0) : (s2 = c6 - h4, r4 = new ArrayBuffer(s2), n4 = new Uint8Array(r4), o4 = new Uint8Array(this, h4, s2), n4.set(o4), r4);
+      var s2, r5, n4, o4, a4 = this.byteLength, h4 = t2(e3, a4), c6 = a4;
+      return void 0 !== i3 && (c6 = t2(i3, a4)), h4 > c6 ? new ArrayBuffer(0) : (s2 = c6 - h4, r5 = new ArrayBuffer(s2), n4 = new Uint8Array(r5), o4 = new Uint8Array(this, h4, s2), n4.set(o4), r5);
     };
   })(), c5.prototype.append = function(t2) {
     return this.appendBinary(a3(t2)), this;
   }, c5.prototype.appendBinary = function(t2) {
     this._buff += t2, this._length += t2.length;
-    var s2, r4 = this._buff.length;
-    for (s2 = 64; s2 <= r4; s2 += 64) e2(this._hash, i2(this._buff.substring(s2 - 64, s2)));
+    var s2, r5 = this._buff.length;
+    for (s2 = 64; s2 <= r5; s2 += 64) e2(this._hash, i2(this._buff.substring(s2 - 64, s2)));
     return this._buff = this._buff.substring(s2 - 64), this;
   }, c5.prototype.end = function(t2) {
-    var e3, i3, s2 = this._buff, r4 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for (e3 = 0; e3 < r4; e3 += 1) n4[e3 >> 2] |= s2.charCodeAt(e3) << (e3 % 4 << 3);
-    return this._finish(n4, r4), i3 = o3(this._hash), t2 && (i3 = h3(i3)), this.reset(), i3;
+    var e3, i3, s2 = this._buff, r5 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (e3 = 0; e3 < r5; e3 += 1) n4[e3 >> 2] |= s2.charCodeAt(e3) << (e3 % 4 << 3);
+    return this._finish(n4, r5), i3 = o3(this._hash), t2 && (i3 = h3(i3)), this.reset(), i3;
   }, c5.prototype.reset = function() {
     return this._buff = "", this._length = 0, this._hash = [1732584193, -271733879, -1732584194, 271733878], this;
   }, c5.prototype.getState = function() {
@@ -4183,24 +4183,24 @@ a2.exports = (function() {
   }, c5.prototype.destroy = function() {
     delete this._hash, delete this._buff, delete this._length;
   }, c5.prototype._finish = function(t2, i3) {
-    var s2, r4, n4, o4 = i3;
+    var s2, r5, n4, o4 = i3;
     if (t2[o4 >> 2] |= 128 << (o4 % 4 << 3), o4 > 55) for (e2(this._hash, t2), o4 = 0; o4 < 16; o4 += 1) t2[o4] = 0;
-    s2 = (s2 = 8 * this._length).toString(16).match(/(.*?)(.{0,8})$/), r4 = parseInt(s2[2], 16), n4 = parseInt(s2[1], 16) || 0, t2[14] = r4, t2[15] = n4, e2(this._hash, t2);
+    s2 = (s2 = 8 * this._length).toString(16).match(/(.*?)(.{0,8})$/), r5 = parseInt(s2[2], 16), n4 = parseInt(s2[1], 16) || 0, t2[14] = r5, t2[15] = n4, e2(this._hash, t2);
   }, c5.hash = function(t2, e3) {
     return c5.hashBinary(a3(t2), e3);
   }, c5.hashBinary = function(t2, e3) {
-    var i3 = o3(r3(t2));
+    var i3 = o3(r4(t2));
     return e3 ? h3(i3) : i3;
   }, (c5.ArrayBuffer = function() {
     this.reset();
   }).prototype.append = function(t2) {
-    var i3, r4, n4, o4, a4 = (r4 = this._buff.buffer, n4 = t2, (o4 = new Uint8Array(r4.byteLength + n4.byteLength)).set(new Uint8Array(r4)), o4.set(new Uint8Array(n4), r4.byteLength), o4), h4 = a4.length;
+    var i3, r5, n4, o4, a4 = (r5 = this._buff.buffer, n4 = t2, (o4 = new Uint8Array(r5.byteLength + n4.byteLength)).set(new Uint8Array(r5)), o4.set(new Uint8Array(n4), r5.byteLength), o4), h4 = a4.length;
     for (this._length += t2.byteLength, i3 = 64; i3 <= h4; i3 += 64) e2(this._hash, s(a4.subarray(i3 - 64, i3)));
     return this._buff = i3 - 64 < h4 ? new Uint8Array(a4.buffer.slice(i3 - 64)) : new Uint8Array(0), this;
   }, c5.ArrayBuffer.prototype.end = function(t2) {
-    var e3, i3, s2 = this._buff, r4 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for (e3 = 0; e3 < r4; e3 += 1) n4[e3 >> 2] |= s2[e3] << (e3 % 4 << 3);
-    return this._finish(n4, r4), i3 = o3(this._hash), t2 && (i3 = h3(i3)), this.reset(), i3;
+    var e3, i3, s2 = this._buff, r5 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (e3 = 0; e3 < r5; e3 += 1) n4[e3 >> 2] |= s2[e3] << (e3 % 4 << 3);
+    return this._finish(n4, r5), i3 = o3(this._hash), t2 && (i3 = h3(i3)), this.reset(), i3;
   }, c5.ArrayBuffer.prototype.reset = function() {
     return this._buff = new Uint8Array(0), this._length = 0, this._hash = [1732584193, -271733879, -1732584194, 271733878], this;
   }, c5.ArrayBuffer.prototype.getState = function() {
@@ -4208,19 +4208,19 @@ a2.exports = (function() {
     return t2.buff = String.fromCharCode.apply(null, new Uint8Array(t2.buff)), t2;
   }, c5.ArrayBuffer.prototype.setState = function(t2) {
     return t2.buff = (function(t3, e3) {
-      var i3, s2 = t3.length, r4 = new ArrayBuffer(s2), n4 = new Uint8Array(r4);
+      var i3, s2 = t3.length, r5 = new ArrayBuffer(s2), n4 = new Uint8Array(r5);
       for (i3 = 0; i3 < s2; i3 += 1) n4[i3] = t3.charCodeAt(i3);
-      return e3 ? n4 : r4;
+      return e3 ? n4 : r5;
     })(t2.buff, true), c5.prototype.setState.call(this, t2);
   }, c5.ArrayBuffer.prototype.destroy = c5.prototype.destroy, c5.ArrayBuffer.prototype._finish = c5.prototype._finish, c5.ArrayBuffer.hash = function(t2, i3) {
-    var r4 = o3((function(t3) {
-      var i4, r5, n4, o4, a4, h4, c6 = t3.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
+    var r5 = o3((function(t3) {
+      var i4, r6, n4, o4, a4, h4, c6 = t3.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
       for (i4 = 64; i4 <= c6; i4 += 64) e2(l3, s(t3.subarray(i4 - 64, i4)));
-      for (r5 = (t3 = i4 - 64 < c6 ? t3.subarray(i4 - 64) : new Uint8Array(0)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], i4 = 0; i4 < r5; i4 += 1) n4[i4 >> 2] |= t3[i4] << (i4 % 4 << 3);
+      for (r6 = (t3 = i4 - 64 < c6 ? t3.subarray(i4 - 64) : new Uint8Array(0)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], i4 = 0; i4 < r6; i4 += 1) n4[i4 >> 2] |= t3[i4] << (i4 % 4 << 3);
       if (n4[i4 >> 2] |= 128 << (i4 % 4 << 3), i4 > 55) for (e2(l3, n4), i4 = 0; i4 < 16; i4 += 1) n4[i4] = 0;
       return o4 = (o4 = 8 * c6).toString(16).match(/(.*?)(.{0,8})$/), a4 = parseInt(o4[2], 16), h4 = parseInt(o4[1], 16) || 0, n4[14] = a4, n4[15] = h4, e2(l3, n4), l3;
     })(new Uint8Array(t2)));
-    return i3 ? h3(r4) : r4;
+    return i3 ? h3(r5) : r5;
   }, c5;
 })();
 var h2 = a2.exports;
@@ -4256,8 +4256,8 @@ function d(t, e2) {
   return "string" == typeof t && (e2 = t, t = document), t.querySelector(e2);
 }
 function u(t, e2, i2 = {}) {
-  const { disabled: s } = t, { bubbles: r3, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
-  a3.initEvent(e2, r3 || true, n3 || true), a3.detail = o3 || {};
+  const { disabled: s } = t, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
+  a3.initEvent(e2, r4 || true, n3 || true), a3.detail = o3 || {};
   try {
     t.disabled = false, t.dispatchEvent(a3);
   } finally {
@@ -4273,11 +4273,11 @@ var f = class {
     this.file = t, this.attributes = { filename: t.name, content_type: t.type || "application/octet-stream", byte_size: t.size, checksum: e2 }, this.xhr = new XMLHttpRequest(), this.xhr.open("POST", i2, true), this.xhr.responseType = "json", this.xhr.setRequestHeader("Content-Type", "application/json"), this.xhr.setRequestHeader("Accept", "application/json"), this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"), Object.keys(s).forEach(((t2) => {
       this.xhr.setRequestHeader(t2, s[t2]);
     }));
-    const r3 = (function() {
+    const r4 = (function() {
       const t2 = d(document.head, 'meta[name="csrf-token"]');
       if (t2) return t2.getAttribute("content");
     })();
-    null != r3 && this.xhr.setRequestHeader("X-CSRF-Token", r3), this.xhr.addEventListener("load", ((t2) => this.requestDidLoad(t2))), this.xhr.addEventListener("error", ((t2) => this.requestDidError(t2)));
+    null != r4 && this.xhr.setRequestHeader("X-CSRF-Token", r4), this.xhr.addEventListener("load", ((t2) => this.requestDidLoad(t2))), this.xhr.addEventListener("error", ((t2) => this.requestDidError(t2)));
   }
   get status() {
     return this.xhr.status;
@@ -4381,7 +4381,7 @@ var w = class {
   simulateResponseProgress(t) {
     let e2 = 90;
     const i2 = Date.now(), s = () => {
-      const r3 = Date.now() - i2, n3 = this.estimateResponseTime(), o3 = Math.min(r3 / n3, 1);
+      const r4 = Date.now() - i2, n3 = this.estimateResponseTime(), o3 = Math.min(r4 / n3, 1);
       e2 = 90 + 9 * o3, this.dispatch("progress", { progress: e2 }), t.readyState !== XMLHttpRequest.DONE && e2 < 99 && requestAnimationFrame(s);
     };
     t.addEventListener("loadend", (() => {
@@ -4489,8 +4489,8 @@ var C = class {
   }
   dispatch(t, e2 = {}) {
     return (function(t2, e3, i2 = {}) {
-      const { disabled: s } = t2, { bubbles: r3, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
-      a3.initEvent(e3, r3 || true, n3 || true), a3.detail = o3 || {};
+      const { disabled: s } = t2, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
+      a3.initEvent(e3, r4 || true, n3 || true), a3.detail = o3 || {};
       try {
         t2.disabled = false, t2.dispatchEvent(a3);
       } finally {
@@ -4677,8 +4677,8 @@ var X = class {
     i2 instanceof window.FormData ? (s = i2, i2 = [...s].reduce(((t2, [e3, i3]) => t2.concat("string" == typeof i3 ? [[e3, i3]] : [])), [])) : i2 = i2 instanceof window.URLSearchParams ? i2.entries() : Object.entries(i2 || {}), (function(t2, e3) {
       for (const [i3, s2] of e3) s2 instanceof window.File || (t2.has(i3) ? (t2.delete(i3), t2.set(i3, s2)) : t2.append(i3, s2));
     })(e2, i2);
-    const r3 = e2.toString();
-    return r3.length > 0 ? `?${r3}` : "";
+    const r4 = e2.toString();
+    return r4.length > 0 ? `?${r4}` : "";
   }
   get url() {
     return this.originalUrl.split("?")[0].split("#")[0] + this.query;
@@ -4790,7 +4790,8 @@ var o = H2;
 var e = a;
 
 // dist/components/index2.js
-var n2 = class extends HTMLElement {
+var n2 = null;
+var r = class extends HTMLElement {
   constructor() {
     super(), this.attachShadow({ mode: "open" }), this._percent = 0;
   }
@@ -4806,7 +4807,7 @@ var n2 = class extends HTMLElement {
   static get observedAttributes() {
     return ["percent"];
   }
-  attributeChangedCallback(n3, r3, t) {
+  attributeChangedCallback(n3, r4, t) {
     "percent" === n3 && (this._percent = Number(t) || 0, this.updateBar());
   }
   updateBar() {
@@ -4814,10 +4815,10 @@ var n2 = class extends HTMLElement {
     n3 && (n3.style.width = `${this._percent}%`);
   }
   render() {
-    this.shadowRoot.innerHTML = '\n      <style>\n        :host {\n          --progress-color: rgb(57, 137, 39);\n          --progress-duration: 120ms;\n          --bar-height: 32px;\n          --bar-radius: 4px;\n          --bar-padding: 8px;\n          --bar-border-color: #999;\n\n          display: block;\n          position: relative;\n          padding: var(--bar-padding);\n          border: 1px solid var(--bar-border-color);\n          border-radius: var(--bar-radius);\n        }\n\n        .bar {\n          position: absolute;\n          top: 0;\n          left: 0;\n          height: 100%;\n          background: var(--progress-color);\n          width: 0%;\n          transition: width var(--progress-duration) ease, opacity 60ms ease;\n          border-radius: var(--bar-radius);\n        }\n\n        .content {\n          position: relative;\n          display: block;\n          color: white;\n          font-size: 13px;\n          z-index: 1;\n        }\n      </style>\n\n      <div class="bar"></div>\n      <span class="content">\n        <slot></slot>\n      </span>\n    ';
+    this.shadowRoot.adoptedStyleSheets = [(n2 || (n2 = new CSSStyleSheet(), n2.replaceSync("\n  :host {\n    --progress-color: rgb(57, 137, 39);\n    --progress-duration: 120ms;\n    --bar-height: 32px;\n    --bar-radius: 4px;\n    --bar-padding: 8px;\n    --bar-border-color: #999;\n\n    display: block;\n    position: relative;\n    padding: var(--bar-padding);\n    border: 1px solid var(--bar-border-color);\n    border-radius: var(--bar-radius);\n  }\n\n  .bar {\n    position: absolute;\n    top: 0;\n    left: 0;\n    height: 100%;\n    background: var(--progress-color);\n    width: 0%;\n    transition: width var(--progress-duration) ease, opacity 60ms ease;\n    border-radius: var(--bar-radius);\n  }\n\n  .content {\n    position: relative;\n    display: block;\n    color: white;\n    font-size: 13px;\n    z-index: 1;\n  }\n")), n2)], this.shadowRoot.innerHTML = '\n      <div class="bar"></div>\n      <span class="content">\n        <slot></slot>\n      </span>\n    ';
   }
 };
-customElements.get("progress-bar") || customElements.define("progress-bar", n2);
+customElements.get("progress-bar") || customElements.define("progress-bar", r);
 
 // dist/components/input-attachment.js
 var o2 = class _o {
@@ -4889,7 +4890,8 @@ var o2 = class _o {
     i2 && this.dialog?.removeUpload("direct-upload-" + i2), this.setInputAttachmentsDisabled(false), requestAnimationFrame((() => this.submitForm()));
   }
 };
-var l2 = class extends HTMLElement {
+var l2 = null;
+var d2 = class extends HTMLElement {
   constructor() {
     super(), this.handleDragOver = this.handleDragOver.bind(this), this.handleDragLeave = this.handleDragLeave.bind(this), this.handleDrop = this.handleDrop.bind(this);
   }
@@ -4922,17 +4924,11 @@ var l2 = class extends HTMLElement {
     }
   }
   applyDefaultStyles() {
-    if (!this.hasAttribute("data-no-default-styles")) {
-      const t = "\n        file-drop {\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          align-items: center;\n          box-sizing: border-box;\n          min-height: 60px;\n          outline-offset: -10px;\n          padding: 20px;\n          background: rgba(255, 255, 255, 0.25);\n          text-align: center;\n          transition: all 0.15s ease 0s;\n          outline: rgba(0, 0, 0, 0.25) dashed 2px;\n          font-size: 13px;\n        }\n\n        file-drop.-dragover {\n          background: rgba(0, 0, 0, 0.1);\n          outline-color: rgba(0, 0, 0, 0.5);\n        }\n      ";
-      if (!document.querySelector("#file-drop-default-styles")) {
-        const e2 = document.createElement("style");
-        e2.id = "file-drop-default-styles", e2.textContent = t, document.head.appendChild(e2);
-      }
-    }
+    this.hasAttribute("data-no-default-styles") || l2 || (l2 = new CSSStyleSheet(), l2.replaceSync("\n  file-drop {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    box-sizing: border-box;\n    min-height: 60px;\n    outline-offset: -10px;\n    padding: 20px;\n    background: rgba(255, 255, 255, 0.25);\n    text-align: center;\n    transition: all 0.15s ease 0s;\n    outline: rgba(0, 0, 0, 0.25) dashed 2px;\n    font-size: 13px;\n  }\n\n  file-drop.-dragover {\n    background: rgba(0, 0, 0, 0.1);\n    outline-color: rgba(0, 0, 0, 0.5);\n  }\n"), document.adoptedStyleSheets = [...document.adoptedStyleSheets, l2]);
   }
 };
-customElements.get("file-drop") || customElements.define("file-drop", l2);
-var d2 = proxyCustomElement(class extends H {
+customElements.get("file-drop") || customElements.define("file-drop", d2);
+var c3 = proxyCustomElement(class extends H {
   get el() {
     return this;
   }
@@ -5061,10 +5057,10 @@ var d2 = proxyCustomElement(class extends H {
     return ':host{display:block;padding:25px;color:var(--input-attachment-text-color, #000);font-size:13px}:host *{box-sizing:border-box;position:relative}file-drop{cursor:pointer;display:block;outline-offset:-10px;background:var(--input-attachment-drop-bg, rgba(255,255,255, 0.25));padding:20px;text-align:center;transition:all 0.15s;outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25));color:var(--input-attachment-drop-color, #444);font-size:14px}file-drop.-full{width:100%}p{padding:10px 20px;margin:0}.-dragover{background:var(--input-attachment-drop-bg-active, rgba(255,255,255,0.5));outline:2px dashed var(--input-attachment-drop-border, rgba(0,0,0,0.25))}.media-preview{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center}:host.separate-upload{padding:0 10px;margin-top:10px;font-size:0.9em}input[type="file"]{opacity:0.01;width:1px;height:1px;z-index:-999}';
   }
 }, [833, "input-attachment", { name: [1], directupload: [1], multiple: [4], required: [4], accepts: [1], max: [2], preview: [4], disabled: [4], uploadDialog: [4, "upload-dialog"] }, [[0, "attachment-file:remove", "removeUploadedFile"], [0, "attachment-file:validation", "handleChildValidation"], [0, "attachment-file:ready", "handleChildReady"], [0, "direct-upload:end", "fireChangeEvent"]]]);
-var c3 = d2;
+var p2 = c3;
 
 // dist/components/upload-dialog.js
-var r = proxyCustomElement(class extends H {
+var r2 = proxyCustomElement(class extends H {
   constructor(e2) {
     super(), false !== e2 && this.__registerHost(), this.__attachShadow();
   }
@@ -5101,19 +5097,19 @@ var r = proxyCustomElement(class extends H {
     return "dialog{border:none;padding:0;background:transparent;max-width:100vw;max-height:100vh}dialog::backdrop{background:transparent}.direct-upload-wrapper{position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:var(--input-attachment-overlay-bg, rgba(51, 51, 51, 0.9))}.direct-upload-content{display:block;background:var(--input-attachment-dialog-bg, #fcfcfc);color:var(--input-attachment-text-color, #000);padding:40px 60px 60px;border-radius:3px;width:60vw}.direct-upload-content h3{border-bottom:2px solid var(--input-attachment-dialog-border, #1f1f1f);margin-bottom:20px}.direct-upload--pending{opacity:0.6}.direct-upload--complete{opacity:0.4}.direct-upload--error{border-color:var(--input-attachment-error-color, red)}";
   }
 }, [513, "upload-dialog", { uploads: [32], open: [64], close: [64], addUpload: [64], startUpload: [64], updateProgress: [64], setError: [64], completeUpload: [64], removeUpload: [64] }]);
-var c4 = r;
+var c4 = r2;
 
 // dist/components/index.js
-var r2 = (r3) => {
-  "undefined" != typeof customElements && [o, e, c3, c4].forEach(((e2) => {
-    customElements.get(transformTag(e2.is)) || customElements.define(transformTag(e2.is), e2, r3);
+var r3 = (r4) => {
+  "undefined" != typeof customElements && [o, e, p2, c4].forEach(((e2) => {
+    customElements.get(transformTag(e2.is)) || customElements.define(transformTag(e2.is), e2, r4);
   }));
 };
 
 // src/entry.js
-r2();
+r3();
 export {
-  r2 as defineCustomElements,
+  r3 as defineCustomElements,
   getAssetPath,
   render,
   setAssetPath,
