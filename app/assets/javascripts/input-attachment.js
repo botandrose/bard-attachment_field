@@ -4790,8 +4790,8 @@ var o = H2;
 var e = a;
 
 // dist/components/index2.js
-var n2 = null;
-var r = class extends HTMLElement {
+var r = null;
+var n2 = class extends HTMLElement {
   constructor() {
     super(), this.attachShadow({ mode: "open" }), this._percent = 0;
   }
@@ -4801,24 +4801,24 @@ var r = class extends HTMLElement {
   get percent() {
     return this._percent;
   }
-  set percent(n3) {
-    this._percent = Number(n3) || 0, this.setAttribute("percent", this._percent), this.updateBar();
+  set percent(r4) {
+    this._percent = Number(r4) || 0, this.setAttribute("percent", this._percent), this.updateBar();
   }
   static get observedAttributes() {
     return ["percent"];
   }
-  attributeChangedCallback(n3, r4, t) {
-    "percent" === n3 && (this._percent = Number(t) || 0, this.updateBar());
+  attributeChangedCallback(r4, n3, t) {
+    "percent" === r4 && (this._percent = Number(t) || 0, this.updateBar());
   }
   updateBar() {
-    const n3 = this.shadowRoot?.querySelector(".bar");
-    n3 && (n3.style.width = `${this._percent}%`);
+    const r4 = this.shadowRoot?.querySelector(".bar");
+    r4 && (r4.style.width = `${this._percent}%`);
   }
   render() {
-    this.shadowRoot.adoptedStyleSheets = [(n2 || (n2 = new CSSStyleSheet(), n2.replaceSync("\n  :host {\n    --progress-color: rgb(57, 137, 39);\n    --progress-duration: 120ms;\n    --bar-height: 32px;\n    --bar-radius: 4px;\n    --bar-padding: 8px;\n    --bar-border-color: #999;\n\n    display: block;\n    position: relative;\n    padding: var(--bar-padding);\n    border: 1px solid var(--bar-border-color);\n    border-radius: var(--bar-radius);\n  }\n\n  .bar {\n    position: absolute;\n    top: 0;\n    left: 0;\n    height: 100%;\n    background: var(--progress-color);\n    width: 0%;\n    transition: width var(--progress-duration) ease, opacity 60ms ease;\n    border-radius: var(--bar-radius);\n  }\n\n  .content {\n    position: relative;\n    display: block;\n    color: white;\n    font-size: 13px;\n    z-index: 1;\n  }\n")), n2)], this.shadowRoot.innerHTML = '\n      <div class="bar"></div>\n      <span class="content">\n        <slot></slot>\n      </span>\n    ';
+    this.shadowRoot.adoptedStyleSheets = [(r || (r = new CSSStyleSheet(), r.replaceSync("\n  :host {\n    --progress-color: rgb(57, 137, 39);\n    --progress-track-color: #2E7D32;\n    --progress-duration: 120ms;\n    --bar-height: 32px;\n    --bar-radius: 4px;\n    --bar-padding: 8px;\n    --bar-border-color: #999;\n\n    display: block;\n    position: relative;\n    padding: var(--bar-padding);\n    background: var(--progress-track-color);\n    border: 1px solid var(--bar-border-color);\n    border-radius: var(--bar-radius);\n  }\n\n  .bar {\n    position: absolute;\n    top: 0;\n    left: 0;\n    height: 100%;\n    background: var(--progress-color);\n    width: 0%;\n    transition: width var(--progress-duration) ease, opacity 60ms ease;\n    border-radius: var(--bar-radius);\n  }\n\n  .content {\n    position: relative;\n    display: block;\n    color: white;\n    font-size: 13px;\n    z-index: 1;\n  }\n")), r)], this.shadowRoot.innerHTML = '\n      <div class="bar"></div>\n      <span class="content">\n        <slot></slot>\n      </span>\n    ';
   }
 };
-customElements.get("progress-bar") || customElements.define("progress-bar", r);
+customElements.get("progress-bar") || customElements.define("progress-bar", n2);
 
 // dist/components/input-attachment.js
 var o2 = class _o {
