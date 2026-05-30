@@ -1,0 +1,11 @@
+<h1>bard-attachment_field</h1>
+<p class="lede">An enhanced file upload field for Rails forms. Pick a demo — every page is live, and all state resets when the app restarts.</p>
+
+<ul class="demo-list">
+  <% demos.each do |d| %>
+    <li>
+      <%= link_to d[:title], demo_path(d[:slug]) %>
+      <p><%= d[:desc] %></p>
+    </li>
+  <% end %>
+</ul>

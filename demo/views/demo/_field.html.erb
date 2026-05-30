@@ -1,0 +1,14 @@
+<% if demo[:fieldset] %>
+  <fieldset disabled>
+    <legend>Disabled section</legend>
+    <div class="field">
+      <%= form.label demo[:attribute] %>
+      <%= form.attachment_field demo[:attribute], **demo[:options] %>
+    </div>
+  </fieldset>
+<% else %>
+  <div class="field">
+    <%= form.label demo[:attribute] %>
+    <%= form.attachment_field demo[:attribute], **demo[:options] %>
+  </div>
+<% end %>

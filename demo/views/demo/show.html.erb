@@ -1,0 +1,45 @@
+<%= link_to "← All demos", root_path, class: "back" %>
+
+<h1><%= demo[:title] %></h1>
+<p class="desc"><%= demo[:desc] %></p>
+
+<pre><code><%= field_source(demo) %></code></pre>
+
+<% if @post.errors.any? %>
+  <div class="errors">
+    <strong>The record was not saved:</strong>
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @post, url: form_url, method: @post.persisted? ? :patch : :post do |form| %>
+  <% if demo[:validation] %>
+    <div class="field">
+      <%= form.label :number, "Number (enter a non-integer to force a server-side error)" %>
+      <%= form.text_field :number %>
+    </div>
+  <% end %>
+
+  <%= render "field", form: form, demo: demo %>
+
+  <p><%= form.submit "Upload" %></p>
+<% end %>
+
+<% blobs = saved_blobs(@post, demo[:attribute]) %>
+<% if blobs.any? %>
+  <div class="saved">
+    <h2>Persisted attachments</h2>
+    <% blobs.each do |blob| %>
+      <p><strong><%= blob.filename %></strong> <small>(<%= blob.content_type %>, <%= number_to_human_size(blob.byte_size) %>)</small></p>
+      <% if blob.content_type.to_s.start_with?("image/") %>
+        <%= image_tag blob_path(blob), alt: blob.filename %>
+      <% elsif blob.content_type.to_s.start_with?("video/") %>
+        <video src="<%= blob_path(blob) %>" controls></video>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

@@ -16,3 +16,7 @@ task :compile do
     cp dist/input-attachment.esm.js ../app/assets/javascripts/input-attachment.js
   BASH
 end
+
+task :restart do
+  touch "tmp/restart.txt"
+end

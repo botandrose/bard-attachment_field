@@ -1,0 +1,4 @@
+# Framework runtime artifacts — the demo's transient app data (SQLite DB and
+# ActiveStorage files) lives in the repo's gitignored tmp/demo instead.
+/log/
+/tmp/
