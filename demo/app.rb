@@ -187,9 +187,16 @@ DEMOS_BY_SLUG = DEMOS.index_by { |d| d[:slug] }.freeze
 class ApplicationController < ActionController::Base
   skip_forgery_protection
 
+  before_action :keep_component_watcher_alive
   before_action :set_active_storage_url_options
 
   private
+
+  # Each page view keeps the rebuild watcher warm (and starts it if it has been
+  # idle-reaped). See the ComponentWatcher module at the bottom of this file.
+  def keep_component_watcher_alive
+    ComponentWatcher.beat!
+  end
 
   def set_active_storage_url_options
     ActiveStorage::Current.url_options = {
@@ -293,4 +300,67 @@ Rails.application.routes.draw do
   root "demo#index"
   get "/demos/:slug", to: "demo#show", as: :demo
   match "/demos/:slug", to: "demo#save", via: [:post, :patch]
+end
+
+# Rebuild-on-edit, tied to the demo's usage — not to a manually-run process.
+#
+# So that editing input-attachment/src and reloading "just works" with no extra
+# command, the app keeps a background watcher (bin/dev) alive that recompiles the
+# bundle on every save. Lifecycle, mirroring how Passenger auto-creates/reaps the
+# app itself:
+#   * Auto-create: every request touches a heartbeat and (re)spawns the watcher
+#     if it isn't running. So the watcher exists whenever the demo is being used.
+#   * Auto-reap: the watcher watches that heartbeat and exits once the demo has
+#     been idle (no requests) for IDLE_SECONDS — so it never lingers as an orphan.
+# The watcher is spawned detached, so it survives Passenger recycling individual
+# worker processes; usage keeps it alive, idleness reaps it.
+module ComponentWatcher
+  REPO_ROOT     = Pathname.new(File.expand_path("..", __dir__))
+  SRC           = REPO_ROOT.join("input-attachment/src")
+  BIN_DEV       = REPO_ROOT.join("bin/dev")
+  TMP           = REPO_ROOT.join("tmp")
+  PIDFILE       = TMP.join("component-watcher.pid")
+  LOGFILE       = TMP.join("component-watcher.log")
+  LOCKFILE      = TMP.join("component-watcher.lock")
+  HEARTBEAT     = TMP.join("component-watcher.heartbeat")
+  IDLE_SECONDS  = 300
+
+  # Called on every request: record activity and make sure the watcher is up.
+  def self.beat!
+    return unless SRC.directory? && BIN_DEV.exist?
+    FileUtils.mkdir_p(TMP)
+    FileUtils.touch(HEARTBEAT)
+    spawn_unless_running
+  end
+
+  def self.spawn_unless_running
+    return if running?
+    lock = File.open(LOCKFILE, File::CREAT | File::RDWR, 0o644)
+    lock.flock(File::LOCK_EX)
+    begin
+      return if running? # re-check inside the lock
+      pid = Process.spawn(
+        { "COMPONENT_WATCHER_HEARTBEAT" => HEARTBEAT.to_s,
+          "COMPONENT_WATCHER_IDLE" => IDLE_SECONDS.to_s },
+        BIN_DEV.to_s,
+        pgroup: true,                       # own process group, not the app's
+        in: File::NULL,
+        [:out, :err] => [LOGFILE.to_s, "a"],
+      )
+      Process.detach(pid)                   # no zombie; watcher outlives this worker
+      PIDFILE.write(pid.to_s)
+    ensure
+      lock.flock(File::LOCK_UN)
+      lock.close
+    end
+  end
+
+  def self.running?
+    pid = (PIDFILE.read.to_i rescue 0)
+    return false unless pid > 0
+    Process.kill(0, pid)
+    true
+  rescue Errno::ESRCH, Errno::ENOENT
+    false
+  end
 end

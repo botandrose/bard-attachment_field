@@ -1,10 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 IFS=$'\n\t'
-set -vx
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
 
 bundle install
 
-# Create hardlink so input-attachment build writes to app/assets
+# Install the web-component toolchain (Stencil, esbuild, …) the demo rebuilds with.
+(cd input-attachment && bun install)
+
+# The demo serves app/assets/javascripts/input-attachment.js. Hardlink the build
+# output to it so rebuilds land in the served file with no copy step.
+mkdir -p input-attachment/dist
 rm -f input-attachment/dist/input-attachment.esm.js
 ln app/assets/javascripts/input-attachment.js input-attachment/dist/input-attachment.esm.js
+
+# Reload the Passenger demo app so it picks up the latest code. The app itself
+# starts (and reaps) the component rebuild-watcher as a child process — there is
+# no separate watcher to run or remember.
+mkdir -p tmp
+touch tmp/restart.txt
+
+cat <<'MSG'
+
+Setup complete.
+
+Edit any HTML/CSS under input-attachment/src/, then reload
+http://bard-attachment_field.localhost — your change is live.
+MSG

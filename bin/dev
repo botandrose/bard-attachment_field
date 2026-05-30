@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Rebuilds the input-attachment bundle whenever its HTML/CSS/TS changes, so edits
+# appear on the next reload of http://bard-attachment_field.localhost.
+#
+# The demo app starts and reaps this automatically based on usage — you normally
+# never run it by hand. Run it directly only to watch build output live (Ctrl-C
+# to stop); run that way it stays up until you stop it.
+set -uo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT/input-attachment"
+
+# Job control, so each background watcher gets its own process group and we can
+# stop just them — never our parent — when this script exits.
+set -m
+
+HEARTBEAT="${COMPONENT_WATCHER_HEARTBEAT:-}"
+IDLE="${COMPONENT_WATCHER_IDLE:-300}"
+
+# Build once so the bundle (and dist/components, which esbuild needs) exist.
+bun run build:dev || true
+
+# Stencil recompiles components (HTML/CSS/TS) into dist/components on save.
+bunx stencil build --watch & stencil=$!
+
+# esbuild re-bundles into dist/input-attachment.esm.js (hardlinked to the served
+# file). --watch=forever keeps it alive without a TTY.
+bunx esbuild src/entry.js --bundle --format=esm \
+  --outfile=dist/input-attachment.esm.js --watch=forever & esbuild=$!
+
+# On any exit (including the app sending SIGTERM) stop both watcher groups.
+trap 'kill -- -"$stencil" -"$esbuild" 2>/dev/null; exit 0' EXIT INT TERM
+
+if [ -z "$HEARTBEAT" ]; then
+  # Interactive: run until Ctrl-C.
+  wait
+else
+  # App-managed: self-reap once the demo has been idle (no heartbeat) for IDLE
+  # seconds, so we never linger as an orphan after the app stops being used.
+  while kill -0 "$stencil" 2>/dev/null && kill -0 "$esbuild" 2>/dev/null; do
+    sleep 20
+    if [ -f "$HEARTBEAT" ]; then
+      age=$(( $(date +%s) - $(stat -c %Y "$HEARTBEAT" 2>/dev/null || echo 0) ))
+      [ "$age" -gt "$IDLE" ] && break
+    fi
+  done
+fi
