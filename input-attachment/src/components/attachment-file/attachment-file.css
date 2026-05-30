@@ -17,7 +17,6 @@ figure{
 
 progress-bar{
   flex: 1 0;
-  padding: 0 10px;
 }
 
 progress-bar.pending{
