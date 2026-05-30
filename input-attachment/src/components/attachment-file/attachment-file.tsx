@@ -131,7 +131,7 @@ export class AttachmentFile {
         </slot>
         <figure>
           <div class="progress-details">
-            <progress-bar percent={this.percent} class={this.state}>
+            <progress-bar percent={this.percent} class={this.state} error={this.state === "error"}>
               <a class="download-link" href={this.src} download={this.filename} onClick={e => e.stopPropagation()}>
                 {this.filename}
               </a>

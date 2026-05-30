@@ -207,7 +207,7 @@ var registerHost = (hostElement, cmpMeta) => {
 };
 var isMemberInElement = (elm, memberName) => memberName in elm;
 var customError;
-var consoleError = (e2, el) => (customError || console.error)(e2, el);
+var consoleError = (e3, el) => (customError || console.error)(e3, el);
 var STENCIL_DEV_MODE = BUILD.isTesting ? ["STENCIL:"] : [
   "%cstencil",
   "color: white;background:#4c47ff;font-weight: bold; font-size:10px; padding:2px 6px; border-radius: 5px"
@@ -237,8 +237,8 @@ var loadModule = (cmpMeta, hostRef, hmrVersionId) => {
       }
       return importedModule[exportName];
     },
-    (e2) => {
-      consoleError(e2, hostRef.$hostElement$);
+    (e3) => {
+      consoleError(e3, hostRef.$hostElement$);
     }
   );
 };
@@ -287,7 +287,7 @@ var supportsListenerOptions = /* @__PURE__ */ (() => {
         }
       })
     );
-  } catch (e2) {
+  } catch (e3) {
   }
   return supportsListenerOptions2;
 })();
@@ -299,7 +299,7 @@ var supportsConstructableStylesheets = BUILD.constructableCSS ? /* @__PURE__ */ 
     }
     new CSSStyleSheet();
     return typeof new CSSStyleSheet().replaceSync === "function";
-  } catch (e2) {
+  } catch (e3) {
   }
   return false;
 })() : false;
@@ -324,8 +324,8 @@ var consume = (queue) => {
   for (let i2 = 0; i2 < queue.length; i2++) {
     try {
       queue[i2](performance.now());
-    } catch (e2) {
-      consoleError(e2);
+    } catch (e3) {
+      consoleError(e3);
     }
   }
   queue.length = 0;
@@ -336,8 +336,8 @@ var consumeTimeout = (queue, timeout) => {
   while (i2 < queue.length && (ts = performance.now()) < timeout) {
     try {
       queue[i2++](ts);
-    } catch (e2) {
-      consoleError(e2);
+    } catch (e3) {
+      consoleError(e3);
     }
   }
   if (i2 === queue.length) {
@@ -2325,7 +2325,7 @@ var setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags, initialRen
     const propName = memberName.slice(5);
     try {
       elm[propName] = newValue;
-    } catch (e2) {
+    } catch (e3) {
     }
     return;
   } else if (BUILD.vdomPropOrAttr) {
@@ -2346,7 +2346,7 @@ var setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags, initialRen
         } else if (elm[memberName] !== newValue) {
           elm[memberName] = newValue;
         }
-      } catch (e2) {
+      } catch (e3) {
       }
     }
     let xlink = false;
@@ -3146,8 +3146,8 @@ var updateComponent = async (hostRef, instance, isInitialLoad) => {
           elm["s-en"] = "c";
         }
       }
-    } catch (e2) {
-      consoleError(e2, elm);
+    } catch (e3) {
+      consoleError(e3, elm);
     }
   }
   if (BUILD.asyncLoading && rc) {
@@ -3201,8 +3201,8 @@ var callRender = (hostRef, instance, elm, isInitialLoad) => {
         }
       }
     }
-  } catch (e2) {
-    consoleError(e2, hostRef.$hostElement$);
+  } catch (e3) {
+    consoleError(e3, hostRef.$hostElement$);
   }
   renderingRef = null;
   return null;
@@ -3297,8 +3297,8 @@ var safeCall = (instance, method, arg, elm) => {
   if (instance && instance[method]) {
     try {
       return instance[method](arg);
-    } catch (e2) {
-      consoleError(e2, elm);
+    } catch (e3) {
+      consoleError(e3, elm);
     }
   }
   return void 0;
@@ -3414,8 +3414,8 @@ var setValue = (ref, propName, newVal, cmpMeta) => {
                 instance[watchMethodName](newVal, oldVal, propName);
               }
             }
-          } catch (e2) {
-            consoleError(e2, elm);
+          } catch (e3) {
+            consoleError(e3, elm);
           }
         });
       }
@@ -3715,8 +3715,8 @@ var initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId) => {
         }
         try {
           new Cstr(hostRef);
-        } catch (e2) {
-          consoleError(e2, elm);
+        } catch (e3) {
+          consoleError(e3, elm);
         }
         if (BUILD.member) {
           hostRef.$flags$ &= ~8;
@@ -3774,8 +3774,8 @@ var initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId) => {
     } else {
       schedule();
     }
-  } catch (e2) {
-    consoleError(e2, elm);
+  } catch (e3) {
+    consoleError(e3, elm);
     if (BUILD.asyncLoading && hostRef.$onRenderResolve$) {
       hostRef.$onRenderResolve$();
       hostRef.$onRenderResolve$ = void 0;
@@ -3995,8 +3995,8 @@ var proxyCustomElement = (Cstr, compactMeta) => {
       1 | 2
       /* proxyState */
     );
-  } catch (e2) {
-    consoleError(e2);
+  } catch (e3) {
+    consoleError(e3);
     return Cstr;
   }
 };
@@ -4033,8 +4033,8 @@ var hostListenerProxy = (hostRef, methodName) => (ev) => {
     } else {
       hostRef.$hostElement$[methodName](ev);
     }
-  } catch (e2) {
-    consoleError(e2, hostRef.$hostElement$);
+  } catch (e3) {
+    consoleError(e3, hostRef.$hostElement$);
   }
 };
 var getHostListenerTarget = (doc, elm, flags) => {
@@ -4081,8 +4081,8 @@ function transformTag(tag) {
 
 // dist/components/attachment-preview2.js
 var a = proxyCustomElement(class extends H {
-  constructor(e2) {
-    super(), false !== e2 && this.__registerHost(), this.__attachShadow();
+  constructor(e3) {
+    super(), false !== e3 && this.__registerHost(), this.__attachShadow();
   }
   src;
   filetype;
@@ -4113,54 +4113,54 @@ var n = function() {
 var a2 = { exports: {} };
 a2.exports = (function() {
   var t = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
-  function e2(t2, e3) {
+  function e3(t2, e4) {
     var i3 = t2[0], s2 = t2[1], r5 = t2[2], n4 = t2[3];
-    s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e3[0] - 680876936 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e3[1] - 389564586 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[2] + 606105819 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e3[3] - 1044525330 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e3[4] - 176418897 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e3[5] + 1200080426 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[6] - 1473231341 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e3[7] - 45705983 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e3[8] + 1770035416 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e3[9] - 1958414417 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[10] - 42063 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e3[11] - 1990404162 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e3[12] + 1804603682 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e3[13] - 40341101 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e3[14] - 1502002290 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e3[15] + 1236535329 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e3[1] - 165796510 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e3[6] - 1069501632 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[11] + 643717713 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[0] - 373897302 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e3[5] - 701558691 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e3[10] + 38016083 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[15] - 660478335 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[4] - 405537848 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e3[9] + 568446438 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e3[14] - 1019803690 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[3] - 187363961 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[8] + 1163531501 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e3[13] - 1444681467 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e3[2] - 51403784 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e3[7] + 1735328473 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e3[12] - 1926607734 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e3[5] - 378558 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e3[8] - 2022574463 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[11] + 1839030562 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[14] - 35309556 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e3[1] - 1530992060 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e3[4] + 1272893353 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[7] - 155497632 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[10] - 1094730640 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e3[13] + 681279174 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e3[0] - 358537222 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[3] - 722521979 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[6] + 76029189 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e3[9] - 640364487 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e3[12] - 421815835 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e3[15] + 530742520 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e3[2] - 995338651 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e3[0] - 198630844 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e3[7] + 1126891415 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e3[14] - 1416354905 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e3[5] - 57434055 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e3[12] + 1700485571 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e3[3] - 1894986606 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e3[10] - 1051523 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e3[1] - 2054922799 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e3[8] + 1873313359 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e3[15] - 30611744 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e3[6] - 1560198380 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e3[13] + 1309151649 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e3[4] - 145523070 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e3[11] - 1120210379 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e3[2] + 718787259 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e3[9] - 343485551 | 0) << 21 | s2 >>> 11) + r5 | 0, t2[0] = i3 + t2[0] | 0, t2[1] = s2 + t2[1] | 0, t2[2] = r5 + t2[2] | 0, t2[3] = n4 + t2[3] | 0;
+    s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[0] - 680876936 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[1] - 389564586 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[2] + 606105819 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[3] - 1044525330 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[4] - 176418897 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[5] + 1200080426 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[6] - 1473231341 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[7] - 45705983 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[8] + 1770035416 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[9] - 1958414417 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[10] - 42063 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[11] - 1990404162 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[12] + 1804603682 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[13] - 40341101 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[14] - 1502002290 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[15] + 1236535329 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[1] - 165796510 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[6] - 1069501632 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[11] + 643717713 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[0] - 373897302 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[5] - 701558691 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[10] + 38016083 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[15] - 660478335 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[4] - 405537848 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[9] + 568446438 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[14] - 1019803690 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[3] - 187363961 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[8] + 1163531501 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[13] - 1444681467 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[2] - 51403784 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[7] + 1735328473 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[12] - 1926607734 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[5] - 378558 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[8] - 2022574463 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[11] + 1839030562 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[14] - 35309556 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[1] - 1530992060 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[4] + 1272893353 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[7] - 155497632 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[10] - 1094730640 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[13] + 681279174 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[0] - 358537222 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[3] - 722521979 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[6] + 76029189 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[9] - 640364487 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[12] - 421815835 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[15] + 530742520 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[2] - 995338651 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[0] - 198630844 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[7] + 1126891415 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[14] - 1416354905 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[5] - 57434055 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[12] + 1700485571 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[3] - 1894986606 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[10] - 1051523 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[1] - 2054922799 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[8] + 1873313359 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[15] - 30611744 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[6] - 1560198380 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[13] + 1309151649 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[4] - 145523070 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[11] - 1120210379 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[2] + 718787259 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[9] - 343485551 | 0) << 21 | s2 >>> 11) + r5 | 0, t2[0] = i3 + t2[0] | 0, t2[1] = s2 + t2[1] | 0, t2[2] = r5 + t2[2] | 0, t2[3] = n4 + t2[3] | 0;
   }
   function i2(t2) {
-    var e3, i3 = [];
-    for (e3 = 0; e3 < 64; e3 += 4) i3[e3 >> 2] = t2.charCodeAt(e3) + (t2.charCodeAt(e3 + 1) << 8) + (t2.charCodeAt(e3 + 2) << 16) + (t2.charCodeAt(e3 + 3) << 24);
+    var e4, i3 = [];
+    for (e4 = 0; e4 < 64; e4 += 4) i3[e4 >> 2] = t2.charCodeAt(e4) + (t2.charCodeAt(e4 + 1) << 8) + (t2.charCodeAt(e4 + 2) << 16) + (t2.charCodeAt(e4 + 3) << 24);
     return i3;
   }
   function s(t2) {
-    var e3, i3 = [];
-    for (e3 = 0; e3 < 64; e3 += 4) i3[e3 >> 2] = t2[e3] + (t2[e3 + 1] << 8) + (t2[e3 + 2] << 16) + (t2[e3 + 3] << 24);
+    var e4, i3 = [];
+    for (e4 = 0; e4 < 64; e4 += 4) i3[e4 >> 2] = t2[e4] + (t2[e4 + 1] << 8) + (t2[e4 + 2] << 16) + (t2[e4 + 3] << 24);
     return i3;
   }
   function r4(t2) {
     var s2, r5, n4, o4, a4, h4, c6 = t2.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
-    for (s2 = 64; s2 <= c6; s2 += 64) e2(l3, i2(t2.substring(s2 - 64, s2)));
+    for (s2 = 64; s2 <= c6; s2 += 64) e3(l3, i2(t2.substring(s2 - 64, s2)));
     for (r5 = (t2 = t2.substring(s2 - 64)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], s2 = 0; s2 < r5; s2 += 1) n4[s2 >> 2] |= t2.charCodeAt(s2) << (s2 % 4 << 3);
-    if (n4[s2 >> 2] |= 128 << (s2 % 4 << 3), s2 > 55) for (e2(l3, n4), s2 = 0; s2 < 16; s2 += 1) n4[s2] = 0;
-    return o4 = (o4 = 8 * c6).toString(16).match(/(.*?)(.{0,8})$/), a4 = parseInt(o4[2], 16), h4 = parseInt(o4[1], 16) || 0, n4[14] = a4, n4[15] = h4, e2(l3, n4), l3;
+    if (n4[s2 >> 2] |= 128 << (s2 % 4 << 3), s2 > 55) for (e3(l3, n4), s2 = 0; s2 < 16; s2 += 1) n4[s2] = 0;
+    return o4 = (o4 = 8 * c6).toString(16).match(/(.*?)(.{0,8})$/), a4 = parseInt(o4[2], 16), h4 = parseInt(o4[1], 16) || 0, n4[14] = a4, n4[15] = h4, e3(l3, n4), l3;
   }
-  function n3(e3) {
+  function n3(e4) {
     var i3, s2 = "";
-    for (i3 = 0; i3 < 4; i3 += 1) s2 += t[e3 >> 8 * i3 + 4 & 15] + t[e3 >> 8 * i3 & 15];
+    for (i3 = 0; i3 < 4; i3 += 1) s2 += t[e4 >> 8 * i3 + 4 & 15] + t[e4 >> 8 * i3 & 15];
     return s2;
   }
   function o3(t2) {
-    var e3;
-    for (e3 = 0; e3 < t2.length; e3 += 1) t2[e3] = n3(t2[e3]);
+    var e4;
+    for (e4 = 0; e4 < t2.length; e4 += 1) t2[e4] = n3(t2[e4]);
     return t2.join("");
   }
   function a3(t2) {
     return /[\u0080-\uFFFF]/.test(t2) && (t2 = unescape(encodeURIComponent(t2))), t2;
   }
   function h3(t2) {
-    var e3, i3 = [], s2 = t2.length;
-    for (e3 = 0; e3 < s2 - 1; e3 += 2) i3.push(parseInt(t2.substr(e3, 2), 16));
+    var e4, i3 = [], s2 = t2.length;
+    for (e4 = 0; e4 < s2 - 1; e4 += 2) i3.push(parseInt(t2.substr(e4, 2), 16));
     return String.fromCharCode.apply(String, i3);
   }
   function c5() {
     this.reset();
   }
   return o3(r4("hello")), "undefined" == typeof ArrayBuffer || ArrayBuffer.prototype.slice || (function() {
-    function t2(t3, e3) {
-      return (t3 = 0 | t3 || 0) < 0 ? Math.max(t3 + e3, 0) : Math.min(t3, e3);
+    function t2(t3, e4) {
+      return (t3 = 0 | t3 || 0) < 0 ? Math.max(t3 + e4, 0) : Math.min(t3, e4);
     }
-    ArrayBuffer.prototype.slice = function(e3, i3) {
-      var s2, r5, n4, o4, a4 = this.byteLength, h4 = t2(e3, a4), c6 = a4;
+    ArrayBuffer.prototype.slice = function(e4, i3) {
+      var s2, r5, n4, o4, a4 = this.byteLength, h4 = t2(e4, a4), c6 = a4;
       return void 0 !== i3 && (c6 = t2(i3, a4)), h4 > c6 ? new ArrayBuffer(0) : (s2 = c6 - h4, r5 = new ArrayBuffer(s2), n4 = new Uint8Array(r5), o4 = new Uint8Array(this, h4, s2), n4.set(o4), r5);
     };
   })(), c5.prototype.append = function(t2) {
@@ -4168,11 +4168,11 @@ a2.exports = (function() {
   }, c5.prototype.appendBinary = function(t2) {
     this._buff += t2, this._length += t2.length;
     var s2, r5 = this._buff.length;
-    for (s2 = 64; s2 <= r5; s2 += 64) e2(this._hash, i2(this._buff.substring(s2 - 64, s2)));
+    for (s2 = 64; s2 <= r5; s2 += 64) e3(this._hash, i2(this._buff.substring(s2 - 64, s2)));
     return this._buff = this._buff.substring(s2 - 64), this;
   }, c5.prototype.end = function(t2) {
-    var e3, i3, s2 = this._buff, r5 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for (e3 = 0; e3 < r5; e3 += 1) n4[e3 >> 2] |= s2.charCodeAt(e3) << (e3 % 4 << 3);
+    var e4, i3, s2 = this._buff, r5 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (e4 = 0; e4 < r5; e4 += 1) n4[e4 >> 2] |= s2.charCodeAt(e4) << (e4 % 4 << 3);
     return this._finish(n4, r5), i3 = o3(this._hash), t2 && (i3 = h3(i3)), this.reset(), i3;
   }, c5.prototype.reset = function() {
     return this._buff = "", this._length = 0, this._hash = [1732584193, -271733879, -1732584194, 271733878], this;
@@ -4184,22 +4184,22 @@ a2.exports = (function() {
     delete this._hash, delete this._buff, delete this._length;
   }, c5.prototype._finish = function(t2, i3) {
     var s2, r5, n4, o4 = i3;
-    if (t2[o4 >> 2] |= 128 << (o4 % 4 << 3), o4 > 55) for (e2(this._hash, t2), o4 = 0; o4 < 16; o4 += 1) t2[o4] = 0;
-    s2 = (s2 = 8 * this._length).toString(16).match(/(.*?)(.{0,8})$/), r5 = parseInt(s2[2], 16), n4 = parseInt(s2[1], 16) || 0, t2[14] = r5, t2[15] = n4, e2(this._hash, t2);
-  }, c5.hash = function(t2, e3) {
-    return c5.hashBinary(a3(t2), e3);
-  }, c5.hashBinary = function(t2, e3) {
+    if (t2[o4 >> 2] |= 128 << (o4 % 4 << 3), o4 > 55) for (e3(this._hash, t2), o4 = 0; o4 < 16; o4 += 1) t2[o4] = 0;
+    s2 = (s2 = 8 * this._length).toString(16).match(/(.*?)(.{0,8})$/), r5 = parseInt(s2[2], 16), n4 = parseInt(s2[1], 16) || 0, t2[14] = r5, t2[15] = n4, e3(this._hash, t2);
+  }, c5.hash = function(t2, e4) {
+    return c5.hashBinary(a3(t2), e4);
+  }, c5.hashBinary = function(t2, e4) {
     var i3 = o3(r4(t2));
-    return e3 ? h3(i3) : i3;
+    return e4 ? h3(i3) : i3;
   }, (c5.ArrayBuffer = function() {
     this.reset();
   }).prototype.append = function(t2) {
     var i3, r5, n4, o4, a4 = (r5 = this._buff.buffer, n4 = t2, (o4 = new Uint8Array(r5.byteLength + n4.byteLength)).set(new Uint8Array(r5)), o4.set(new Uint8Array(n4), r5.byteLength), o4), h4 = a4.length;
-    for (this._length += t2.byteLength, i3 = 64; i3 <= h4; i3 += 64) e2(this._hash, s(a4.subarray(i3 - 64, i3)));
+    for (this._length += t2.byteLength, i3 = 64; i3 <= h4; i3 += 64) e3(this._hash, s(a4.subarray(i3 - 64, i3)));
     return this._buff = i3 - 64 < h4 ? new Uint8Array(a4.buffer.slice(i3 - 64)) : new Uint8Array(0), this;
   }, c5.ArrayBuffer.prototype.end = function(t2) {
-    var e3, i3, s2 = this._buff, r5 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for (e3 = 0; e3 < r5; e3 += 1) n4[e3 >> 2] |= s2[e3] << (e3 % 4 << 3);
+    var e4, i3, s2 = this._buff, r5 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (e4 = 0; e4 < r5; e4 += 1) n4[e4 >> 2] |= s2[e4] << (e4 % 4 << 3);
     return this._finish(n4, r5), i3 = o3(this._hash), t2 && (i3 = h3(i3)), this.reset(), i3;
   }, c5.ArrayBuffer.prototype.reset = function() {
     return this._buff = new Uint8Array(0), this._length = 0, this._hash = [1732584193, -271733879, -1732584194, 271733878], this;
@@ -4207,18 +4207,18 @@ a2.exports = (function() {
     var t2 = c5.prototype.getState.call(this);
     return t2.buff = String.fromCharCode.apply(null, new Uint8Array(t2.buff)), t2;
   }, c5.ArrayBuffer.prototype.setState = function(t2) {
-    return t2.buff = (function(t3, e3) {
+    return t2.buff = (function(t3, e4) {
       var i3, s2 = t3.length, r5 = new ArrayBuffer(s2), n4 = new Uint8Array(r5);
       for (i3 = 0; i3 < s2; i3 += 1) n4[i3] = t3.charCodeAt(i3);
-      return e3 ? n4 : r5;
+      return e4 ? n4 : r5;
     })(t2.buff, true), c5.prototype.setState.call(this, t2);
   }, c5.ArrayBuffer.prototype.destroy = c5.prototype.destroy, c5.ArrayBuffer.prototype._finish = c5.prototype._finish, c5.ArrayBuffer.hash = function(t2, i3) {
     var r5 = o3((function(t3) {
       var i4, r6, n4, o4, a4, h4, c6 = t3.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
-      for (i4 = 64; i4 <= c6; i4 += 64) e2(l3, s(t3.subarray(i4 - 64, i4)));
+      for (i4 = 64; i4 <= c6; i4 += 64) e3(l3, s(t3.subarray(i4 - 64, i4)));
       for (r6 = (t3 = i4 - 64 < c6 ? t3.subarray(i4 - 64) : new Uint8Array(0)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], i4 = 0; i4 < r6; i4 += 1) n4[i4 >> 2] |= t3[i4] << (i4 % 4 << 3);
-      if (n4[i4 >> 2] |= 128 << (i4 % 4 << 3), i4 > 55) for (e2(l3, n4), i4 = 0; i4 < 16; i4 += 1) n4[i4] = 0;
-      return o4 = (o4 = 8 * c6).toString(16).match(/(.*?)(.{0,8})$/), a4 = parseInt(o4[2], 16), h4 = parseInt(o4[1], 16) || 0, n4[14] = a4, n4[15] = h4, e2(l3, n4), l3;
+      if (n4[i4 >> 2] |= 128 << (i4 % 4 << 3), i4 > 55) for (e3(l3, n4), i4 = 0; i4 < 16; i4 += 1) n4[i4] = 0;
+      return o4 = (o4 = 8 * c6).toString(16).match(/(.*?)(.{0,8})$/), a4 = parseInt(o4[2], 16), h4 = parseInt(o4[1], 16) || 0, n4[14] = a4, n4[15] = h4, e3(l3, n4), l3;
     })(new Uint8Array(t2)));
     return i3 ? h3(r5) : r5;
   }, c5;
@@ -4226,8 +4226,8 @@ a2.exports = (function() {
 var h2 = a2.exports;
 var c2 = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
 var l = class _l {
-  static create(t, e2) {
-    new _l(t).create(e2);
+  static create(t, e3) {
+    new _l(t).create(e3);
   }
   constructor(t) {
     this.file = t, this.chunkSize = 2097152, this.chunkCount = Math.ceil(this.file.size / this.chunkSize), this.chunkIndex = 0;
@@ -4237,8 +4237,8 @@ var l = class _l {
   }
   fileReaderDidLoad(t) {
     if (this.md5Buffer.append(t.target.result), !this.readNextChunk()) {
-      const t2 = this.md5Buffer.end(true), e2 = btoa(t2);
-      this.callback(null, e2);
+      const t2 = this.md5Buffer.end(true), e3 = btoa(t2);
+      this.callback(null, e3);
     }
   }
   fileReaderDidError(t) {
@@ -4246,18 +4246,18 @@ var l = class _l {
   }
   readNextChunk() {
     if (this.chunkIndex < this.chunkCount || 0 == this.chunkIndex && 0 == this.chunkCount) {
-      const t = this.chunkIndex * this.chunkSize, e2 = Math.min(t + this.chunkSize, this.file.size), i2 = c2.call(this.file, t, e2);
+      const t = this.chunkIndex * this.chunkSize, e3 = Math.min(t + this.chunkSize, this.file.size), i2 = c2.call(this.file, t, e3);
       return this.fileReader.readAsArrayBuffer(i2), this.chunkIndex++, true;
     }
     return false;
   }
 };
-function d(t, e2) {
-  return "string" == typeof t && (e2 = t, t = document), t.querySelector(e2);
+function d(t, e3) {
+  return "string" == typeof t && (e3 = t, t = document), t.querySelector(e3);
 }
-function u(t, e2, i2 = {}) {
+function u(t, e3, i2 = {}) {
   const { disabled: s } = t, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
-  a3.initEvent(e2, r4 || true, n3 || true), a3.detail = o3 || {};
+  a3.initEvent(e3, r4 || true, n3 || true), a3.detail = o3 || {};
   try {
     t.disabled = false, t.dispatchEvent(a3);
   } finally {
@@ -4269,8 +4269,8 @@ function p(t) {
   return Array.isArray(t) ? t : Array.from ? Array.from(t) : [].slice.call(t);
 }
 var f = class {
-  constructor(t, e2, i2, s = {}) {
-    this.file = t, this.attributes = { filename: t.name, content_type: t.type || "application/octet-stream", byte_size: t.size, checksum: e2 }, this.xhr = new XMLHttpRequest(), this.xhr.open("POST", i2, true), this.xhr.responseType = "json", this.xhr.setRequestHeader("Content-Type", "application/json"), this.xhr.setRequestHeader("Accept", "application/json"), this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"), Object.keys(s).forEach(((t2) => {
+  constructor(t, e3, i2, s = {}) {
+    this.file = t, this.attributes = { filename: t.name, content_type: t.type || "application/octet-stream", byte_size: t.size, checksum: e3 }, this.xhr = new XMLHttpRequest(), this.xhr.open("POST", i2, true), this.xhr.responseType = "json", this.xhr.setRequestHeader("Content-Type", "application/json"), this.xhr.setRequestHeader("Accept", "application/json"), this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"), Object.keys(s).forEach(((t2) => {
       this.xhr.setRequestHeader(t2, s[t2]);
     }));
     const r4 = (function() {
@@ -4283,16 +4283,16 @@ var f = class {
     return this.xhr.status;
   }
   get response() {
-    const { responseType: t, response: e2 } = this.xhr;
-    return "json" == t ? e2 : JSON.parse(e2);
+    const { responseType: t, response: e3 } = this.xhr;
+    return "json" == t ? e3 : JSON.parse(e3);
   }
   create(t) {
     this.callback = t, this.xhr.send(JSON.stringify({ blob: this.attributes }));
   }
   requestDidLoad(t) {
     if (this.status >= 200 && this.status < 300) {
-      const { response: t2 } = this, { direct_upload: e2 } = t2;
-      delete t2.direct_upload, this.attributes = t2, this.directUploadData = e2, this.callback(null, this.toJSON());
+      const { response: t2 } = this, { direct_upload: e3 } = t2;
+      delete t2.direct_upload, this.attributes = t2, this.directUploadData = e3, this.callback(null, this.toJSON());
     } else this.requestDidError(t);
   }
   requestDidError(t) {
@@ -4300,15 +4300,15 @@ var f = class {
   }
   toJSON() {
     const t = {};
-    for (const e2 in this.attributes) t[e2] = this.attributes[e2];
+    for (const e3 in this.attributes) t[e3] = this.attributes[e3];
     return t;
   }
 };
 var m = class {
   constructor(t) {
     this.blob = t, this.file = t.file;
-    const { url: e2, headers: i2 } = t.directUploadData;
-    this.xhr = new XMLHttpRequest(), this.xhr.open("PUT", e2, true), this.xhr.responseType = "text";
+    const { url: e3, headers: i2 } = t.directUploadData;
+    this.xhr = new XMLHttpRequest(), this.xhr.open("PUT", e3, true), this.xhr.responseType = "text";
     for (const t2 in i2) this.xhr.setRequestHeader(t2, i2[t2]);
     this.xhr.addEventListener("load", ((t2) => this.requestDidLoad(t2))), this.xhr.addEventListener("error", ((t2) => this.requestDidError(t2)));
   }
@@ -4316,8 +4316,8 @@ var m = class {
     this.callback = t, this.xhr.send(this.file.slice());
   }
   requestDidLoad(t) {
-    const { status: e2, response: i2 } = this.xhr;
-    e2 >= 200 && e2 < 300 ? this.callback(null, i2) : this.requestDidError(t);
+    const { status: e3, response: i2 } = this.xhr;
+    e3 >= 200 && e3 < 300 ? this.callback(null, i2) : this.requestDidError(t);
   }
   requestDidError(t) {
     this.callback(`Error storing "${this.file.name}". Status: ${this.xhr.status}`);
@@ -4325,47 +4325,47 @@ var m = class {
 };
 var g = 0;
 var b = class {
-  constructor(t, e2, i2, s = {}) {
-    this.id = ++g, this.file = t, this.url = e2, this.delegate = i2, this.customHeaders = s;
+  constructor(t, e3, i2, s = {}) {
+    this.id = ++g, this.file = t, this.url = e3, this.delegate = i2, this.customHeaders = s;
   }
   create(t) {
-    l.create(this.file, ((e2, i2) => {
-      if (e2) return void t(e2);
+    l.create(this.file, ((e3, i2) => {
+      if (e3) return void t(e3);
       const s = new f(this.file, i2, this.url, this.customHeaders);
-      v(this.delegate, "directUploadWillCreateBlobWithXHR", s.xhr), s.create(((e3) => {
-        if (e3) t(e3);
+      v(this.delegate, "directUploadWillCreateBlobWithXHR", s.xhr), s.create(((e4) => {
+        if (e4) t(e4);
         else {
-          const e4 = new m(s);
-          v(this.delegate, "directUploadWillStoreFileWithXHR", e4.xhr), e4.create(((e5) => {
-            e5 ? t(e5) : t(null, s.toJSON());
+          const e5 = new m(s);
+          v(this.delegate, "directUploadWillStoreFileWithXHR", e5.xhr), e5.create(((e6) => {
+            e6 ? t(e6) : t(null, s.toJSON());
           }));
         }
       }));
     }));
   }
 };
-function v(t, e2, ...i2) {
-  if (t && "function" == typeof t[e2]) return t[e2](...i2);
+function v(t, e3, ...i2) {
+  if (t && "function" == typeof t[e3]) return t[e3](...i2);
 }
 var w = class {
-  constructor(t, e2) {
-    this.input = t, this.file = e2, this.directUpload = new b(this.file, this.url, this), this.dispatch("initialize");
+  constructor(t, e3) {
+    this.input = t, this.file = e3, this.directUpload = new b(this.file, this.url, this), this.dispatch("initialize");
   }
   start(t) {
-    const e2 = document.createElement("input");
-    e2.type = "hidden", e2.name = this.input.name, this.input.insertAdjacentElement("beforebegin", e2), this.dispatch("start"), this.directUpload.create(((i2, s) => {
-      i2 ? (e2.parentNode.removeChild(e2), this.dispatchError(i2)) : e2.value = s.signed_id, this.dispatch("end"), t(i2);
+    const e3 = document.createElement("input");
+    e3.type = "hidden", e3.name = this.input.name, this.input.insertAdjacentElement("beforebegin", e3), this.dispatch("start"), this.directUpload.create(((i2, s) => {
+      i2 ? (e3.parentNode.removeChild(e3), this.dispatchError(i2)) : e3.value = s.signed_id, this.dispatch("end"), t(i2);
     }));
   }
   uploadRequestDidProgress(t) {
-    const e2 = t.loaded / t.total * 90;
-    e2 && this.dispatch("progress", { progress: e2 });
+    const e3 = t.loaded / t.total * 90;
+    e3 && this.dispatch("progress", { progress: e3 });
   }
   get url() {
     return this.input.getAttribute("data-direct-upload-url");
   }
-  dispatch(t, e2 = {}) {
-    return e2.file = this.file, e2.id = this.directUpload.id, u(this.input, `direct-upload:${t}`, { detail: e2 });
+  dispatch(t, e3 = {}) {
+    return e3.file = this.file, e3.id = this.directUpload.id, u(this.input, `direct-upload:${t}`, { detail: e3 });
   }
   dispatchError(t) {
     this.dispatch("error", { error: t }).defaultPrevented || alert(t);
@@ -4379,53 +4379,53 @@ var w = class {
     }));
   }
   simulateResponseProgress(t) {
-    let e2 = 90;
+    let e3 = 90;
     const i2 = Date.now(), s = () => {
       const r4 = Date.now() - i2, n3 = this.estimateResponseTime(), o3 = Math.min(r4 / n3, 1);
-      e2 = 90 + 9 * o3, this.dispatch("progress", { progress: e2 }), t.readyState !== XMLHttpRequest.DONE && e2 < 99 && requestAnimationFrame(s);
+      e3 = 90 + 9 * o3, this.dispatch("progress", { progress: e3 }), t.readyState !== XMLHttpRequest.DONE && e3 < 99 && requestAnimationFrame(s);
     };
     t.addEventListener("loadend", (() => {
       this.dispatch("progress", { progress: 100 });
     })), requestAnimationFrame(s);
   }
   estimateResponseTime() {
-    const t = this.file.size, e2 = 1048576;
-    return t < e2 ? 1e3 : t < 10 * e2 ? 2e3 : 3e3 + t / e2 * 50;
+    const t = this.file.size, e3 = 1048576;
+    return t < e3 ? 1e3 : t < 10 * e3 ? 2e3 : 3e3 + t / e3 * 50;
   }
 };
 var y = class {
   constructor(t) {
-    var e2, i2;
-    this.form = t, this.inputs = (e2 = t, i2 = "input[type=file][data-direct-upload-url]:not([disabled])", "string" == typeof e2 && (i2 = e2, e2 = document), p(e2.querySelectorAll(i2))).filter(((t2) => t2.files.length));
+    var e3, i2;
+    this.form = t, this.inputs = (e3 = t, i2 = "input[type=file][data-direct-upload-url]:not([disabled])", "string" == typeof e3 && (i2 = e3, e3 = document), p(e3.querySelectorAll(i2))).filter(((t2) => t2.files.length));
   }
   start(t) {
-    const e2 = this.createDirectUploadControllers(), i2 = () => {
-      const s = e2.shift();
-      s ? s.start(((e3) => {
-        e3 ? (t(e3), this.dispatch("end")) : i2();
+    const e3 = this.createDirectUploadControllers(), i2 = () => {
+      const s = e3.shift();
+      s ? s.start(((e4) => {
+        e4 ? (t(e4), this.dispatch("end")) : i2();
       })) : (t(), this.dispatch("end"));
     };
     this.dispatch("start"), i2();
   }
   createDirectUploadControllers() {
     const t = [];
-    return this.inputs.forEach(((e2) => {
-      p(e2.files).forEach(((i2) => {
-        const s = new w(e2, i2);
+    return this.inputs.forEach(((e3) => {
+      p(e3.files).forEach(((i2) => {
+        const s = new w(e3, i2);
         t.push(s);
       }));
     })), t;
   }
-  dispatch(t, e2 = {}) {
-    return u(this.form, `direct-uploads:${t}`, { detail: e2 });
+  dispatch(t, e3 = {}) {
+    return u(this.form, `direct-uploads:${t}`, { detail: e3 });
   }
 };
 var x = "data-direct-uploads-processing";
 var k = /* @__PURE__ */ new WeakMap();
 var R = false;
 function M(t) {
-  const e2 = t.target.closest("button, input");
-  e2 && "submit" === e2.type && e2.form && k.set(e2.form, e2);
+  const e3 = t.target.closest("button, input");
+  e3 && "submit" === e3.type && e3.form && k.set(e3.form, e3);
 }
 function j(t) {
   $(t);
@@ -4434,18 +4434,18 @@ function A(t) {
   "FORM" == t.target.tagName && $(t);
 }
 function $(t) {
-  const e2 = t.target;
-  if (e2.hasAttribute(x)) return void t.preventDefault();
-  const i2 = new y(e2), { inputs: s } = i2;
-  s.length && (t.preventDefault(), e2.setAttribute(x, ""), s.forEach(E), i2.start(((t2) => {
-    e2.removeAttribute(x), t2 ? s.forEach(U) : (function(t3) {
-      let e3 = k.get(t3) || d(t3, "input[type=submit], button[type=submit]");
-      if (e3) {
-        const { disabled: t4 } = e3;
-        e3.disabled = false, e3.focus(), e3.click(), e3.disabled = t4;
-      } else e3 = document.createElement("input"), e3.type = "submit", e3.style.display = "none", t3.appendChild(e3), e3.click(), t3.removeChild(e3);
+  const e3 = t.target;
+  if (e3.hasAttribute(x)) return void t.preventDefault();
+  const i2 = new y(e3), { inputs: s } = i2;
+  s.length && (t.preventDefault(), e3.setAttribute(x, ""), s.forEach(E), i2.start(((t2) => {
+    e3.removeAttribute(x), t2 ? s.forEach(U) : (function(t3) {
+      let e4 = k.get(t3) || d(t3, "input[type=submit], button[type=submit]");
+      if (e4) {
+        const { disabled: t4 } = e4;
+        e4.disabled = false, e4.focus(), e4.click(), e4.disabled = t4;
+      } else e4 = document.createElement("input"), e4.type = "submit", e4.style.display = "none", t3.appendChild(e4), e4.click(), t3.removeChild(e4);
       k.delete(t3);
-    })(e2);
+    })(e3);
   })));
 }
 function E(t) {
@@ -4466,8 +4466,8 @@ var C = class {
   callback = null;
   cancelled = false;
   completed = false;
-  constructor(t, e2) {
-    this.uploadedFile = t, this.file = e2, this.directUpload = new b(this.file, this.uploadedFile.url, this);
+  constructor(t, e3) {
+    this.uploadedFile = t, this.file = e3, this.directUpload = new b(this.file, this.uploadedFile.url, this);
   }
   cancel() {
     this.cancelled = true, this.abortXHR(this.recordXHR), this.abortXHR(this.uploadXHR), this.complete("aborted", {});
@@ -4476,28 +4476,28 @@ var C = class {
     t && t.abort();
   }
   start(t) {
-    this.callback = t, this.dispatch("start"), this.directUpload.create(((t2, e2) => {
-      this.complete(t2, e2);
+    this.callback = t, this.dispatch("start"), this.directUpload.create(((t2, e3) => {
+      this.complete(t2, e3);
     }));
   }
-  complete(t, e2) {
+  complete(t, e3) {
     this.completed || (this.completed = true, t && this.dispatchError(t), this.dispatch("end"), this.callback(t));
   }
   uploadRequestDidProgress(t) {
-    const e2 = t.loaded / t.total * 100;
-    e2 && this.dispatch("progress", { progress: e2 });
+    const e3 = t.loaded / t.total * 100;
+    e3 && this.dispatch("progress", { progress: e3 });
   }
-  dispatch(t, e2 = {}) {
-    return (function(t2, e3, i2 = {}) {
+  dispatch(t, e3 = {}) {
+    return (function(t2, e4, i2 = {}) {
       const { disabled: s } = t2, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
-      a3.initEvent(e3, r4 || true, n3 || true), a3.detail = o3 || {};
+      a3.initEvent(e4, r4 || true, n3 || true), a3.detail = o3 || {};
       try {
         t2.disabled = false, t2.dispatchEvent(a3);
       } finally {
         t2.disabled = s;
       }
       return a3;
-    })(this.uploadedFile, `direct-upload:${t}`, { detail: { ...e2, file: this.file, id: this.directUpload.id } });
+    })(this.uploadedFile, `direct-upload:${t}`, { detail: { ...e3, file: this.file, id: this.directUpload.id } });
   }
   dispatchError(t) {
     this.dispatch("error", { error: t });
@@ -4526,9 +4526,9 @@ var q = class {
   get errorMessage() {
     return [`Must be smaller than ${this.formatBytes(this.uploadedFile.max)},`, `and "${this.uploadedFile.filename}" is ${this.formatBytes(this.uploadedFile.size)}.`, "Please attach a smaller file."].join(" ");
   }
-  formatBytes(t, e2 = 2) {
+  formatBytes(t, e3 = 2) {
     if (0 === t) return "0 Bytes";
-    const i2 = e2 < 0 ? 0 : e2, s = Math.floor(Math.log(t) / Math.log(1024));
+    const i2 = e3 < 0 ? 0 : e3, s = Math.floor(Math.log(t) / Math.log(1024));
     return parseFloat((t / Math.pow(1024, s)).toFixed(i2)) + ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][s];
   }
 };
@@ -4549,8 +4549,8 @@ var B = class {
   }
 };
 var F = { image: ["ase", "art", "bmp", "blp", "cd5", "cit", "cpt", "cr2", "cut", "dds", "dib", "djvu", "egt", "exif", "gif", "gpl", "grf", "icns", "ico", "iff", "jng", "jpeg", "jpg", "jfif", "jp2", "jps", "lbm", "max", "miff", "mng", "msp", "nef", "nitf", "ota", "pbm", "pc1", "pc2", "pc3", "pcf", "pcx", "pdn", "pgm", "PI1", "PI2", "PI3", "pict", "pct", "pnm", "pns", "ppm", "psb", "psd", "pdd", "psp", "px", "pxm", "pxr", "qfx", "raw", "rle", "sct", "sgi", "rgb", "int", "bw", "tga", "tiff", "tif", "vtf", "xbm", "xcf", "xpm", "3dv", "amf", "ai", "awg", "cgm", "cdr", "cmx", "dxf", "e2d", "egt", "eps", "fs", "gbr", "odg", "svg", "stl", "vrml", "x3d", "sxd", "v2d", "vnd", "wmf", "emf", "art", "xar", "png", "webp", "jxr", "hdp", "wdp", "cur", "ecw", "iff", "lbm", "liff", "nrrd", "pam", "pcx", "pgf", "sgi", "rgb", "rgba", "bw", "int", "inta", "sid", "ras", "sun", "tga", "heic", "heif"], video: ["3g2", "3gp", "3gpp", "aaf", "asf", "avchd", "avi", "drc", "flv", "m2v", "m3u8", "m4p", "m4v", "mkv", "mng", "mov", "mp2", "mp4", "mpe", "mpeg", "mpg", "mpv", "mxf", "nsv", "ogg", "ogv", "qt", "rm", "rmvb", "roq", "svi", "vob", "webm", "wmv", "yuv"], pdf: ["pdf"], getFileType: function(t) {
-  const e2 = t.toString().split(".").at(-1).toLowerCase().trim();
-  return this.video.includes(e2) ? "video" : this.image.includes(e2) ? "image" : this.pdf.includes(e2) ? "pdf" : "unknown";
+  const e3 = t.toString().split(".").at(-1).toLowerCase().trim();
+  return this.video.includes(e3) ? "video" : this.image.includes(e3) ? "image" : this.pdf.includes(e3) ? "pdf" : "unknown";
 } };
 var S = class {
   constructor(t) {
@@ -4609,12 +4609,12 @@ var T = class {
   }
 };
 function W(t) {
-  const e2 = document.head.querySelector(`meta[name="${t}"]`);
-  return e2 && e2.content;
+  const e3 = document.head.querySelector(`meta[name="${t}"]`);
+  return e3 && e3.content;
 }
 var X = class {
-  constructor(t, e2, i2 = {}) {
-    this.method = t, this.options = i2, this.originalUrl = e2.toString();
+  constructor(t, e3, i2 = {}) {
+    this.method = t, this.options = i2, this.originalUrl = e3.toString();
   }
   async perform() {
     try {
@@ -4626,26 +4626,26 @@ var X = class {
     const t = new S(await window.fetch(this.url, this.fetchOptions));
     return t.unauthenticated && t.authenticationURL ? Promise.reject(window.location.href = t.authenticationURL) : (t.ok && t.isTurboStream && await t.renderTurboStream(), t);
   }
-  addHeader(t, e2) {
+  addHeader(t, e3) {
     const i2 = this.additionalHeaders;
-    i2[t] = e2, this.options.headers = i2;
+    i2[t] = e3, this.options.headers = i2;
   }
   get fetchOptions() {
     return { method: this.method.toUpperCase(), headers: this.headers, body: this.formattedBody, signal: this.signal, credentials: "same-origin", redirect: this.redirect };
   }
   get headers() {
     return (function(t) {
-      const e2 = {};
+      const e3 = {};
       for (const i2 in t) {
         const s = t[i2];
-        void 0 !== s && (e2[i2] = s);
+        void 0 !== s && (e3[i2] = s);
       }
-      return e2;
+      return e3;
     })(Object.assign({ "X-Requested-With": "XMLHttpRequest", "X-CSRF-Token": this.csrfToken, "Content-Type": this.contentType, Accept: this.accept }, this.additionalHeaders));
   }
   get csrfToken() {
     return (function(t) {
-      const e2 = document.cookie ? document.cookie.split("; ") : [], i2 = `${encodeURIComponent(t)}=`, s = e2.find(((t2) => t2.startsWith(i2)));
+      const e3 = document.cookie ? document.cookie.split("; ") : [], i2 = `${encodeURIComponent(t)}=`, s = e3.find(((t2) => t2.startsWith(i2)));
       if (s) {
         const t2 = s.split("=").slice(1).join("=");
         if (t2) return decodeURIComponent(t2);
@@ -4671,13 +4671,13 @@ var X = class {
     return this.options.body;
   }
   get query() {
-    const t = (this.originalUrl.split("?")[1] || "").split("#")[0], e2 = new URLSearchParams(t);
+    const t = (this.originalUrl.split("?")[1] || "").split("#")[0], e3 = new URLSearchParams(t);
     let i2 = this.options.query;
     var s;
-    i2 instanceof window.FormData ? (s = i2, i2 = [...s].reduce(((t2, [e3, i3]) => t2.concat("string" == typeof i3 ? [[e3, i3]] : [])), [])) : i2 = i2 instanceof window.URLSearchParams ? i2.entries() : Object.entries(i2 || {}), (function(t2, e3) {
-      for (const [i3, s2] of e3) s2 instanceof window.File || (t2.has(i3) ? (t2.delete(i3), t2.set(i3, s2)) : t2.append(i3, s2));
-    })(e2, i2);
-    const r4 = e2.toString();
+    i2 instanceof window.FormData ? (s = i2, i2 = [...s].reduce(((t2, [e4, i3]) => t2.concat("string" == typeof i3 ? [[e4, i3]] : [])), [])) : i2 = i2 instanceof window.URLSearchParams ? i2.entries() : Object.entries(i2 || {}), (function(t2, e4) {
+      for (const [i3, s2] of e4) s2 instanceof window.File || (t2.has(i3) ? (t2.delete(i3), t2.set(i3, s2)) : t2.append(i3, s2));
+    })(e3, i2);
+    const r4 = e3.toString();
     return r4.length > 0 ? `?${r4}` : "";
   }
   get url() {
@@ -4743,30 +4743,30 @@ var H2 = proxyCustomElement(class extends H {
     this.src = URL.createObjectURL(t), this.filename = t.name, this.size = t.size, this.state = "pending", this.percent = 0, this._file = t;
   }
   set signedId(t) {
-    this.value !== t && ((t2, e2 = {}, i2 = {}) => ((t3, e3, i3, s) => new X("get", e3, { headers: { Accept: "application/json", ...s }, query: i3 }).perform().then(((t4) => t4.response.ok ? t4.json : t4)))(0, t2, e2, i2))(`/rails/active_storage/blobs/info/${t}`).then(((e2) => {
-      this.src = `/rails/active_storage/blobs/redirect/${t}/${e2.filename}`, this.filename = e2.filename, this.size = e2.byte_size, this.state = "complete", this.percent = 100, this.value = t, this.readyEvent.emit(this);
+    this.value !== t && ((t2, e3 = {}, i2 = {}) => ((t3, e4, i3, s) => new X("get", e4, { headers: { Accept: "application/json", ...s }, query: i3 }).perform().then(((t4) => t4.response.ok ? t4.json : t4)))(0, t2, e3, i2))(`/rails/active_storage/blobs/info/${t}`).then(((e3) => {
+      this.src = `/rails/active_storage/blobs/redirect/${t}/${e3.filename}`, this.filename = e3.filename, this.size = e3.byte_size, this.state = "complete", this.percent = 100, this.value = t, this.readyEvent.emit(this);
     }));
   }
-  setMissingFiletype(t, e2) {
+  setMissingFiletype(t, e3) {
     !this.filetype && this.filename && (this.filetype = F.getFileType(this.filename));
   }
   start(t) {
     this.state = "pending", this.percent = 0;
   }
   progress(t) {
-    const { progress: e2 } = t.detail;
-    this.percent = e2;
+    const { progress: e3 } = t.detail;
+    this.percent = e3;
   }
   error(t) {
     t.preventDefault();
-    const { error: e2 } = t.detail;
-    this.state = "error", this.uploadError = e2;
+    const { error: e3 } = t.detail;
+    this.state = "error", this.uploadError = e3;
   }
   end(t) {
     "error" !== this.state && (this.state = "complete", this.percent = 100);
   }
   render() {
-    return h(Host, { key: "1af2d43e01a8714c658ea70a9ca68cce57bbda12" }, h("slot", { key: "deadfff4a159e17d52ed8f66d5d18aecc71fb44d" }), h("figure", { key: "7319a724f2d51c396734dacd7528b1864fb8e980" }, h("div", { key: "ce0794f4062073a8fc28e4f2398a91d711f00521", class: "progress-details" }, h("progress-bar", { key: "30c130654e71e87036beaaf02f15453e1d35ab7a", percent: this.percent, class: this.state }, h("a", { key: "12dcf70078803fe226e9abf265dcaacd0241bfe3", class: "download-link", href: this.src, download: this.filename, onClick: (t) => t.stopPropagation() }, this.filename)), h("span", { key: "e736b315d4e0c3ec601c0fdec08ce7cce5665bef", class: "progress-icon" }), h("a", { key: "dd356dcc5f72ad33a5a52de080aa60f4af7df284", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "c9976fdb30e8d3fa78bfc838eba1e8c33ff11c04" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
+    return h(Host, { key: "1af2d43e01a8714c658ea70a9ca68cce57bbda12" }, h("slot", { key: "deadfff4a159e17d52ed8f66d5d18aecc71fb44d" }), h("figure", { key: "7319a724f2d51c396734dacd7528b1864fb8e980" }, h("div", { key: "ce0794f4062073a8fc28e4f2398a91d711f00521", class: "progress-details" }, h("progress-bar", { key: "7317e5149cbc15dd1bff84b9c8ea92d55a29fe3f", percent: this.percent, class: this.state, error: "error" === this.state }, h("a", { key: "638de84fd46da31a7ad9b652f0dd1d71fdb87edb", class: "download-link", href: this.src, download: this.filename, onClick: (t) => t.stopPropagation() }, this.filename)), h("span", { key: "fe8b77d5cd5b9014caa92abe34c515a5b16dbe86", class: "progress-icon" }), h("a", { key: "b8b2fde12f9ecf1df5a044a812be4b43ee24502c", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "7ce869972ee400de34bd3462f0656263f0ddc013" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
   }
   componentDidLoad() {
     "pending" == this.state && this._file && (this.checkValidity() ? (this.controller = new C(this.el, this._file), this.controller.dispatch("initialize", { controller: this.controller })) : this.state = "error");
@@ -4791,47 +4791,58 @@ var e = a;
 
 // dist/components/index2.js
 var r = null;
-var n2 = class extends HTMLElement {
+function n2(r4) {
+  const n3 = Number(r4);
+  if (Number.isNaN(n3)) throw new TypeError(`progress-bar: percent must be numeric, got ${JSON.stringify(r4)}`);
+  return Math.min(100, Math.max(0, n3));
+}
+var e2 = class extends HTMLElement {
   constructor() {
-    super(), this.attachShadow({ mode: "open" }), this._percent = 0;
+    super(), this.attachShadow({ mode: "open" }), this._percent = 0, this._rendered = false;
   }
   connectedCallback() {
-    this.render(), this.updateBar();
+    this._rendered || (this.render(), this._rendered = true), this.updateBar();
   }
   get percent() {
     return this._percent;
   }
   set percent(r4) {
-    this._percent = Number(r4) || 0, this.setAttribute("percent", this._percent), this.updateBar();
+    this.setAttribute("percent", n2(r4));
+  }
+  get error() {
+    return this.hasAttribute("error");
+  }
+  set error(r4) {
+    this.toggleAttribute("error", Boolean(r4));
   }
   static get observedAttributes() {
     return ["percent"];
   }
-  attributeChangedCallback(r4, n3, s) {
-    "percent" === r4 && (this._percent = Number(s) || 0, this.updateBar());
+  attributeChangedCallback(r4, e3, t) {
+    "percent" === r4 && (this._percent = n2(t), this.updateBar());
   }
   updateBar() {
     const r4 = this.shadowRoot?.querySelector(".bar");
-    r4 && (r4.style.width = `${this._percent}%`);
+    r4 && (r4.style.width = `${this._percent}%`), this.setAttribute("aria-valuenow", String(this._percent));
   }
   render() {
-    this.shadowRoot.adoptedStyleSheets = [(r || (r = new CSSStyleSheet(), r.replaceSync("\n  :host {\n    --progress-color: #2E7D32;\n    --progress-track-color: #0D3D10;\n    --progress-duration: 120ms;\n    --bar-height: 32px;\n    --bar-radius: 4px;\n    --bar-padding: 8px;\n    --bar-border-color: #999;\n\n    display: block;\n    background: var(--progress-track-color);\n    border: 1px solid var(--bar-border-color);\n    border-radius: var(--bar-radius);\n  }\n\n  .content {\n    position: relative;\n    display: block;\n    padding: var(--bar-padding);\n    background: var(--progress-track-color);\n    border-radius: var(--bar-radius);\n    color: white;\n    font-size: 13px;\n    z-index: 0;\n  }\n\n  .bar {\n    position: absolute;\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 0%;\n    background: var(--progress-color);\n    transition: width var(--progress-duration) ease, opacity 60ms ease;\n    border-radius: var(--bar-radius);\n    z-index: -1;\n  }\n")), r)], this.shadowRoot.innerHTML = '\n      <span class="content">\n        <div class="bar"></div>\n        <slot></slot>\n      </span>\n    ';
+    this.shadowRoot.adoptedStyleSheets = [(r || (r = new CSSStyleSheet(), r.replaceSync("\n  :host {\n    --progress-color: #2E7D32;\n    --error-color: #7a242f;\n    --progress-duration: 120ms;\n    --bar-height: 32px;\n    --bar-padding: 8px;\n    display: block;\n    overflow: hidden;\n    background: #333333;\n    border: 1px solid #999;\n    border-radius: 4px;\n  }\n\n  .content {\n    position: relative;\n    display: flex;\n    align-items: center;\n    min-height: var(--bar-height);\n    box-sizing: border-box;\n    padding: var(--bar-padding);\n    color: white;\n    font-size: 13px;\n    z-index: 0;\n  }\n\n  .bar {\n    position: absolute;\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 0%;\n    background: var(--progress-color);\n    transition: width var(--progress-duration) ease;\n    z-index: -1;\n  }\n\n  :host([error]) .bar {\n    background: var(--error-color);\n  }\n")), r)], this.shadowRoot.innerHTML = '\n      <span class="content">\n        <div class="bar"></div>\n        <slot></slot>\n      </span>\n    ', this.setAttribute("role", "progressbar"), this.setAttribute("aria-valuemin", "0"), this.setAttribute("aria-valuemax", "100");
   }
 };
-customElements.get("progress-bar") || customElements.define("progress-bar", n2);
+customElements.get("progress-bar") || customElements.define("progress-bar", e2);
 
 // dist/components/input-attachment.js
 var o2 = class _o {
-  static instance(t, e2 = {}) {
-    return t.inputAttachmentFormController ||= new _o(t, e2);
+  static instance(t, e3 = {}) {
+    return t.inputAttachmentFormController ||= new _o(t, e3);
   }
   dialog;
   element;
   controllers;
   submitted;
   processing;
-  constructor(t, { uploadDialog: e2 = true } = {}) {
-    this.element = t, this.controllers = [], this.submitted = false, this.processing = false, e2 && (this.dialog = document.createElement("upload-dialog"), this.dialog.id = "form-controller-dialog", this.element.appendChild(this.dialog)), this.element.addEventListener("submit", ((t2) => this.submit(t2))), window.addEventListener("beforeunload", ((t2) => this.beforeUnload(t2))), this.element.addEventListener("direct-upload:initialize", ((t2) => this.init(t2))), this.element.addEventListener("direct-upload:start", ((t2) => this.start(t2))), this.element.addEventListener("direct-upload:progress", ((t2) => this.progress(t2))), this.element.addEventListener("direct-upload:error", ((t2) => this.error(t2))), this.element.addEventListener("direct-upload:end", ((t2) => this.end(t2))), this.element.addEventListener("attachment-file:remove", ((t2) => this.removeUploadedFile(t2)));
+  constructor(t, { uploadDialog: e3 = true } = {}) {
+    this.element = t, this.controllers = [], this.submitted = false, this.processing = false, e3 && (this.dialog = document.createElement("upload-dialog"), this.dialog.id = "form-controller-dialog", this.element.appendChild(this.dialog)), this.element.addEventListener("submit", ((t2) => this.submit(t2))), window.addEventListener("beforeunload", ((t2) => this.beforeUnload(t2))), this.element.addEventListener("direct-upload:initialize", ((t2) => this.init(t2))), this.element.addEventListener("direct-upload:start", ((t2) => this.start(t2))), this.element.addEventListener("direct-upload:progress", ((t2) => this.progress(t2))), this.element.addEventListener("direct-upload:error", ((t2) => this.error(t2))), this.element.addEventListener("direct-upload:end", ((t2) => this.end(t2))), this.element.addEventListener("attachment-file:remove", ((t2) => this.removeUploadedFile(t2)));
   }
   beforeUnload(t) {
     if (this.processing) return t.preventDefault(), t.returnValue = "";
@@ -4842,8 +4853,8 @@ var o2 = class _o {
   startNextController() {
     if (this.processing) return;
     const t = this.controllers.shift();
-    t ? (this.processing = true, this.submitted ? this.setInputAttachmentsDisabled(true) : this.setControllerInputDisabled(t, true), t.start(((e2) => {
-      this.submitted ? e2 && this.setInputAttachmentsDisabled(false) : this.setControllerInputDisabled(t, false), this.processing = false, this.startNextController();
+    t ? (this.processing = true, this.submitted ? this.setInputAttachmentsDisabled(true) : this.setControllerInputDisabled(t, true), t.start(((e3) => {
+      this.submitted ? e3 && this.setInputAttachmentsDisabled(false) : this.setControllerInputDisabled(t, false), this.processing = false, this.startNextController();
     }))) : this.submitForm();
   }
   hasUploadErrors() {
@@ -4857,36 +4868,36 @@ var o2 = class _o {
       }));
     }
   }
-  setControllerInputDisabled(t, e2) {
+  setControllerInputDisabled(t, e3) {
     const i2 = t.uploadedFile.closest("input-attachment");
-    i2 && (i2.disabled = e2);
+    i2 && (i2.disabled = e3);
   }
   setInputAttachmentsDisabled(t) {
-    Array.from(this.element.querySelectorAll("input-attachment")).forEach(((e2) => {
-      e2.disabled = t;
+    Array.from(this.element.querySelectorAll("input-attachment")).forEach(((e3) => {
+      e3.disabled = t;
     }));
   }
   init(t) {
-    const { id: e2, file: i2, controller: s } = t.detail;
-    this.dialog?.addUpload("direct-upload-" + e2, i2?.name || "Uploading..."), this.controllers.push(s), this.startNextController();
+    const { id: e3, file: i2, controller: s } = t.detail;
+    this.dialog?.addUpload("direct-upload-" + e3, i2?.name || "Uploading..."), this.controllers.push(s), this.startNextController();
   }
   start(t) {
     this.dialog?.startUpload("direct-upload-" + t.detail.id);
   }
   progress(t) {
-    const { id: e2, progress: i2 } = t.detail;
-    this.dialog?.updateProgress("direct-upload-" + e2, i2);
+    const { id: e3, progress: i2 } = t.detail;
+    this.dialog?.updateProgress("direct-upload-" + e3, i2);
   }
   error(t) {
     t.preventDefault();
-    const { id: e2, error: i2 } = t.detail;
-    this.dialog?.setError("direct-upload-" + e2, i2);
+    const { id: e3, error: i2 } = t.detail;
+    this.dialog?.setError("direct-upload-" + e3, i2);
   }
   end(t) {
     this.dialog?.completeUpload("direct-upload-" + t.detail.id);
   }
   removeUploadedFile(t) {
-    const e2 = t.detail, i2 = e2.controller?.directUpload?.id;
+    const e3 = t.detail, i2 = e3.controller?.directUpload?.id;
     i2 && this.dialog?.removeUpload("direct-upload-" + i2), this.setInputAttachmentsDisabled(false), requestAnimationFrame((() => this.submitForm()));
   }
 };
@@ -4916,11 +4927,11 @@ var d2 = class extends HTMLElement {
   }
   handleDrop(t) {
     t.preventDefault(), this.classList.remove("-dragover");
-    const e2 = this.fileTarget;
-    if (e2 && t.dataTransfer.files.length > 0) {
-      e2.files = t.dataTransfer.files;
+    const e3 = this.fileTarget;
+    if (e3 && t.dataTransfer.files.length > 0) {
+      e3.files = t.dataTransfer.files;
       const i2 = new Event("change", { bubbles: true });
-      e2.dispatchEvent(i2);
+      e3.dispatchEvent(i2);
     }
   }
   applyDefaultStyles() {
@@ -4966,16 +4977,16 @@ var c3 = proxyCustomElement(class extends H {
     return JSON.stringify(this.files.map(((t) => ({ value: t.value, filename: t.filename, src: t.src, state: t.state, percent: t.percent, size: t.size, filetype: t.filetype }))));
   }
   set value(t) {
-    const e2 = JSON.parse(t || "[]");
-    0 !== e2.length ? (this.files = e2.map(((t2) => {
-      const e3 = document.createElement("attachment-file");
-      return e3.name = this.name, e3.preview = this.preview, e3.value = t2.value, e3.filename = t2.filename, e3.src = t2.src, e3.state = t2.state || "complete", e3.percent = t2.percent || 100, e3.size = t2.size, e3.filetype = t2.filetype, e3;
+    const e3 = JSON.parse(t || "[]");
+    0 !== e3.length ? (this.files = e3.map(((t2) => {
+      const e4 = document.createElement("attachment-file");
+      return e4.name = this.name, e4.preview = this.preview, e4.value = t2.value, e4.filename = t2.filename, e4.src = t2.src, e4.state = t2.state || "complete", e4.percent = t2.percent || 100, e4.size = t2.size, e4.filetype = t2.filetype, e4;
     })), requestAnimationFrame((() => this.componentDidRender()))) : this.files = [];
   }
   updateFormValue() {
     if (!this.name || !this.internals?.setFormValue) return;
-    const t = new FormData(), e2 = this.files.map(((t2) => t2.value)).filter(((t2) => t2 && "string" != typeof t2 ? (console.error("[input-attachment] Non-string value detected on attachment-file:", typeof t2, t2, Error().stack), false) : "string" == typeof t2 && t2.length > 0));
-    if (this.multiple ? (e2.forEach(((e3) => t.append(this.name, e3))), 0 === e2.length && t.append(this.name, "")) : t.set(this.name, e2[0] || ""), this.internals.setFormValue(t), this.required && 0 === this.files.length) this.internals.setValidity({ valueMissing: true }, "Please select a file.", this.fileInput);
+    const t = new FormData(), e3 = this.files.map(((t2) => t2.value)).filter(((t2) => t2 && "string" != typeof t2 ? (console.error("[input-attachment] Non-string value detected on attachment-file:", typeof t2, t2, Error().stack), false) : "string" == typeof t2 && t2.length > 0));
+    if (this.multiple ? (e3.forEach(((e4) => t.append(this.name, e4))), 0 === e3.length && t.append(this.name, "")) : t.set(this.name, e3[0] || ""), this.internals.setFormValue(t), this.required && 0 === this.files.length) this.internals.setValidity({ valueMissing: true }, "Please select a file.", this.fileInput);
     else {
       const t2 = this.files.map(((t3) => t3.validationError)).filter(((t3) => t3 && t3.length > 0));
       t2.length > 0 ? this.internals.setValidity({ customError: true }, t2[0], this.fileInput) : this.internals.setValidity({});
@@ -4991,8 +5002,8 @@ var c3 = proxyCustomElement(class extends H {
     t.preventDefault(), this.isDisabled || t.dataTransfer?.files?.length && this.addFiles(t.dataTransfer.files);
   };
   removeUploadedFile(t) {
-    !(function(t2, e2) {
-      const i2 = t2.findIndex(((t3) => t3 === e2));
+    !(function(t2, e3) {
+      const i2 = t2.findIndex(((t3) => t3 === e3));
       -1 !== i2 && t2.splice(i2, 1);
     })(this.files, t.detail), this.files = this.files;
   }
@@ -5019,14 +5030,14 @@ var c3 = proxyCustomElement(class extends H {
       t2.length > 0 && (this._files = t2);
     }
     const t = document.createElement("div");
-    this.files.forEach(((e3) => t.appendChild(e3)));
-    let e2 = false;
-    if (t.children.length !== this.el.children.length) e2 = true;
+    this.files.forEach(((e4) => t.appendChild(e4)));
+    let e3 = false;
+    if (t.children.length !== this.el.children.length) e3 = true;
     else for (let i2 = 0; i2 < t.children.length; i2++) if (t.children[i2] !== this.el.children[i2]) {
-      e2 = true;
+      e3 = true;
       break;
     }
-    if (e2) {
+    if (e3) {
       for (; this.el.firstChild; ) this.el.removeChild(this.el.firstChild);
       this.el.appendChild(t);
     }
@@ -5034,8 +5045,8 @@ var c3 = proxyCustomElement(class extends H {
   }
   addFiles(t) {
     Array.from(t).forEach(((t2) => {
-      const e2 = document.createElement("attachment-file");
-      e2.name = this.name, e2.preview = this.preview, e2.setAttribute("url", this.directupload), e2.accepts = this.accepts, e2.max = this.max, e2.file = t2, this._files.push(e2);
+      const e3 = document.createElement("attachment-file");
+      e3.name = this.name, e3.preview = this.preview, e3.setAttribute("url", this.directupload), e3.accepts = this.accepts, e3.max = this.max, e3.file = t2, this._files.push(e3);
     })), this.files = this._files, requestAnimationFrame((() => this.componentDidRender()));
   }
   checkValidity() {
@@ -5061,8 +5072,8 @@ var p2 = c3;
 
 // dist/components/upload-dialog.js
 var r2 = proxyCustomElement(class extends H {
-  constructor(e2) {
-    super(), false !== e2 && this.__registerHost(), this.__attachShadow();
+  constructor(e3) {
+    super(), false !== e3 && this.__registerHost(), this.__attachShadow();
   }
   dialog;
   uploads = [];
@@ -5072,26 +5083,26 @@ var r2 = proxyCustomElement(class extends H {
   async close() {
     this.dialog.close();
   }
-  async addUpload(e2, t) {
-    this.uploads = [...this.uploads, { id: e2, filename: t, pending: true, percent: 0, complete: false, error: null }];
+  async addUpload(e3, t) {
+    this.uploads = [...this.uploads, { id: e3, filename: t, pending: true, percent: 0, complete: false, error: null }];
   }
-  async startUpload(e2) {
-    this.uploads = this.uploads.map(((t) => t.id === e2 ? { ...t, pending: false } : t));
+  async startUpload(e3) {
+    this.uploads = this.uploads.map(((t) => t.id === e3 ? { ...t, pending: false } : t));
   }
-  async updateProgress(e2, t) {
-    this.uploads = this.uploads.map(((a3) => a3.id === e2 ? { ...a3, percent: t } : a3));
+  async updateProgress(e3, t) {
+    this.uploads = this.uploads.map(((a3) => a3.id === e3 ? { ...a3, percent: t } : a3));
   }
-  async setError(e2, t) {
-    this.uploads = this.uploads.map(((a3) => a3.id === e2 ? { ...a3, error: t } : a3));
+  async setError(e3, t) {
+    this.uploads = this.uploads.map(((a3) => a3.id === e3 ? { ...a3, error: t } : a3));
   }
-  async completeUpload(e2) {
-    this.uploads = this.uploads.map(((t) => t.id === e2 ? { ...t, complete: true } : t));
+  async completeUpload(e3) {
+    this.uploads = this.uploads.map(((t) => t.id === e3 ? { ...t, complete: true } : t));
   }
-  async removeUpload(e2) {
-    this.uploads = this.uploads.filter(((t) => t.id !== e2));
+  async removeUpload(e3) {
+    this.uploads = this.uploads.filter(((t) => t.id !== e3));
   }
   render() {
-    return h(Host, { key: "76874b06863ae2cab526de1f0e491bb04300c6fc" }, h("dialog", { key: "55b715d6d5fc6ee0c6a16df16c6374ca6e285aee", ref: (e2) => this.dialog = e2 }, h("div", { key: "bab0ae4ed41bb5a909351866d92f0da330858691", class: "direct-upload-wrapper" }, h("div", { key: "23fe0a67bd942f5f4a53df1bd61bec8863104b2c", class: "direct-upload-content" }, h("h3", { key: "d2e349d855c046a541c9dc3ac837873bcd75da22" }, "Uploading your media"), this.uploads.map(((e2) => h("progress-bar", { key: e2.id, class: { "direct-upload--pending": e2.pending, "direct-upload--complete": e2.complete, "direct-upload--error": !!e2.error }, percent: e2.percent, title: e2.error || void 0 }, e2.filename)))))));
+    return h(Host, { key: "76874b06863ae2cab526de1f0e491bb04300c6fc" }, h("dialog", { key: "55b715d6d5fc6ee0c6a16df16c6374ca6e285aee", ref: (e3) => this.dialog = e3 }, h("div", { key: "bab0ae4ed41bb5a909351866d92f0da330858691", class: "direct-upload-wrapper" }, h("div", { key: "23fe0a67bd942f5f4a53df1bd61bec8863104b2c", class: "direct-upload-content" }, h("h3", { key: "d2e349d855c046a541c9dc3ac837873bcd75da22" }, "Uploading your media"), this.uploads.map(((e3) => h("progress-bar", { key: e3.id, class: { "direct-upload--pending": e3.pending, "direct-upload--complete": e3.complete, "direct-upload--error": !!e3.error }, percent: e3.percent, title: e3.error || void 0 }, e3.filename)))))));
   }
   static get style() {
     return "dialog{border:none;padding:0;background:transparent;max-width:100vw;max-height:100vh}dialog::backdrop{background:transparent}.direct-upload-wrapper{position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:var(--input-attachment-overlay-bg, rgba(51, 51, 51, 0.9))}.direct-upload-content{display:block;background:var(--input-attachment-dialog-bg, #fcfcfc);color:var(--input-attachment-text-color, #000);padding:40px 60px 60px;border-radius:3px;width:60vw}.direct-upload-content h3{border-bottom:2px solid var(--input-attachment-dialog-border, #1f1f1f);margin-bottom:20px}.direct-upload--pending{opacity:0.6}.direct-upload--complete{opacity:0.4}.direct-upload--error{border-color:var(--input-attachment-error-color, red)}";
@@ -5101,8 +5112,8 @@ var c4 = r2;
 
 // dist/components/index.js
 var r3 = (r4) => {
-  "undefined" != typeof customElements && [o, e, p2, c4].forEach(((e2) => {
-    customElements.get(transformTag(e2.is)) || customElements.define(transformTag(e2.is), e2, r4);
+  "undefined" != typeof customElements && [o, e, p2, c4].forEach(((e3) => {
+    customElements.get(transformTag(e3.is)) || customElements.define(transformTag(e3.is), e3, r4);
   }));
 };
 
