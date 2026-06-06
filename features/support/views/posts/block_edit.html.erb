@@ -1,0 +1,25 @@
+<h1>Edit Post</h1>
+
+<%= form_for @post do |form| %>
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :image %>
+    <%= form.attachment_field :image, accepts: "image", max: 100.kilobytes do |options| %>
+      <% if @post.image.attached? %>
+        <attachment-file
+          name="<%= options["name"] %>"
+          src="/rails/active_storage/blobs/redirect/<%= @post.image.signed_id %>/<%= @post.image.filename %>"
+          filename="<%= @post.image.filename %>"
+          value="<%= @post.image.signed_id %>"
+          preview="true"
+          filetype="image"></attachment-file>
+      <% end %>
+    <% end %>
+  </p>
+
+  <p><%= form.submit "Submit" %></p>
+<% end %>

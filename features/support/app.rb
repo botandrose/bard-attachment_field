@@ -171,6 +171,13 @@ class PostsController < ApplicationController
     render 'posts/edit'
   end
 
+  # Edit form that renders the attachment field with a block (custom
+  # <attachment-file> markup), exercising Field#render's block path. See BARD #262849.
+  def block_edit
+    @post = Post.find(params[:id])
+    render 'posts/block_edit'
+  end
+
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
@@ -349,6 +356,9 @@ Rails.application.routes.draw do
 
   root 'posts#index'
   resources :posts do
+    member do
+      get :block_edit
+    end
     collection do
       get :disabled
       get :disabled_fieldset

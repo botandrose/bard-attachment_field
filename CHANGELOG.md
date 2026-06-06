@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Bug Fixes
+
+- Capture the block passed to `attachment_field` instead of using its return
+  value. Previously the block's markup leaked to the surrounding output buffer,
+  leaving `<input-attachment>` with no `<attachment-file>` child — so editing a
+  record and saving without touching the file submitted an empty value and
+  silently purged the existing attachment.
+
 ## [0.2.0] - 2026-03-03
 
 ### Features

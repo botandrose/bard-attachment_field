@@ -8,8 +8,12 @@ module Bard
         })
         add_default_name_and_id(options)
 
-        content_tag("input-attachment", options) do
-          next block.call(options) if block
+        content = if block
+          # Capture the template block's rendered markup. Using block.call would
+          # return the block's value while its markup leaked to the surrounding
+          # output buffer, leaving <input-attachment> childless (see BARD #262849).
+          @template_object.capture(options, &block)
+        else
           Array(object.try(@method_name)).map do |attachment|
             content_tag("attachment-file", nil, {
               name: options["name"],
@@ -20,6 +24,8 @@ module Bard
             })
           end.join("\n").html_safe
         end
+
+        content_tag("input-attachment", content, options)
       end
 
       private
