@@ -4790,43 +4790,190 @@ var o = H2;
 var e = a;
 
 // dist/components/index2.js
-var r = null;
-function n2(r4) {
-  const n3 = Number(r4);
-  if (Number.isNaN(n3)) throw new TypeError(`progress-bar: percent must be numeric, got ${JSON.stringify(r4)}`);
-  return Math.min(100, Math.max(0, n3));
+var n2 = null;
+function r(n3) {
+  const r4 = Number(n3);
+  if (Number.isNaN(r4)) throw new TypeError(`progress-bar: percent must be numeric, got ${JSON.stringify(n3)}`);
+  return Math.min(100, Math.max(0, r4));
 }
 var e2 = class extends HTMLElement {
   constructor() {
-    super(), this.attachShadow({ mode: "open" }), this._percent = 0, this._rendered = false;
+    super(), this.attachShadow({ mode: "open" }), this._percent = null, this._renderedMode = null;
   }
   connectedCallback() {
-    this._rendered || (this.render(), this._rendered = true), this.updateBar();
+    this.render(), this.setAttribute("role", "progressbar"), this.setAttribute("aria-valuemin", "0"), this.setAttribute("aria-valuemax", "100"), this.updateBar();
   }
   get percent() {
     return this._percent;
   }
-  set percent(r4) {
-    this.setAttribute("percent", n2(r4));
+  set percent(n3) {
+    null == n3 ? this.removeAttribute("percent") : this.setAttribute("percent", r(n3));
   }
   get error() {
     return this.hasAttribute("error");
   }
-  set error(r4) {
-    this.toggleAttribute("error", Boolean(r4));
+  set error(n3) {
+    this.toggleAttribute("error", Boolean(n3));
+  }
+  get indeterminate() {
+    return !this.hasAttribute("percent");
+  }
+  get mode() {
+    return "circular" === this.getAttribute("mode") ? "circular" : "linear";
+  }
+  set mode(n3) {
+    this.setAttribute("mode", n3);
   }
   static get observedAttributes() {
-    return ["percent"];
+    return ["percent", "mode"];
   }
-  attributeChangedCallback(r4, e3, t) {
-    "percent" === r4 && (this._percent = n2(t), this.updateBar());
+  attributeChangedCallback(n3, e3, t) {
+    "percent" === n3 && (this._percent = null === t ? null : r(t)), "mode" === n3 && this.render(), this.updateBar();
   }
   updateBar() {
-    const r4 = this.shadowRoot?.querySelector(".bar");
-    r4 && (r4.style.width = `${this._percent}%`), this.setAttribute("aria-valuenow", String(this._percent));
+    if ("circular" === this.mode) {
+      const n3 = this.shadowRoot?.querySelector(".progress-ring");
+      n3 && (n3.style.strokeDashoffset = this.indeterminate ? "" : String(100 * (1 - this._percent / 100)));
+    } else {
+      const n3 = this.shadowRoot?.querySelector(".bar");
+      n3 && (n3.style.width = this.indeterminate ? "" : `${this._percent}%`);
+    }
+    this.indeterminate ? this.removeAttribute("aria-valuenow") : this.setAttribute("aria-valuenow", String(this._percent));
   }
   render() {
-    this.shadowRoot.adoptedStyleSheets = [(r || (r = new CSSStyleSheet(), r.replaceSync("\n  :host {\n    --progress-color: #2E7D32;\n    --error-color: #7a242f;\n    --progress-duration: 120ms;\n    --bar-height: 32px;\n    --bar-padding: 8px;\n    display: block;\n    overflow: hidden;\n    background: #333333;\n    border: 1px solid #999;\n    border-radius: 4px;\n  }\n\n  .content {\n    position: relative;\n    display: flex;\n    align-items: center;\n    min-height: var(--bar-height);\n    box-sizing: border-box;\n    padding: var(--bar-padding);\n    color: white;\n    font-size: 13px;\n    z-index: 0;\n  }\n\n  .bar {\n    position: absolute;\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 0%;\n    background: var(--progress-color);\n    transition: width var(--progress-duration) ease;\n    z-index: -1;\n  }\n\n  :host([error]) .bar {\n    background: var(--error-color);\n  }\n")), r)], this.shadowRoot.innerHTML = '\n      <span class="content">\n        <div class="bar"></div>\n        <slot></slot>\n      </span>\n    ', this.setAttribute("role", "progressbar"), this.setAttribute("aria-valuemin", "0"), this.setAttribute("aria-valuemax", "100");
+    const r4 = this.mode;
+    this._renderedMode !== r4 && (this._renderedMode = r4, this.shadowRoot.adoptedStyleSheets = [(n2 || (n2 = new CSSStyleSheet(), n2.replaceSync(`
+  :host {
+    --progress-color: #2E7D32;
+    --error-color: #7a242f;
+    --indeterminate-color: #999;
+    --track-color: #333333;
+    --progress-duration: 120ms;
+    --indeterminate-duration: 1.5s;
+    --bar-height: 32px;
+    --bar-padding: 8px;
+    --circular-size: 64px;
+    --circular-thickness: 16;
+    display: block;
+    overflow: hidden;
+    background: var(--track-color);
+    border: 1px solid #999;
+    border-radius: 4px;
+    min-height: var(--bar-height);
+    padding: var(--bar-padding);
+    font-size: 13px;
+    align-content: center;
+    box-sizing: border-box;
+    position: relative;
+  }
+  .bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--progress-color);
+    transition: width var(--progress-duration) ease;
+    z-index: 1;
+  }
+  .text{position: relative; z-index: 2;}
+  :host([error]) .bar {
+    background: var(--error-color);
+  }
+
+  /* Indeterminate (linear): no percent set \u2014 a fixed-width segment sweeping across the track. */
+  :host(:not([percent])) .bar {
+    background: var(--indeterminate-color);
+    width: 40%;
+    animation: indeterminate-linear var(--indeterminate-duration) infinite linear;
+  }
+
+  @keyframes indeterminate-linear {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+  }
+
+  /* Circular mode: the host box styling is for the linear track, so drop it. */
+  :host([mode="circular"]) {
+    background: transparent;
+    border: none;
+    overflow: visible;
+    padding: 0;
+    min-height: 0;
+  }
+
+  .circular {
+    position: relative;
+    display: inline-flex;
+    width: var(--circular-size);
+    height: var(--circular-size);
+  }
+
+  .ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .ring circle {
+    fill: none;
+    stroke-width: var(--circular-thickness);
+    /* Shrink the radius so the stroke's outer edge always lands inside the
+       100x100 viewBox, no matter how thick --circular-thickness is. */
+    r: calc(49px - var(--circular-thickness) * 0.5px);
+  }
+
+  .track {
+    stroke: var(--track-color);
+  }
+
+  .progress-ring {
+    stroke: var(--progress-color);
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset var(--progress-duration) ease;
+  }
+
+  :host(:not([percent])) .progress-ring {
+    stroke: var(--indeterminate-color);
+  }
+
+  :host([error]) .progress-ring {
+    stroke: var(--error-color);
+  }
+
+  .label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    mix-blend-mode: difference;
+  }
+
+  /* When the host carries its own inline styling (e.g. a color override), opt
+     out of the blend trick and just inherit, so the override wins predictably. */
+  :host([style]) .label {
+    mix-blend-mode: initial;
+    color: inherit;
+  }
+
+  /* Indeterminate (circular): no percent set \u2014 spin a fixed arc around the ring. */
+  :host(:not([percent])) .ring {
+    animation: indeterminate-rotate var(--indeterminate-duration) infinite linear;
+  }
+
+  :host(:not([percent])) .progress-ring {
+    stroke-dashoffset: 75;
+  }
+
+  @keyframes indeterminate-rotate {
+    0%   { transform: rotate(-90deg); }
+    100% { transform: rotate(270deg); }
+  }
+`)), n2)], this.shadowRoot.innerHTML = "circular" === r4 ? '\n  <div class="circular">\n    <svg class="ring" viewBox="0 0 100 100">\n      <circle class="track" cx="50" cy="50" r="40"></circle>\n      <circle class="progress-ring" cx="50" cy="50" r="40" pathLength="100"></circle>\n    </svg>\n    <span class="label"><slot></slot></span>\n  </div>\n' : '\n  <div class="bar"></div>\n  <div class="text"><slot></slot></div>\n');
   }
 };
 customElements.get("progress-bar") || customElements.define("progress-bar", e2);
