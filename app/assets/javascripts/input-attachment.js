@@ -4939,8 +4939,13 @@ var e2 = class extends HTMLElement {
     stroke: var(--indeterminate-color);
   }
 
-  :host([error]) .progress-ring {
+  /* The X of the error glyph; revealed by [error]. */
+  .error-mark {
+    display: none;
+    fill: none;
     stroke: var(--error-color);
+    stroke-width: var(--circular-thickness);
+    stroke-linecap: round;
   }
 
   .label {
@@ -4973,7 +4978,13 @@ var e2 = class extends HTMLElement {
     0%   { transform: rotate(-90deg); }
     100% { transform: rotate(270deg); }
   }
-`)), n2)], this.shadowRoot.innerHTML = "circular" === r4 ? '\n  <div class="circular">\n    <svg class="ring" viewBox="0 0 100 100">\n      <circle class="track" cx="50" cy="50" r="40"></circle>\n      <circle class="progress-ring" cx="50" cy="50" r="40" pathLength="100"></circle>\n    </svg>\n    <span class="label"><slot></slot></span>\n  </div>\n' : '\n  <div class="bar"></div>\n  <div class="text"><slot></slot></div>\n');
+
+  /* Error (circular): static full ring + X. Last so it beats the indeterminate rules. */
+  :host([error]) .track { stroke: var(--error-color); }
+  :host([error]) .progress-ring { display: none; }
+  :host([error]) .ring { animation: none; }
+  :host([error]) .error-mark { display: block; }
+`)), n2)], this.shadowRoot.innerHTML = "circular" === r4 ? '\n  <div class="circular">\n    <svg class="ring" viewBox="0 0 100 100">\n      <circle class="track" cx="50" cy="50" r="40"></circle>\n      <circle class="progress-ring" cx="50" cy="50" r="40" pathLength="100"></circle>\n      <path class="error-mark" d="M37 37 L63 63 M63 37 L37 63"></path>\n    </svg>\n    <span class="label"><slot></slot></span>\n  </div>\n' : '\n  <div class="bar"></div>\n  <div class="text"><slot></slot></div>\n');
   }
 };
 customElements.get("progress-bar") || customElements.define("progress-bar", e2);
