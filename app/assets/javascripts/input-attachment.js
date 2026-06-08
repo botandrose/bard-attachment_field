@@ -1935,9 +1935,9 @@ var applyStrictSelectorScope = (selector, scopeSelector2, hostSelector) => {
     if (p3.indexOf(_polyfillHostNoCombinator) > -1) {
       scopedP = applySimpleSelectorScope(p3, scopeSelector2, hostSelector);
     } else {
-      const t = p3.replace(_polyfillHostRe, "");
-      if (t.length > 0) {
-        scopedP = injectScopingSelector(t, className);
+      const t2 = p3.replace(_polyfillHostRe, "");
+      if (t2.length > 0) {
+        scopedP = injectScopingSelector(t2, className);
       }
     }
     return scopedP;
@@ -4112,347 +4112,347 @@ var n = function() {
 // dist/components/attachment-file2.js
 var a2 = { exports: {} };
 a2.exports = (function() {
-  var t = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
-  function e3(t2, e4) {
-    var i3 = t2[0], s2 = t2[1], r5 = t2[2], n4 = t2[3];
-    s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[0] - 680876936 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[1] - 389564586 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[2] + 606105819 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[3] - 1044525330 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[4] - 176418897 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[5] + 1200080426 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[6] - 1473231341 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[7] - 45705983 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[8] + 1770035416 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[9] - 1958414417 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[10] - 42063 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[11] - 1990404162 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[12] + 1804603682 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[13] - 40341101 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[14] - 1502002290 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[15] + 1236535329 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[1] - 165796510 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[6] - 1069501632 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[11] + 643717713 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[0] - 373897302 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[5] - 701558691 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[10] + 38016083 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[15] - 660478335 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[4] - 405537848 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[9] + 568446438 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[14] - 1019803690 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[3] - 187363961 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[8] + 1163531501 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[13] - 1444681467 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[2] - 51403784 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[7] + 1735328473 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[12] - 1926607734 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[5] - 378558 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[8] - 2022574463 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[11] + 1839030562 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[14] - 35309556 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[1] - 1530992060 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[4] + 1272893353 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[7] - 155497632 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[10] - 1094730640 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[13] + 681279174 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[0] - 358537222 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[3] - 722521979 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[6] + 76029189 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[9] - 640364487 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[12] - 421815835 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[15] + 530742520 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[2] - 995338651 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[0] - 198630844 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[7] + 1126891415 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[14] - 1416354905 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[5] - 57434055 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[12] + 1700485571 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[3] - 1894986606 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[10] - 1051523 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[1] - 2054922799 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[8] + 1873313359 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[15] - 30611744 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[6] - 1560198380 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[13] + 1309151649 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[4] - 145523070 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[11] - 1120210379 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[2] + 718787259 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[9] - 343485551 | 0) << 21 | s2 >>> 11) + r5 | 0, t2[0] = i3 + t2[0] | 0, t2[1] = s2 + t2[1] | 0, t2[2] = r5 + t2[2] | 0, t2[3] = n4 + t2[3] | 0;
+  var t2 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
+  function e3(t3, e4) {
+    var i3 = t3[0], s2 = t3[1], r5 = t3[2], n4 = t3[3];
+    s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[0] - 680876936 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[1] - 389564586 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[2] + 606105819 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[3] - 1044525330 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[4] - 176418897 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[5] + 1200080426 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[6] - 1473231341 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[7] - 45705983 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[8] + 1770035416 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[9] - 1958414417 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[10] - 42063 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[11] - 1990404162 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & r5 | ~s2 & n4) + e4[12] + 1804603682 | 0) << 7 | i3 >>> 25) + s2 | 0) & s2 | ~i3 & r5) + e4[13] - 40341101 | 0) << 12 | n4 >>> 20) + i3 | 0) & i3 | ~n4 & s2) + e4[14] - 1502002290 | 0) << 17 | r5 >>> 15) + n4 | 0) & n4 | ~r5 & i3) + e4[15] + 1236535329 | 0) << 22 | s2 >>> 10) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[1] - 165796510 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[6] - 1069501632 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[11] + 643717713 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[0] - 373897302 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[5] - 701558691 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[10] + 38016083 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[15] - 660478335 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[4] - 405537848 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[9] + 568446438 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[14] - 1019803690 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[3] - 187363961 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[8] + 1163531501 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 & n4 | r5 & ~n4) + e4[13] - 1444681467 | 0) << 5 | i3 >>> 27) + s2 | 0) & r5 | s2 & ~r5) + e4[2] - 51403784 | 0) << 9 | n4 >>> 23) + i3 | 0) & s2 | i3 & ~s2) + e4[7] + 1735328473 | 0) << 14 | r5 >>> 18) + n4 | 0) & i3 | n4 & ~i3) + e4[12] - 1926607734 | 0) << 20 | s2 >>> 12) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[5] - 378558 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[8] - 2022574463 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[11] + 1839030562 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[14] - 35309556 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[1] - 1530992060 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[4] + 1272893353 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[7] - 155497632 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[10] - 1094730640 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[13] + 681279174 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[0] - 358537222 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[3] - 722521979 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[6] + 76029189 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((r5 = ((r5 += ((n4 = ((n4 += ((i3 = ((i3 += (s2 ^ r5 ^ n4) + e4[9] - 640364487 | 0) << 4 | i3 >>> 28) + s2 | 0) ^ s2 ^ r5) + e4[12] - 421815835 | 0) << 11 | n4 >>> 21) + i3 | 0) ^ i3 ^ s2) + e4[15] + 530742520 | 0) << 16 | r5 >>> 16) + n4 | 0) ^ n4 ^ i3) + e4[2] - 995338651 | 0) << 23 | s2 >>> 9) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[0] - 198630844 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[7] + 1126891415 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[14] - 1416354905 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[5] - 57434055 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[12] + 1700485571 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[3] - 1894986606 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[10] - 1051523 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[1] - 2054922799 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[8] + 1873313359 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[15] - 30611744 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[6] - 1560198380 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[13] + 1309151649 | 0) << 21 | s2 >>> 11) + r5 | 0, s2 = ((s2 += ((n4 = ((n4 += (s2 ^ ((i3 = ((i3 += (r5 ^ (s2 | ~n4)) + e4[4] - 145523070 | 0) << 6 | i3 >>> 26) + s2 | 0) | ~r5)) + e4[11] - 1120210379 | 0) << 10 | n4 >>> 22) + i3 | 0) ^ ((r5 = ((r5 += (i3 ^ (n4 | ~s2)) + e4[2] + 718787259 | 0) << 15 | r5 >>> 17) + n4 | 0) | ~i3)) + e4[9] - 343485551 | 0) << 21 | s2 >>> 11) + r5 | 0, t3[0] = i3 + t3[0] | 0, t3[1] = s2 + t3[1] | 0, t3[2] = r5 + t3[2] | 0, t3[3] = n4 + t3[3] | 0;
   }
-  function i2(t2) {
+  function i2(t3) {
     var e4, i3 = [];
-    for (e4 = 0; e4 < 64; e4 += 4) i3[e4 >> 2] = t2.charCodeAt(e4) + (t2.charCodeAt(e4 + 1) << 8) + (t2.charCodeAt(e4 + 2) << 16) + (t2.charCodeAt(e4 + 3) << 24);
+    for (e4 = 0; e4 < 64; e4 += 4) i3[e4 >> 2] = t3.charCodeAt(e4) + (t3.charCodeAt(e4 + 1) << 8) + (t3.charCodeAt(e4 + 2) << 16) + (t3.charCodeAt(e4 + 3) << 24);
     return i3;
   }
-  function s(t2) {
+  function s(t3) {
     var e4, i3 = [];
-    for (e4 = 0; e4 < 64; e4 += 4) i3[e4 >> 2] = t2[e4] + (t2[e4 + 1] << 8) + (t2[e4 + 2] << 16) + (t2[e4 + 3] << 24);
+    for (e4 = 0; e4 < 64; e4 += 4) i3[e4 >> 2] = t3[e4] + (t3[e4 + 1] << 8) + (t3[e4 + 2] << 16) + (t3[e4 + 3] << 24);
     return i3;
   }
-  function r4(t2) {
-    var s2, r5, n4, o4, a4, h4, c6 = t2.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
-    for (s2 = 64; s2 <= c6; s2 += 64) e3(l3, i2(t2.substring(s2 - 64, s2)));
-    for (r5 = (t2 = t2.substring(s2 - 64)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], s2 = 0; s2 < r5; s2 += 1) n4[s2 >> 2] |= t2.charCodeAt(s2) << (s2 % 4 << 3);
+  function r4(t3) {
+    var s2, r5, n4, o4, a4, h4, c6 = t3.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
+    for (s2 = 64; s2 <= c6; s2 += 64) e3(l3, i2(t3.substring(s2 - 64, s2)));
+    for (r5 = (t3 = t3.substring(s2 - 64)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], s2 = 0; s2 < r5; s2 += 1) n4[s2 >> 2] |= t3.charCodeAt(s2) << (s2 % 4 << 3);
     if (n4[s2 >> 2] |= 128 << (s2 % 4 << 3), s2 > 55) for (e3(l3, n4), s2 = 0; s2 < 16; s2 += 1) n4[s2] = 0;
     return o4 = (o4 = 8 * c6).toString(16).match(/(.*?)(.{0,8})$/), a4 = parseInt(o4[2], 16), h4 = parseInt(o4[1], 16) || 0, n4[14] = a4, n4[15] = h4, e3(l3, n4), l3;
   }
   function n3(e4) {
     var i3, s2 = "";
-    for (i3 = 0; i3 < 4; i3 += 1) s2 += t[e4 >> 8 * i3 + 4 & 15] + t[e4 >> 8 * i3 & 15];
+    for (i3 = 0; i3 < 4; i3 += 1) s2 += t2[e4 >> 8 * i3 + 4 & 15] + t2[e4 >> 8 * i3 & 15];
     return s2;
   }
-  function o3(t2) {
+  function o3(t3) {
     var e4;
-    for (e4 = 0; e4 < t2.length; e4 += 1) t2[e4] = n3(t2[e4]);
-    return t2.join("");
+    for (e4 = 0; e4 < t3.length; e4 += 1) t3[e4] = n3(t3[e4]);
+    return t3.join("");
   }
-  function a3(t2) {
-    return /[\u0080-\uFFFF]/.test(t2) && (t2 = unescape(encodeURIComponent(t2))), t2;
+  function a3(t3) {
+    return /[\u0080-\uFFFF]/.test(t3) && (t3 = unescape(encodeURIComponent(t3))), t3;
   }
-  function h3(t2) {
-    var e4, i3 = [], s2 = t2.length;
-    for (e4 = 0; e4 < s2 - 1; e4 += 2) i3.push(parseInt(t2.substr(e4, 2), 16));
+  function h3(t3) {
+    var e4, i3 = [], s2 = t3.length;
+    for (e4 = 0; e4 < s2 - 1; e4 += 2) i3.push(parseInt(t3.substr(e4, 2), 16));
     return String.fromCharCode.apply(String, i3);
   }
   function c5() {
     this.reset();
   }
   return o3(r4("hello")), "undefined" == typeof ArrayBuffer || ArrayBuffer.prototype.slice || (function() {
-    function t2(t3, e4) {
-      return (t3 = 0 | t3 || 0) < 0 ? Math.max(t3 + e4, 0) : Math.min(t3, e4);
+    function t3(t4, e4) {
+      return (t4 = 0 | t4 || 0) < 0 ? Math.max(t4 + e4, 0) : Math.min(t4, e4);
     }
     ArrayBuffer.prototype.slice = function(e4, i3) {
-      var s2, r5, n4, o4, a4 = this.byteLength, h4 = t2(e4, a4), c6 = a4;
-      return void 0 !== i3 && (c6 = t2(i3, a4)), h4 > c6 ? new ArrayBuffer(0) : (s2 = c6 - h4, r5 = new ArrayBuffer(s2), n4 = new Uint8Array(r5), o4 = new Uint8Array(this, h4, s2), n4.set(o4), r5);
+      var s2, r5, n4, o4, a4 = this.byteLength, h4 = t3(e4, a4), c6 = a4;
+      return void 0 !== i3 && (c6 = t3(i3, a4)), h4 > c6 ? new ArrayBuffer(0) : (s2 = c6 - h4, r5 = new ArrayBuffer(s2), n4 = new Uint8Array(r5), o4 = new Uint8Array(this, h4, s2), n4.set(o4), r5);
     };
-  })(), c5.prototype.append = function(t2) {
-    return this.appendBinary(a3(t2)), this;
-  }, c5.prototype.appendBinary = function(t2) {
-    this._buff += t2, this._length += t2.length;
+  })(), c5.prototype.append = function(t3) {
+    return this.appendBinary(a3(t3)), this;
+  }, c5.prototype.appendBinary = function(t3) {
+    this._buff += t3, this._length += t3.length;
     var s2, r5 = this._buff.length;
     for (s2 = 64; s2 <= r5; s2 += 64) e3(this._hash, i2(this._buff.substring(s2 - 64, s2)));
     return this._buff = this._buff.substring(s2 - 64), this;
-  }, c5.prototype.end = function(t2) {
+  }, c5.prototype.end = function(t3) {
     var e4, i3, s2 = this._buff, r5 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (e4 = 0; e4 < r5; e4 += 1) n4[e4 >> 2] |= s2.charCodeAt(e4) << (e4 % 4 << 3);
-    return this._finish(n4, r5), i3 = o3(this._hash), t2 && (i3 = h3(i3)), this.reset(), i3;
+    return this._finish(n4, r5), i3 = o3(this._hash), t3 && (i3 = h3(i3)), this.reset(), i3;
   }, c5.prototype.reset = function() {
     return this._buff = "", this._length = 0, this._hash = [1732584193, -271733879, -1732584194, 271733878], this;
   }, c5.prototype.getState = function() {
     return { buff: this._buff, length: this._length, hash: this._hash.slice() };
-  }, c5.prototype.setState = function(t2) {
-    return this._buff = t2.buff, this._length = t2.length, this._hash = t2.hash, this;
+  }, c5.prototype.setState = function(t3) {
+    return this._buff = t3.buff, this._length = t3.length, this._hash = t3.hash, this;
   }, c5.prototype.destroy = function() {
     delete this._hash, delete this._buff, delete this._length;
-  }, c5.prototype._finish = function(t2, i3) {
+  }, c5.prototype._finish = function(t3, i3) {
     var s2, r5, n4, o4 = i3;
-    if (t2[o4 >> 2] |= 128 << (o4 % 4 << 3), o4 > 55) for (e3(this._hash, t2), o4 = 0; o4 < 16; o4 += 1) t2[o4] = 0;
-    s2 = (s2 = 8 * this._length).toString(16).match(/(.*?)(.{0,8})$/), r5 = parseInt(s2[2], 16), n4 = parseInt(s2[1], 16) || 0, t2[14] = r5, t2[15] = n4, e3(this._hash, t2);
-  }, c5.hash = function(t2, e4) {
-    return c5.hashBinary(a3(t2), e4);
-  }, c5.hashBinary = function(t2, e4) {
-    var i3 = o3(r4(t2));
+    if (t3[o4 >> 2] |= 128 << (o4 % 4 << 3), o4 > 55) for (e3(this._hash, t3), o4 = 0; o4 < 16; o4 += 1) t3[o4] = 0;
+    s2 = (s2 = 8 * this._length).toString(16).match(/(.*?)(.{0,8})$/), r5 = parseInt(s2[2], 16), n4 = parseInt(s2[1], 16) || 0, t3[14] = r5, t3[15] = n4, e3(this._hash, t3);
+  }, c5.hash = function(t3, e4) {
+    return c5.hashBinary(a3(t3), e4);
+  }, c5.hashBinary = function(t3, e4) {
+    var i3 = o3(r4(t3));
     return e4 ? h3(i3) : i3;
   }, (c5.ArrayBuffer = function() {
     this.reset();
-  }).prototype.append = function(t2) {
-    var i3, r5, n4, o4, a4 = (r5 = this._buff.buffer, n4 = t2, (o4 = new Uint8Array(r5.byteLength + n4.byteLength)).set(new Uint8Array(r5)), o4.set(new Uint8Array(n4), r5.byteLength), o4), h4 = a4.length;
-    for (this._length += t2.byteLength, i3 = 64; i3 <= h4; i3 += 64) e3(this._hash, s(a4.subarray(i3 - 64, i3)));
+  }).prototype.append = function(t3) {
+    var i3, r5, n4, o4, a4 = (r5 = this._buff.buffer, n4 = t3, (o4 = new Uint8Array(r5.byteLength + n4.byteLength)).set(new Uint8Array(r5)), o4.set(new Uint8Array(n4), r5.byteLength), o4), h4 = a4.length;
+    for (this._length += t3.byteLength, i3 = 64; i3 <= h4; i3 += 64) e3(this._hash, s(a4.subarray(i3 - 64, i3)));
     return this._buff = i3 - 64 < h4 ? new Uint8Array(a4.buffer.slice(i3 - 64)) : new Uint8Array(0), this;
-  }, c5.ArrayBuffer.prototype.end = function(t2) {
+  }, c5.ArrayBuffer.prototype.end = function(t3) {
     var e4, i3, s2 = this._buff, r5 = s2.length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (e4 = 0; e4 < r5; e4 += 1) n4[e4 >> 2] |= s2[e4] << (e4 % 4 << 3);
-    return this._finish(n4, r5), i3 = o3(this._hash), t2 && (i3 = h3(i3)), this.reset(), i3;
+    return this._finish(n4, r5), i3 = o3(this._hash), t3 && (i3 = h3(i3)), this.reset(), i3;
   }, c5.ArrayBuffer.prototype.reset = function() {
     return this._buff = new Uint8Array(0), this._length = 0, this._hash = [1732584193, -271733879, -1732584194, 271733878], this;
   }, c5.ArrayBuffer.prototype.getState = function() {
-    var t2 = c5.prototype.getState.call(this);
-    return t2.buff = String.fromCharCode.apply(null, new Uint8Array(t2.buff)), t2;
-  }, c5.ArrayBuffer.prototype.setState = function(t2) {
-    return t2.buff = (function(t3, e4) {
-      var i3, s2 = t3.length, r5 = new ArrayBuffer(s2), n4 = new Uint8Array(r5);
-      for (i3 = 0; i3 < s2; i3 += 1) n4[i3] = t3.charCodeAt(i3);
+    var t3 = c5.prototype.getState.call(this);
+    return t3.buff = String.fromCharCode.apply(null, new Uint8Array(t3.buff)), t3;
+  }, c5.ArrayBuffer.prototype.setState = function(t3) {
+    return t3.buff = (function(t4, e4) {
+      var i3, s2 = t4.length, r5 = new ArrayBuffer(s2), n4 = new Uint8Array(r5);
+      for (i3 = 0; i3 < s2; i3 += 1) n4[i3] = t4.charCodeAt(i3);
       return e4 ? n4 : r5;
-    })(t2.buff, true), c5.prototype.setState.call(this, t2);
-  }, c5.ArrayBuffer.prototype.destroy = c5.prototype.destroy, c5.ArrayBuffer.prototype._finish = c5.prototype._finish, c5.ArrayBuffer.hash = function(t2, i3) {
-    var r5 = o3((function(t3) {
-      var i4, r6, n4, o4, a4, h4, c6 = t3.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
-      for (i4 = 64; i4 <= c6; i4 += 64) e3(l3, s(t3.subarray(i4 - 64, i4)));
-      for (r6 = (t3 = i4 - 64 < c6 ? t3.subarray(i4 - 64) : new Uint8Array(0)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], i4 = 0; i4 < r6; i4 += 1) n4[i4 >> 2] |= t3[i4] << (i4 % 4 << 3);
+    })(t3.buff, true), c5.prototype.setState.call(this, t3);
+  }, c5.ArrayBuffer.prototype.destroy = c5.prototype.destroy, c5.ArrayBuffer.prototype._finish = c5.prototype._finish, c5.ArrayBuffer.hash = function(t3, i3) {
+    var r5 = o3((function(t4) {
+      var i4, r6, n4, o4, a4, h4, c6 = t4.length, l3 = [1732584193, -271733879, -1732584194, 271733878];
+      for (i4 = 64; i4 <= c6; i4 += 64) e3(l3, s(t4.subarray(i4 - 64, i4)));
+      for (r6 = (t4 = i4 - 64 < c6 ? t4.subarray(i4 - 64) : new Uint8Array(0)).length, n4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], i4 = 0; i4 < r6; i4 += 1) n4[i4 >> 2] |= t4[i4] << (i4 % 4 << 3);
       if (n4[i4 >> 2] |= 128 << (i4 % 4 << 3), i4 > 55) for (e3(l3, n4), i4 = 0; i4 < 16; i4 += 1) n4[i4] = 0;
       return o4 = (o4 = 8 * c6).toString(16).match(/(.*?)(.{0,8})$/), a4 = parseInt(o4[2], 16), h4 = parseInt(o4[1], 16) || 0, n4[14] = a4, n4[15] = h4, e3(l3, n4), l3;
-    })(new Uint8Array(t2)));
+    })(new Uint8Array(t3)));
     return i3 ? h3(r5) : r5;
   }, c5;
 })();
 var h2 = a2.exports;
 var c2 = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
 var l = class _l {
-  static create(t, e3) {
-    new _l(t).create(e3);
+  static create(t2, e3) {
+    new _l(t2).create(e3);
   }
-  constructor(t) {
-    this.file = t, this.chunkSize = 2097152, this.chunkCount = Math.ceil(this.file.size / this.chunkSize), this.chunkIndex = 0;
+  constructor(t2) {
+    this.file = t2, this.chunkSize = 2097152, this.chunkCount = Math.ceil(this.file.size / this.chunkSize), this.chunkIndex = 0;
   }
-  create(t) {
-    this.callback = t, this.md5Buffer = new h2.ArrayBuffer(), this.fileReader = new FileReader(), this.fileReader.addEventListener("load", ((t2) => this.fileReaderDidLoad(t2))), this.fileReader.addEventListener("error", ((t2) => this.fileReaderDidError(t2))), this.readNextChunk();
+  create(t2) {
+    this.callback = t2, this.md5Buffer = new h2.ArrayBuffer(), this.fileReader = new FileReader(), this.fileReader.addEventListener("load", ((t3) => this.fileReaderDidLoad(t3))), this.fileReader.addEventListener("error", ((t3) => this.fileReaderDidError(t3))), this.readNextChunk();
   }
-  fileReaderDidLoad(t) {
-    if (this.md5Buffer.append(t.target.result), !this.readNextChunk()) {
-      const t2 = this.md5Buffer.end(true), e3 = btoa(t2);
+  fileReaderDidLoad(t2) {
+    if (this.md5Buffer.append(t2.target.result), !this.readNextChunk()) {
+      const t3 = this.md5Buffer.end(true), e3 = btoa(t3);
       this.callback(null, e3);
     }
   }
-  fileReaderDidError(t) {
+  fileReaderDidError(t2) {
     this.callback(`Error reading ${this.file.name}`);
   }
   readNextChunk() {
     if (this.chunkIndex < this.chunkCount || 0 == this.chunkIndex && 0 == this.chunkCount) {
-      const t = this.chunkIndex * this.chunkSize, e3 = Math.min(t + this.chunkSize, this.file.size), i2 = c2.call(this.file, t, e3);
+      const t2 = this.chunkIndex * this.chunkSize, e3 = Math.min(t2 + this.chunkSize, this.file.size), i2 = c2.call(this.file, t2, e3);
       return this.fileReader.readAsArrayBuffer(i2), this.chunkIndex++, true;
     }
     return false;
   }
 };
-function d(t, e3) {
-  return "string" == typeof t && (e3 = t, t = document), t.querySelector(e3);
+function d(t2, e3) {
+  return "string" == typeof t2 && (e3 = t2, t2 = document), t2.querySelector(e3);
 }
-function u(t, e3, i2 = {}) {
-  const { disabled: s } = t, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
+function u(t2, e3, i2 = {}) {
+  const { disabled: s } = t2, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
   a3.initEvent(e3, r4 || true, n3 || true), a3.detail = o3 || {};
   try {
-    t.disabled = false, t.dispatchEvent(a3);
+    t2.disabled = false, t2.dispatchEvent(a3);
   } finally {
-    t.disabled = s;
+    t2.disabled = s;
   }
   return a3;
 }
-function p(t) {
-  return Array.isArray(t) ? t : Array.from ? Array.from(t) : [].slice.call(t);
+function p(t2) {
+  return Array.isArray(t2) ? t2 : Array.from ? Array.from(t2) : [].slice.call(t2);
 }
 var f = class {
-  constructor(t, e3, i2, s = {}) {
-    this.file = t, this.attributes = { filename: t.name, content_type: t.type || "application/octet-stream", byte_size: t.size, checksum: e3 }, this.xhr = new XMLHttpRequest(), this.xhr.open("POST", i2, true), this.xhr.responseType = "json", this.xhr.setRequestHeader("Content-Type", "application/json"), this.xhr.setRequestHeader("Accept", "application/json"), this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"), Object.keys(s).forEach(((t2) => {
-      this.xhr.setRequestHeader(t2, s[t2]);
+  constructor(t2, e3, i2, s = {}) {
+    this.file = t2, this.attributes = { filename: t2.name, content_type: t2.type || "application/octet-stream", byte_size: t2.size, checksum: e3 }, this.xhr = new XMLHttpRequest(), this.xhr.open("POST", i2, true), this.xhr.responseType = "json", this.xhr.setRequestHeader("Content-Type", "application/json"), this.xhr.setRequestHeader("Accept", "application/json"), this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"), Object.keys(s).forEach(((t3) => {
+      this.xhr.setRequestHeader(t3, s[t3]);
     }));
     const r4 = (function() {
-      const t2 = d(document.head, 'meta[name="csrf-token"]');
-      if (t2) return t2.getAttribute("content");
+      const t3 = d(document.head, 'meta[name="csrf-token"]');
+      if (t3) return t3.getAttribute("content");
     })();
-    null != r4 && this.xhr.setRequestHeader("X-CSRF-Token", r4), this.xhr.addEventListener("load", ((t2) => this.requestDidLoad(t2))), this.xhr.addEventListener("error", ((t2) => this.requestDidError(t2)));
+    null != r4 && this.xhr.setRequestHeader("X-CSRF-Token", r4), this.xhr.addEventListener("load", ((t3) => this.requestDidLoad(t3))), this.xhr.addEventListener("error", ((t3) => this.requestDidError(t3)));
   }
   get status() {
     return this.xhr.status;
   }
   get response() {
-    const { responseType: t, response: e3 } = this.xhr;
-    return "json" == t ? e3 : JSON.parse(e3);
+    const { responseType: t2, response: e3 } = this.xhr;
+    return "json" == t2 ? e3 : JSON.parse(e3);
   }
-  create(t) {
-    this.callback = t, this.xhr.send(JSON.stringify({ blob: this.attributes }));
+  create(t2) {
+    this.callback = t2, this.xhr.send(JSON.stringify({ blob: this.attributes }));
   }
-  requestDidLoad(t) {
+  requestDidLoad(t2) {
     if (this.status >= 200 && this.status < 300) {
-      const { response: t2 } = this, { direct_upload: e3 } = t2;
-      delete t2.direct_upload, this.attributes = t2, this.directUploadData = e3, this.callback(null, this.toJSON());
-    } else this.requestDidError(t);
+      const { response: t3 } = this, { direct_upload: e3 } = t3;
+      delete t3.direct_upload, this.attributes = t3, this.directUploadData = e3, this.callback(null, this.toJSON());
+    } else this.requestDidError(t2);
   }
-  requestDidError(t) {
+  requestDidError(t2) {
     this.callback(`Error creating Blob for "${this.file.name}". Status: ${this.status}`);
   }
   toJSON() {
-    const t = {};
-    for (const e3 in this.attributes) t[e3] = this.attributes[e3];
-    return t;
+    const t2 = {};
+    for (const e3 in this.attributes) t2[e3] = this.attributes[e3];
+    return t2;
   }
 };
 var m = class {
-  constructor(t) {
-    this.blob = t, this.file = t.file;
-    const { url: e3, headers: i2 } = t.directUploadData;
+  constructor(t2) {
+    this.blob = t2, this.file = t2.file;
+    const { url: e3, headers: i2 } = t2.directUploadData;
     this.xhr = new XMLHttpRequest(), this.xhr.open("PUT", e3, true), this.xhr.responseType = "text";
-    for (const t2 in i2) this.xhr.setRequestHeader(t2, i2[t2]);
-    this.xhr.addEventListener("load", ((t2) => this.requestDidLoad(t2))), this.xhr.addEventListener("error", ((t2) => this.requestDidError(t2)));
+    for (const t3 in i2) this.xhr.setRequestHeader(t3, i2[t3]);
+    this.xhr.addEventListener("load", ((t3) => this.requestDidLoad(t3))), this.xhr.addEventListener("error", ((t3) => this.requestDidError(t3)));
   }
-  create(t) {
-    this.callback = t, this.xhr.send(this.file.slice());
+  create(t2) {
+    this.callback = t2, this.xhr.send(this.file.slice());
   }
-  requestDidLoad(t) {
+  requestDidLoad(t2) {
     const { status: e3, response: i2 } = this.xhr;
-    e3 >= 200 && e3 < 300 ? this.callback(null, i2) : this.requestDidError(t);
+    e3 >= 200 && e3 < 300 ? this.callback(null, i2) : this.requestDidError(t2);
   }
-  requestDidError(t) {
+  requestDidError(t2) {
     this.callback(`Error storing "${this.file.name}". Status: ${this.xhr.status}`);
   }
 };
 var g = 0;
 var b = class {
-  constructor(t, e3, i2, s = {}) {
-    this.id = ++g, this.file = t, this.url = e3, this.delegate = i2, this.customHeaders = s;
+  constructor(t2, e3, i2, s = {}) {
+    this.id = ++g, this.file = t2, this.url = e3, this.delegate = i2, this.customHeaders = s;
   }
-  create(t) {
+  create(t2) {
     l.create(this.file, ((e3, i2) => {
-      if (e3) return void t(e3);
+      if (e3) return void t2(e3);
       const s = new f(this.file, i2, this.url, this.customHeaders);
       v(this.delegate, "directUploadWillCreateBlobWithXHR", s.xhr), s.create(((e4) => {
-        if (e4) t(e4);
+        if (e4) t2(e4);
         else {
           const e5 = new m(s);
           v(this.delegate, "directUploadWillStoreFileWithXHR", e5.xhr), e5.create(((e6) => {
-            e6 ? t(e6) : t(null, s.toJSON());
+            e6 ? t2(e6) : t2(null, s.toJSON());
           }));
         }
       }));
     }));
   }
 };
-function v(t, e3, ...i2) {
-  if (t && "function" == typeof t[e3]) return t[e3](...i2);
+function v(t2, e3, ...i2) {
+  if (t2 && "function" == typeof t2[e3]) return t2[e3](...i2);
 }
 var w = class {
-  constructor(t, e3) {
-    this.input = t, this.file = e3, this.directUpload = new b(this.file, this.url, this), this.dispatch("initialize");
+  constructor(t2, e3) {
+    this.input = t2, this.file = e3, this.directUpload = new b(this.file, this.url, this), this.dispatch("initialize");
   }
-  start(t) {
+  start(t2) {
     const e3 = document.createElement("input");
     e3.type = "hidden", e3.name = this.input.name, this.input.insertAdjacentElement("beforebegin", e3), this.dispatch("start"), this.directUpload.create(((i2, s) => {
-      i2 ? (e3.parentNode.removeChild(e3), this.dispatchError(i2)) : e3.value = s.signed_id, this.dispatch("end"), t(i2);
+      i2 ? (e3.parentNode.removeChild(e3), this.dispatchError(i2)) : e3.value = s.signed_id, this.dispatch("end"), t2(i2);
     }));
   }
-  uploadRequestDidProgress(t) {
-    const e3 = t.loaded / t.total * 90;
+  uploadRequestDidProgress(t2) {
+    const e3 = t2.loaded / t2.total * 90;
     e3 && this.dispatch("progress", { progress: e3 });
   }
   get url() {
     return this.input.getAttribute("data-direct-upload-url");
   }
-  dispatch(t, e3 = {}) {
-    return e3.file = this.file, e3.id = this.directUpload.id, u(this.input, `direct-upload:${t}`, { detail: e3 });
+  dispatch(t2, e3 = {}) {
+    return e3.file = this.file, e3.id = this.directUpload.id, u(this.input, `direct-upload:${t2}`, { detail: e3 });
   }
-  dispatchError(t) {
-    this.dispatch("error", { error: t }).defaultPrevented || alert(t);
+  dispatchError(t2) {
+    this.dispatch("error", { error: t2 }).defaultPrevented || alert(t2);
   }
-  directUploadWillCreateBlobWithXHR(t) {
-    this.dispatch("before-blob-request", { xhr: t });
+  directUploadWillCreateBlobWithXHR(t2) {
+    this.dispatch("before-blob-request", { xhr: t2 });
   }
-  directUploadWillStoreFileWithXHR(t) {
-    this.dispatch("before-storage-request", { xhr: t }), t.upload.addEventListener("progress", ((t2) => this.uploadRequestDidProgress(t2))), t.upload.addEventListener("loadend", (() => {
-      this.simulateResponseProgress(t);
+  directUploadWillStoreFileWithXHR(t2) {
+    this.dispatch("before-storage-request", { xhr: t2 }), t2.upload.addEventListener("progress", ((t3) => this.uploadRequestDidProgress(t3))), t2.upload.addEventListener("loadend", (() => {
+      this.simulateResponseProgress(t2);
     }));
   }
-  simulateResponseProgress(t) {
+  simulateResponseProgress(t2) {
     let e3 = 90;
     const i2 = Date.now(), s = () => {
       const r4 = Date.now() - i2, n3 = this.estimateResponseTime(), o3 = Math.min(r4 / n3, 1);
-      e3 = 90 + 9 * o3, this.dispatch("progress", { progress: e3 }), t.readyState !== XMLHttpRequest.DONE && e3 < 99 && requestAnimationFrame(s);
+      e3 = 90 + 9 * o3, this.dispatch("progress", { progress: e3 }), t2.readyState !== XMLHttpRequest.DONE && e3 < 99 && requestAnimationFrame(s);
     };
-    t.addEventListener("loadend", (() => {
+    t2.addEventListener("loadend", (() => {
       this.dispatch("progress", { progress: 100 });
     })), requestAnimationFrame(s);
   }
   estimateResponseTime() {
-    const t = this.file.size, e3 = 1048576;
-    return t < e3 ? 1e3 : t < 10 * e3 ? 2e3 : 3e3 + t / e3 * 50;
+    const t2 = this.file.size, e3 = 1048576;
+    return t2 < e3 ? 1e3 : t2 < 10 * e3 ? 2e3 : 3e3 + t2 / e3 * 50;
   }
 };
 var y = class {
-  constructor(t) {
+  constructor(t2) {
     var e3, i2;
-    this.form = t, this.inputs = (e3 = t, i2 = "input[type=file][data-direct-upload-url]:not([disabled])", "string" == typeof e3 && (i2 = e3, e3 = document), p(e3.querySelectorAll(i2))).filter(((t2) => t2.files.length));
+    this.form = t2, this.inputs = (e3 = t2, i2 = "input[type=file][data-direct-upload-url]:not([disabled])", "string" == typeof e3 && (i2 = e3, e3 = document), p(e3.querySelectorAll(i2))).filter(((t3) => t3.files.length));
   }
-  start(t) {
+  start(t2) {
     const e3 = this.createDirectUploadControllers(), i2 = () => {
       const s = e3.shift();
       s ? s.start(((e4) => {
-        e4 ? (t(e4), this.dispatch("end")) : i2();
-      })) : (t(), this.dispatch("end"));
+        e4 ? (t2(e4), this.dispatch("end")) : i2();
+      })) : (t2(), this.dispatch("end"));
     };
     this.dispatch("start"), i2();
   }
   createDirectUploadControllers() {
-    const t = [];
+    const t2 = [];
     return this.inputs.forEach(((e3) => {
       p(e3.files).forEach(((i2) => {
         const s = new w(e3, i2);
-        t.push(s);
+        t2.push(s);
       }));
-    })), t;
+    })), t2;
   }
-  dispatch(t, e3 = {}) {
-    return u(this.form, `direct-uploads:${t}`, { detail: e3 });
+  dispatch(t2, e3 = {}) {
+    return u(this.form, `direct-uploads:${t2}`, { detail: e3 });
   }
 };
 var x = "data-direct-uploads-processing";
 var k = /* @__PURE__ */ new WeakMap();
 var R = false;
-function M(t) {
-  const e3 = t.target.closest("button, input");
+function M(t2) {
+  const e3 = t2.target.closest("button, input");
   e3 && "submit" === e3.type && e3.form && k.set(e3.form, e3);
 }
-function j(t) {
-  $(t);
+function j(t2) {
+  $(t2);
 }
-function A(t) {
-  "FORM" == t.target.tagName && $(t);
+function A(t2) {
+  "FORM" == t2.target.tagName && $(t2);
 }
-function $(t) {
-  const e3 = t.target;
-  if (e3.hasAttribute(x)) return void t.preventDefault();
+function $(t2) {
+  const e3 = t2.target;
+  if (e3.hasAttribute(x)) return void t2.preventDefault();
   const i2 = new y(e3), { inputs: s } = i2;
-  s.length && (t.preventDefault(), e3.setAttribute(x, ""), s.forEach(E), i2.start(((t2) => {
-    e3.removeAttribute(x), t2 ? s.forEach(U) : (function(t3) {
-      let e4 = k.get(t3) || d(t3, "input[type=submit], button[type=submit]");
+  s.length && (t2.preventDefault(), e3.setAttribute(x, ""), s.forEach(E), i2.start(((t3) => {
+    e3.removeAttribute(x), t3 ? s.forEach(U) : (function(t4) {
+      let e4 = k.get(t4) || d(t4, "input[type=submit], button[type=submit]");
       if (e4) {
-        const { disabled: t4 } = e4;
-        e4.disabled = false, e4.focus(), e4.click(), e4.disabled = t4;
-      } else e4 = document.createElement("input"), e4.type = "submit", e4.style.display = "none", t3.appendChild(e4), e4.click(), t3.removeChild(e4);
-      k.delete(t3);
+        const { disabled: t5 } = e4;
+        e4.disabled = false, e4.focus(), e4.click(), e4.disabled = t5;
+      } else e4 = document.createElement("input"), e4.type = "submit", e4.style.display = "none", t4.appendChild(e4), e4.click(), t4.removeChild(e4);
+      k.delete(t4);
     })(e3);
   })));
 }
-function E(t) {
-  t.disabled = true;
+function E(t2) {
+  t2.disabled = true;
 }
-function U(t) {
-  t.disabled = false;
+function U(t2) {
+  t2.disabled = false;
 }
 setTimeout((function() {
   window.ActiveStorage && (R || (R = true, document.addEventListener("click", M, true), document.addEventListener("submit", j, true), document.addEventListener("ajax:before", A)));
@@ -4466,55 +4466,55 @@ var C = class {
   callback = null;
   cancelled = false;
   completed = false;
-  constructor(t, e3) {
-    this.uploadedFile = t, this.file = e3, this.directUpload = new b(this.file, this.uploadedFile.url, this);
+  constructor(t2, e3) {
+    this.uploadedFile = t2, this.file = e3, this.directUpload = new b(this.file, this.uploadedFile.url, this);
   }
   cancel() {
     this.cancelled = true, this.abortXHR(this.recordXHR), this.abortXHR(this.uploadXHR), this.complete("aborted", {});
   }
-  abortXHR(t) {
-    t && t.abort();
+  abortXHR(t2) {
+    t2 && t2.abort();
   }
-  start(t) {
-    this.callback = t, this.dispatch("start"), this.directUpload.create(((t2, e3) => {
-      this.complete(t2, e3);
+  start(t2) {
+    this.callback = t2, this.dispatch("start"), this.directUpload.create(((t3, e3) => {
+      this.complete(t3, e3);
     }));
   }
-  complete(t, e3) {
-    this.completed || (this.completed = true, t && this.dispatchError(t), this.dispatch("end"), this.callback(t));
+  complete(t2, e3) {
+    this.completed || (this.completed = true, t2 && this.dispatchError(t2), this.dispatch("end"), this.callback(t2));
   }
-  uploadRequestDidProgress(t) {
-    const e3 = t.loaded / t.total * 100;
+  uploadRequestDidProgress(t2) {
+    const e3 = t2.loaded / t2.total * 100;
     e3 && this.dispatch("progress", { progress: e3 });
   }
-  dispatch(t, e3 = {}) {
-    return (function(t2, e4, i2 = {}) {
-      const { disabled: s } = t2, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
+  dispatch(t2, e3 = {}) {
+    return (function(t3, e4, i2 = {}) {
+      const { disabled: s } = t3, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
       a3.initEvent(e4, r4 || true, n3 || true), a3.detail = o3 || {};
       try {
-        t2.disabled = false, t2.dispatchEvent(a3);
+        t3.disabled = false, t3.dispatchEvent(a3);
       } finally {
-        t2.disabled = s;
+        t3.disabled = s;
       }
       return a3;
-    })(this.uploadedFile, `direct-upload:${t}`, { detail: { ...e3, file: this.file, id: this.directUpload.id } });
+    })(this.uploadedFile, `direct-upload:${t2}`, { detail: { ...e3, file: this.file, id: this.directUpload.id } });
   }
-  dispatchError(t) {
-    this.dispatch("error", { error: t });
+  dispatchError(t2) {
+    this.dispatch("error", { error: t2 });
   }
-  directUploadWillCreateBlobWithXHR(t) {
-    this.recordXHR = t, this.cancelled ? t.send = () => {
-    } : this.dispatch("before-blob-request", { xhr: t });
+  directUploadWillCreateBlobWithXHR(t2) {
+    this.recordXHR = t2, this.cancelled ? t2.send = () => {
+    } : this.dispatch("before-blob-request", { xhr: t2 });
   }
-  directUploadWillStoreFileWithXHR(t) {
-    this.uploadXHR = t, this.cancelled ? t.send = () => {
-    } : (this.uploadedFile.value = this.recordXHR.response.signed_id, this.dispatch("before-storage-request", { xhr: t }), t.upload.addEventListener("progress", ((t2) => this.uploadRequestDidProgress(t2))));
+  directUploadWillStoreFileWithXHR(t2) {
+    this.uploadXHR = t2, this.cancelled ? t2.send = () => {
+    } : (this.uploadedFile.value = this.recordXHR.response.signed_id, this.dispatch("before-storage-request", { xhr: t2 }), t2.upload.addEventListener("progress", ((t3) => this.uploadRequestDidProgress(t3))));
   }
 };
 var q = class {
   uploadedFile;
-  constructor(t) {
-    this.uploadedFile = t;
+  constructor(t2) {
+    this.uploadedFile = t2;
   }
   get errors() {
     return this.#t || (this.#t = [], this.checkValidity() || this.#t.push(this.errorMessage)), this.#t;
@@ -4526,35 +4526,35 @@ var q = class {
   get errorMessage() {
     return [`Must be smaller than ${this.formatBytes(this.uploadedFile.max)},`, `and "${this.uploadedFile.filename}" is ${this.formatBytes(this.uploadedFile.size)}.`, "Please attach a smaller file."].join(" ");
   }
-  formatBytes(t, e3 = 2) {
-    if (0 === t) return "0 Bytes";
-    const i2 = e3 < 0 ? 0 : e3, s = Math.floor(Math.log(t) / Math.log(1024));
-    return parseFloat((t / Math.pow(1024, s)).toFixed(i2)) + ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][s];
+  formatBytes(t2, e3 = 2) {
+    if (0 === t2) return "0 Bytes";
+    const i2 = e3 < 0 ? 0 : e3, s = Math.floor(Math.log(t2) / Math.log(1024));
+    return parseFloat((t2 / Math.pow(1024, s)).toFixed(i2)) + ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][s];
   }
 };
 var B = class {
   uploadedFile;
-  constructor(t) {
-    this.uploadedFile = t;
+  constructor(t2) {
+    this.uploadedFile = t2;
   }
   get errors() {
     if (this.#t) return this.#t;
     this.#t = [];
-    const t = this.uploadedFile.accepts ? this.uploadedFile.accepts.split(/,\s*/) : [];
-    return t.length > 0 && !t.includes(this.uploadedFile.filetype) && this.#t.push(`Must be a ${this.joinWords(t)}.`), this.#t;
+    const t2 = this.uploadedFile.accepts ? this.uploadedFile.accepts.split(/,\s*/) : [];
+    return t2.length > 0 && !t2.includes(this.uploadedFile.filetype) && this.#t.push(`Must be a ${this.joinWords(t2)}.`), this.#t;
   }
   #t;
-  joinWords(t) {
-    return t.length >= 3 ? (t.slice(0, -1) + [`or ${t.at(-1)}`]).join(", ") : t.join(" or ");
+  joinWords(t2) {
+    return t2.length >= 3 ? (t2.slice(0, -1) + [`or ${t2.at(-1)}`]).join(", ") : t2.join(" or ");
   }
 };
-var F = { image: ["ase", "art", "bmp", "blp", "cd5", "cit", "cpt", "cr2", "cut", "dds", "dib", "djvu", "egt", "exif", "gif", "gpl", "grf", "icns", "ico", "iff", "jng", "jpeg", "jpg", "jfif", "jp2", "jps", "lbm", "max", "miff", "mng", "msp", "nef", "nitf", "ota", "pbm", "pc1", "pc2", "pc3", "pcf", "pcx", "pdn", "pgm", "PI1", "PI2", "PI3", "pict", "pct", "pnm", "pns", "ppm", "psb", "psd", "pdd", "psp", "px", "pxm", "pxr", "qfx", "raw", "rle", "sct", "sgi", "rgb", "int", "bw", "tga", "tiff", "tif", "vtf", "xbm", "xcf", "xpm", "3dv", "amf", "ai", "awg", "cgm", "cdr", "cmx", "dxf", "e2d", "egt", "eps", "fs", "gbr", "odg", "svg", "stl", "vrml", "x3d", "sxd", "v2d", "vnd", "wmf", "emf", "art", "xar", "png", "webp", "jxr", "hdp", "wdp", "cur", "ecw", "iff", "lbm", "liff", "nrrd", "pam", "pcx", "pgf", "sgi", "rgb", "rgba", "bw", "int", "inta", "sid", "ras", "sun", "tga", "heic", "heif"], video: ["3g2", "3gp", "3gpp", "aaf", "asf", "avchd", "avi", "drc", "flv", "m2v", "m3u8", "m4p", "m4v", "mkv", "mng", "mov", "mp2", "mp4", "mpe", "mpeg", "mpg", "mpv", "mxf", "nsv", "ogg", "ogv", "qt", "rm", "rmvb", "roq", "svi", "vob", "webm", "wmv", "yuv"], pdf: ["pdf"], getFileType: function(t) {
-  const e3 = t.toString().split(".").at(-1).toLowerCase().trim();
+var F = { image: ["ase", "art", "bmp", "blp", "cd5", "cit", "cpt", "cr2", "cut", "dds", "dib", "djvu", "egt", "exif", "gif", "gpl", "grf", "icns", "ico", "iff", "jng", "jpeg", "jpg", "jfif", "jp2", "jps", "lbm", "max", "miff", "mng", "msp", "nef", "nitf", "ota", "pbm", "pc1", "pc2", "pc3", "pcf", "pcx", "pdn", "pgm", "PI1", "PI2", "PI3", "pict", "pct", "pnm", "pns", "ppm", "psb", "psd", "pdd", "psp", "px", "pxm", "pxr", "qfx", "raw", "rle", "sct", "sgi", "rgb", "int", "bw", "tga", "tiff", "tif", "vtf", "xbm", "xcf", "xpm", "3dv", "amf", "ai", "awg", "cgm", "cdr", "cmx", "dxf", "e2d", "egt", "eps", "fs", "gbr", "odg", "svg", "stl", "vrml", "x3d", "sxd", "v2d", "vnd", "wmf", "emf", "art", "xar", "png", "webp", "jxr", "hdp", "wdp", "cur", "ecw", "iff", "lbm", "liff", "nrrd", "pam", "pcx", "pgf", "sgi", "rgb", "rgba", "bw", "int", "inta", "sid", "ras", "sun", "tga", "heic", "heif"], video: ["3g2", "3gp", "3gpp", "aaf", "asf", "avchd", "avi", "drc", "flv", "m2v", "m3u8", "m4p", "m4v", "mkv", "mng", "mov", "mp2", "mp4", "mpe", "mpeg", "mpg", "mpv", "mxf", "nsv", "ogg", "ogv", "qt", "rm", "rmvb", "roq", "svi", "vob", "webm", "wmv", "yuv"], pdf: ["pdf"], getFileType: function(t2) {
+  const e3 = t2.toString().split(".").at(-1).toLowerCase().trim();
   return this.video.includes(e3) ? "video" : this.image.includes(e3) ? "image" : this.pdf.includes(e3) ? "pdf" : "unknown";
 } };
 var S = class {
-  constructor(t) {
-    this.response = t;
+  constructor(t2) {
+    this.response = t2;
   }
   get statusCode() {
     return this.response.status;
@@ -4598,8 +4598,8 @@ var S = class {
   }
 };
 var T = class {
-  static register(t) {
-    this.interceptor = t;
+  static register(t2) {
+    this.interceptor = t2;
   }
   static get() {
     return this.interceptor;
@@ -4608,47 +4608,47 @@ var T = class {
     this.interceptor = void 0;
   }
 };
-function W(t) {
-  const e3 = document.head.querySelector(`meta[name="${t}"]`);
+function W(t2) {
+  const e3 = document.head.querySelector(`meta[name="${t2}"]`);
   return e3 && e3.content;
 }
 var X = class {
-  constructor(t, e3, i2 = {}) {
-    this.method = t, this.options = i2, this.originalUrl = e3.toString();
+  constructor(t2, e3, i2 = {}) {
+    this.method = t2, this.options = i2, this.originalUrl = e3.toString();
   }
   async perform() {
     try {
-      const t2 = T.get();
-      t2 && await t2(this);
-    } catch (t2) {
-      console.error(t2);
+      const t3 = T.get();
+      t3 && await t3(this);
+    } catch (t3) {
+      console.error(t3);
     }
-    const t = new S(await window.fetch(this.url, this.fetchOptions));
-    return t.unauthenticated && t.authenticationURL ? Promise.reject(window.location.href = t.authenticationURL) : (t.ok && t.isTurboStream && await t.renderTurboStream(), t);
+    const t2 = new S(await window.fetch(this.url, this.fetchOptions));
+    return t2.unauthenticated && t2.authenticationURL ? Promise.reject(window.location.href = t2.authenticationURL) : (t2.ok && t2.isTurboStream && await t2.renderTurboStream(), t2);
   }
-  addHeader(t, e3) {
+  addHeader(t2, e3) {
     const i2 = this.additionalHeaders;
-    i2[t] = e3, this.options.headers = i2;
+    i2[t2] = e3, this.options.headers = i2;
   }
   get fetchOptions() {
     return { method: this.method.toUpperCase(), headers: this.headers, body: this.formattedBody, signal: this.signal, credentials: "same-origin", redirect: this.redirect };
   }
   get headers() {
-    return (function(t) {
+    return (function(t2) {
       const e3 = {};
-      for (const i2 in t) {
-        const s = t[i2];
+      for (const i2 in t2) {
+        const s = t2[i2];
         void 0 !== s && (e3[i2] = s);
       }
       return e3;
     })(Object.assign({ "X-Requested-With": "XMLHttpRequest", "X-CSRF-Token": this.csrfToken, "Content-Type": this.contentType, Accept: this.accept }, this.additionalHeaders));
   }
   get csrfToken() {
-    return (function(t) {
-      const e3 = document.cookie ? document.cookie.split("; ") : [], i2 = `${encodeURIComponent(t)}=`, s = e3.find(((t2) => t2.startsWith(i2)));
+    return (function(t2) {
+      const e3 = document.cookie ? document.cookie.split("; ") : [], i2 = `${encodeURIComponent(t2)}=`, s = e3.find(((t3) => t3.startsWith(i2)));
       if (s) {
-        const t2 = s.split("=").slice(1).join("=");
-        if (t2) return decodeURIComponent(t2);
+        const t3 = s.split("=").slice(1).join("=");
+        if (t3) return decodeURIComponent(t3);
       }
     })(W("csrf-param")) || W("csrf-token");
   }
@@ -4671,11 +4671,11 @@ var X = class {
     return this.options.body;
   }
   get query() {
-    const t = (this.originalUrl.split("?")[1] || "").split("#")[0], e3 = new URLSearchParams(t);
+    const t2 = (this.originalUrl.split("?")[1] || "").split("#")[0], e3 = new URLSearchParams(t2);
     let i2 = this.options.query;
     var s;
-    i2 instanceof window.FormData ? (s = i2, i2 = [...s].reduce(((t2, [e4, i3]) => t2.concat("string" == typeof i3 ? [[e4, i3]] : [])), [])) : i2 = i2 instanceof window.URLSearchParams ? i2.entries() : Object.entries(i2 || {}), (function(t2, e4) {
-      for (const [i3, s2] of e4) s2 instanceof window.File || (t2.has(i3) ? (t2.delete(i3), t2.set(i3, s2)) : t2.append(i3, s2));
+    i2 instanceof window.FormData ? (s = i2, i2 = [...s].reduce(((t3, [e4, i3]) => t3.concat("string" == typeof i3 ? [[e4, i3]] : [])), [])) : i2 = i2 instanceof window.URLSearchParams ? i2.entries() : Object.entries(i2 || {}), (function(t3, e4) {
+      for (const [i3, s2] of e4) s2 instanceof window.File || (t3.has(i3) ? (t3.delete(i3), t3.set(i3, s2)) : t3.append(i3, s2));
     })(e3, i2);
     const r4 = e3.toString();
     return r4.length > 0 ? `?${r4}` : "";
@@ -4696,13 +4696,13 @@ var X = class {
     return this.options.headers || {};
   }
   get formattedBody() {
-    const t = "[object String]" === Object.prototype.toString.call(this.body);
-    return "application/json" !== this.headers["Content-Type"] || t ? this.body : JSON.stringify(this.body);
+    const t2 = "[object String]" === Object.prototype.toString.call(this.body);
+    return "application/json" !== this.headers["Content-Type"] || t2 ? this.body : JSON.stringify(this.body);
   }
 };
 var H2 = proxyCustomElement(class extends H {
-  constructor(t) {
-    super(), false !== t && this.__registerHost(), this.__attachShadow(), this.removeEvent = createEvent(this, "attachment-file:remove", 7), this.validationEvent = createEvent(this, "attachment-file:validation", 7), this.readyEvent = createEvent(this, "attachment-file:ready", 7);
+  constructor(t2) {
+    super(), false !== t2 && this.__registerHost(), this.__attachShadow(), this.removeEvent = createEvent(this, "attachment-file:remove", 7), this.validationEvent = createEvent(this, "attachment-file:validation", 7), this.readyEvent = createEvent(this, "attachment-file:ready", 7);
   }
   get el() {
     return this;
@@ -4723,11 +4723,11 @@ var H2 = proxyCustomElement(class extends H {
   removeEvent;
   validationEvent;
   readyEvent;
-  removeClicked = (t) => {
-    t.stopPropagation(), t.preventDefault(), this.controller?.cancel(), this.removeEvent.emit(this);
+  removeClicked = (t2) => {
+    t2.stopPropagation(), t2.preventDefault(), this.controller?.cancel(), this.removeEvent.emit(this);
   };
-  retryClicked = (t) => {
-    t.stopPropagation(), t.preventDefault(), this.state = "pending", this.percent = 0, this.validationError = "", this.uploadError = "", this.controller = new C(this.el, this._file), this.controller.dispatch("initialize", { controller: this.controller });
+  retryClicked = (t2) => {
+    t2.stopPropagation(), t2.preventDefault(), this.state = "pending", this.percent = 0, this.validationError = "", this.uploadError = "", this.controller = new C(this.el, this._file), this.controller.dispatch("initialize", { controller: this.controller });
   };
   controller;
   _file;
@@ -4739,41 +4739,41 @@ var H2 = proxyCustomElement(class extends H {
   get file() {
     return this._file;
   }
-  set file(t) {
-    this.src = URL.createObjectURL(t), this.filename = t.name, this.size = t.size, this.state = "pending", this.percent = 0, this._file = t;
+  set file(t2) {
+    this.src = URL.createObjectURL(t2), this.filename = t2.name, this.size = t2.size, this.state = "pending", this.percent = 0, this._file = t2;
   }
-  set signedId(t) {
-    this.value !== t && ((t2, e3 = {}, i2 = {}) => ((t3, e4, i3, s) => new X("get", e4, { headers: { Accept: "application/json", ...s }, query: i3 }).perform().then(((t4) => t4.response.ok ? t4.json : t4)))(0, t2, e3, i2))(`/rails/active_storage/blobs/info/${t}`).then(((e3) => {
-      this.src = `/rails/active_storage/blobs/redirect/${t}/${e3.filename}`, this.filename = e3.filename, this.size = e3.byte_size, this.state = "complete", this.percent = 100, this.value = t, this.readyEvent.emit(this);
+  set signedId(t2) {
+    this.value !== t2 && ((t3, e3 = {}, i2 = {}) => ((t4, e4, i3, s) => new X("get", e4, { headers: { Accept: "application/json", ...s }, query: i3 }).perform().then(((t5) => t5.response.ok ? t5.json : t5)))(0, t3, e3, i2))(`/rails/active_storage/blobs/info/${t2}`).then(((e3) => {
+      this.src = `/rails/active_storage/blobs/redirect/${t2}/${e3.filename}`, this.filename = e3.filename, this.size = e3.byte_size, this.state = "complete", this.percent = 100, this.value = t2, this.readyEvent.emit(this);
     }));
   }
-  setMissingFiletype(t, e3) {
+  setMissingFiletype(t2, e3) {
     !this.filetype && this.filename && (this.filetype = F.getFileType(this.filename));
   }
-  start(t) {
+  start(t2) {
     this.state = "pending", this.percent = 0;
   }
-  progress(t) {
-    const { progress: e3 } = t.detail;
+  progress(t2) {
+    const { progress: e3 } = t2.detail;
     this.percent = e3;
   }
-  error(t) {
-    t.preventDefault();
-    const { error: e3 } = t.detail;
+  error(t2) {
+    t2.preventDefault();
+    const { error: e3 } = t2.detail;
     this.state = "error", this.uploadError = e3;
   }
-  end(t) {
+  end(t2) {
     "error" !== this.state && (this.state = "complete", this.percent = 100);
   }
   render() {
-    return h(Host, { key: "1af2d43e01a8714c658ea70a9ca68cce57bbda12" }, h("slot", { key: "deadfff4a159e17d52ed8f66d5d18aecc71fb44d" }), h("figure", { key: "7319a724f2d51c396734dacd7528b1864fb8e980" }, h("div", { key: "ce0794f4062073a8fc28e4f2398a91d711f00521", class: "progress-details" }, h("progress-bar", { key: "7317e5149cbc15dd1bff84b9c8ea92d55a29fe3f", percent: this.percent, class: this.state, error: "error" === this.state }, h("a", { key: "638de84fd46da31a7ad9b652f0dd1d71fdb87edb", class: "download-link", href: this.src, download: this.filename, onClick: (t) => t.stopPropagation() }, this.filename)), h("span", { key: "fe8b77d5cd5b9014caa92abe34c515a5b16dbe86", class: "progress-icon" }), h("a", { key: "b8b2fde12f9ecf1df5a044a812be4b43ee24502c", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "7ce869972ee400de34bd3462f0656263f0ddc013" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
+    return h(Host, { key: "1af2d43e01a8714c658ea70a9ca68cce57bbda12" }, h("slot", { key: "deadfff4a159e17d52ed8f66d5d18aecc71fb44d" }), h("figure", { key: "7319a724f2d51c396734dacd7528b1864fb8e980" }, h("div", { key: "ce0794f4062073a8fc28e4f2398a91d711f00521", class: "progress-details" }, h("progress-bar", { key: "7317e5149cbc15dd1bff84b9c8ea92d55a29fe3f", percent: this.percent, class: this.state, error: "error" === this.state }, h("a", { key: "638de84fd46da31a7ad9b652f0dd1d71fdb87edb", class: "download-link", href: this.src, download: this.filename, onClick: (t2) => t2.stopPropagation() }, this.filename)), h("span", { key: "fe8b77d5cd5b9014caa92abe34c515a5b16dbe86", class: "progress-icon" }), h("a", { key: "b8b2fde12f9ecf1df5a044a812be4b43ee24502c", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "7ce869972ee400de34bd3462f0656263f0ddc013" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
   }
   componentDidLoad() {
     "pending" == this.state && this._file && (this.checkValidity() ? (this.controller = new C(this.el, this._file), this.controller.dispatch("initialize", { controller: this.controller })) : this.state = "error");
   }
   checkValidity() {
-    let t = [];
-    return t.push(...new B(this).errors), t.push(...new q(this).errors), this.validationError = t.join(" "), this.validationEvent.emit({ valid: 0 === t.length, error: this.validationError }), 0 === t.length;
+    let t2 = [];
+    return t2.push(...new B(this).errors), t2.push(...new q(this).errors), this.validationError = t2.join(" "), this.validationEvent.emit({ valid: 0 === t2.length, error: this.validationError }), 0 === t2.length;
   }
   static get watchers() {
     return { filename: [{ setMissingFiletype: 0 }] };
@@ -4790,30 +4790,45 @@ var o = H2;
 var e = a;
 
 // dist/components/index2.js
-var n2 = null;
-function r(n3) {
-  const r4 = Number(n3);
-  if (Number.isNaN(r4)) throw new TypeError(`progress-bar: percent must be numeric, got ${JSON.stringify(n3)}`);
-  return Math.min(100, Math.max(0, r4));
+var r = null;
+function n2(r4) {
+  const n3 = Number(r4);
+  if (Number.isNaN(n3)) throw new TypeError(`progress-bar: percent must be numeric, got ${JSON.stringify(r4)}`);
+  return Math.min(100, Math.max(0, n3));
 }
-var e2 = class extends HTMLElement {
+function e2(r4) {
+  const n3 = Number(r4);
+  if (Number.isNaN(n3)) throw new TypeError(`progress-bar: rate must be numeric, got ${JSON.stringify(r4)}`);
+  return n3;
+}
+var t = class extends HTMLElement {
   constructor() {
-    super(), this.attachShadow({ mode: "open" }), this._percent = null, this._renderedMode = null;
+    super(), this.attachShadow({ mode: "open" }), this._percent = null, this._renderedMode = null, this._rateTimer = null;
   }
   connectedCallback() {
-    this.render(), this.setAttribute("role", "progressbar"), this.setAttribute("aria-valuemin", "0"), this.setAttribute("aria-valuemax", "100"), this.updateBar();
+    this.render(), this.setAttribute("role", "progressbar"), this.setAttribute("aria-valuemin", "0"), this.setAttribute("aria-valuemax", "100"), this.updateBar(), this._syncTicker();
+  }
+  disconnectedCallback() {
+    this._stopTicker();
   }
   get percent() {
     return this._percent;
   }
-  set percent(n3) {
-    null == n3 ? this.removeAttribute("percent") : this.setAttribute("percent", r(n3));
+  set percent(r4) {
+    null == r4 ? this.removeAttribute("percent") : this.setAttribute("percent", n2(r4));
   }
   get error() {
     return this.hasAttribute("error");
   }
-  set error(n3) {
-    this.toggleAttribute("error", Boolean(n3));
+  set error(r4) {
+    this.toggleAttribute("error", Boolean(r4));
+  }
+  get rate() {
+    const r4 = this.getAttribute("rate");
+    return null === r4 ? null : Number(r4);
+  }
+  set rate(r4) {
+    null == r4 ? this.removeAttribute("rate") : this.setAttribute("rate", e2(r4));
   }
   get indeterminate() {
     return !this.hasAttribute("percent");
@@ -4821,28 +4836,39 @@ var e2 = class extends HTMLElement {
   get mode() {
     return "circular" === this.getAttribute("mode") ? "circular" : "linear";
   }
-  set mode(n3) {
-    this.setAttribute("mode", n3);
+  set mode(r4) {
+    this.setAttribute("mode", r4);
   }
   static get observedAttributes() {
-    return ["percent", "mode"];
+    return ["percent", "mode", "rate"];
   }
-  attributeChangedCallback(n3, e3, t) {
-    "percent" === n3 && (this._percent = null === t ? null : r(t)), "mode" === n3 && this.render(), this.updateBar();
+  attributeChangedCallback(r4, t2, i2) {
+    "percent" === r4 && (this._percent = null === i2 ? null : n2(i2)), "rate" === r4 && null !== i2 && e2(i2), "mode" === r4 && this.render(), "percent" !== r4 && "rate" !== r4 || this._syncTicker(), this.updateBar();
   }
   updateBar() {
     if ("circular" === this.mode) {
-      const n3 = this.shadowRoot?.querySelector(".progress-ring");
-      n3 && (n3.style.strokeDashoffset = this.indeterminate ? "" : String(100 * (1 - this._percent / 100)));
+      const r4 = this.shadowRoot?.querySelector(".progress-ring");
+      r4 && (r4.style.strokeDashoffset = this.indeterminate ? "" : String(100 * (1 - this._percent / 100)));
     } else {
-      const n3 = this.shadowRoot?.querySelector(".bar");
-      n3 && (n3.style.width = this.indeterminate ? "" : `${this._percent}%`);
+      const r4 = this.shadowRoot?.querySelector(".bar");
+      r4 && (r4.style.width = this.indeterminate ? "" : `${this._percent}%`);
     }
     this.indeterminate ? this.removeAttribute("aria-valuenow") : this.setAttribute("aria-valuenow", String(this._percent));
   }
+  _syncTicker() {
+    const r4 = Number(this.getAttribute("rate")), n3 = this.isConnected && !this.indeterminate && Number.isFinite(r4) && 0 !== r4;
+    n3 && null === this._rateTimer ? this._rateTimer = setInterval((() => this._tick()), 1e3 / 30) : n3 || this._stopTicker();
+  }
+  _stopTicker() {
+    null !== this._rateTimer && (clearInterval(this._rateTimer), this._rateTimer = null);
+  }
+  _tick() {
+    const r4 = Number(this.getAttribute("rate")), e3 = n2(this._percent + r4 / 30);
+    e3 !== this._percent && (this.percent = e3), 0 !== e3 && 100 !== e3 || this.removeAttribute("rate");
+  }
   render() {
-    const r4 = this.mode;
-    this._renderedMode !== r4 && (this._renderedMode = r4, this.shadowRoot.adoptedStyleSheets = [(n2 || (n2 = new CSSStyleSheet(), n2.replaceSync(`
+    const n3 = this.mode;
+    this._renderedMode !== n3 && (this._renderedMode = n3, this.shadowRoot.adoptedStyleSheets = [(r || (r = new CSSStyleSheet(), r.replaceSync(`
   :host {
     --progress-color: #2E7D32;
     --error-color: #7a242f;
@@ -4984,39 +5010,39 @@ var e2 = class extends HTMLElement {
   :host([error]) .progress-ring { display: none; }
   :host([error]) .ring { animation: none; }
   :host([error]) .error-mark { display: block; }
-`)), n2)], this.shadowRoot.innerHTML = "circular" === r4 ? '\n  <div class="circular">\n    <svg class="ring" viewBox="0 0 100 100">\n      <circle class="track" cx="50" cy="50" r="40"></circle>\n      <circle class="progress-ring" cx="50" cy="50" r="40" pathLength="100"></circle>\n      <path class="error-mark" d="M37 37 L63 63 M63 37 L37 63"></path>\n    </svg>\n    <span class="label"><slot></slot></span>\n  </div>\n' : '\n  <div class="bar"></div>\n  <div class="text"><slot></slot></div>\n');
+`)), r)], this.shadowRoot.innerHTML = "circular" === n3 ? '\n  <div class="circular">\n    <svg class="ring" viewBox="0 0 100 100">\n      <circle class="track" cx="50" cy="50" r="40"></circle>\n      <circle class="progress-ring" cx="50" cy="50" r="40" pathLength="100"></circle>\n      <path class="error-mark" d="M37 37 L63 63 M63 37 L37 63"></path>\n    </svg>\n    <span class="label"><slot></slot></span>\n  </div>\n' : '\n  <div class="bar"></div>\n  <div class="text"><slot></slot></div>\n');
   }
 };
-customElements.get("progress-bar") || customElements.define("progress-bar", e2);
+customElements.get("progress-bar") || customElements.define("progress-bar", t);
 
 // dist/components/input-attachment.js
 var o2 = class _o {
-  static instance(t, e3 = {}) {
-    return t.inputAttachmentFormController ||= new _o(t, e3);
+  static instance(t2, e3 = {}) {
+    return t2.inputAttachmentFormController ||= new _o(t2, e3);
   }
   dialog;
   element;
   controllers;
   submitted;
   processing;
-  constructor(t, { uploadDialog: e3 = true } = {}) {
-    this.element = t, this.controllers = [], this.submitted = false, this.processing = false, e3 && (this.dialog = document.createElement("upload-dialog"), this.dialog.id = "form-controller-dialog", this.element.appendChild(this.dialog)), this.element.addEventListener("submit", ((t2) => this.submit(t2))), window.addEventListener("beforeunload", ((t2) => this.beforeUnload(t2))), this.element.addEventListener("direct-upload:initialize", ((t2) => this.init(t2))), this.element.addEventListener("direct-upload:start", ((t2) => this.start(t2))), this.element.addEventListener("direct-upload:progress", ((t2) => this.progress(t2))), this.element.addEventListener("direct-upload:error", ((t2) => this.error(t2))), this.element.addEventListener("direct-upload:end", ((t2) => this.end(t2))), this.element.addEventListener("attachment-file:remove", ((t2) => this.removeUploadedFile(t2)));
+  constructor(t2, { uploadDialog: e3 = true } = {}) {
+    this.element = t2, this.controllers = [], this.submitted = false, this.processing = false, e3 && (this.dialog = document.createElement("upload-dialog"), this.dialog.id = "form-controller-dialog", this.element.appendChild(this.dialog)), this.element.addEventListener("submit", ((t3) => this.submit(t3))), window.addEventListener("beforeunload", ((t3) => this.beforeUnload(t3))), this.element.addEventListener("direct-upload:initialize", ((t3) => this.init(t3))), this.element.addEventListener("direct-upload:start", ((t3) => this.start(t3))), this.element.addEventListener("direct-upload:progress", ((t3) => this.progress(t3))), this.element.addEventListener("direct-upload:error", ((t3) => this.error(t3))), this.element.addEventListener("direct-upload:end", ((t3) => this.end(t3))), this.element.addEventListener("attachment-file:remove", ((t3) => this.removeUploadedFile(t3)));
   }
-  beforeUnload(t) {
-    if (this.processing) return t.preventDefault(), t.returnValue = "";
+  beforeUnload(t2) {
+    if (this.processing) return t2.preventDefault(), t2.returnValue = "";
   }
-  submit(t) {
-    (0 !== this.controllers.length || this.hasUploadErrors() || this.processing) && (t.preventDefault(), this.submitted = true, this.setInputAttachmentsDisabled(true), this.startNextController(), this.processing && this.dialog?.open());
+  submit(t2) {
+    (0 !== this.controllers.length || this.hasUploadErrors() || this.processing) && (t2.preventDefault(), this.submitted = true, this.setInputAttachmentsDisabled(true), this.startNextController(), this.processing && this.dialog?.open());
   }
   startNextController() {
     if (this.processing) return;
-    const t = this.controllers.shift();
-    t ? (this.processing = true, this.submitted ? this.setInputAttachmentsDisabled(true) : this.setControllerInputDisabled(t, true), t.start(((e3) => {
-      this.submitted ? e3 && this.setInputAttachmentsDisabled(false) : this.setControllerInputDisabled(t, false), this.processing = false, this.startNextController();
+    const t2 = this.controllers.shift();
+    t2 ? (this.processing = true, this.submitted ? this.setInputAttachmentsDisabled(true) : this.setControllerInputDisabled(t2, true), t2.start(((e3) => {
+      this.submitted ? e3 && this.setInputAttachmentsDisabled(false) : this.setControllerInputDisabled(t2, false), this.processing = false, this.startNextController();
     }))) : this.submitForm();
   }
   hasUploadErrors() {
-    return Array.from(this.element.querySelectorAll("attachment-file")).some(((t) => "error" === t.state));
+    return Array.from(this.element.querySelectorAll("attachment-file")).some(((t2) => "error" === t2.state));
   }
   submitForm() {
     if (this.submitted) {
@@ -5026,36 +5052,36 @@ var o2 = class _o {
       }));
     }
   }
-  setControllerInputDisabled(t, e3) {
-    const i2 = t.uploadedFile.closest("input-attachment");
+  setControllerInputDisabled(t2, e3) {
+    const i2 = t2.uploadedFile.closest("input-attachment");
     i2 && (i2.disabled = e3);
   }
-  setInputAttachmentsDisabled(t) {
+  setInputAttachmentsDisabled(t2) {
     Array.from(this.element.querySelectorAll("input-attachment")).forEach(((e3) => {
-      e3.disabled = t;
+      e3.disabled = t2;
     }));
   }
-  init(t) {
-    const { id: e3, file: i2, controller: s } = t.detail;
+  init(t2) {
+    const { id: e3, file: i2, controller: s } = t2.detail;
     this.dialog?.addUpload("direct-upload-" + e3, i2?.name || "Uploading..."), this.controllers.push(s), this.startNextController();
   }
-  start(t) {
-    this.dialog?.startUpload("direct-upload-" + t.detail.id);
+  start(t2) {
+    this.dialog?.startUpload("direct-upload-" + t2.detail.id);
   }
-  progress(t) {
-    const { id: e3, progress: i2 } = t.detail;
+  progress(t2) {
+    const { id: e3, progress: i2 } = t2.detail;
     this.dialog?.updateProgress("direct-upload-" + e3, i2);
   }
-  error(t) {
-    t.preventDefault();
-    const { id: e3, error: i2 } = t.detail;
+  error(t2) {
+    t2.preventDefault();
+    const { id: e3, error: i2 } = t2.detail;
     this.dialog?.setError("direct-upload-" + e3, i2);
   }
-  end(t) {
-    this.dialog?.completeUpload("direct-upload-" + t.detail.id);
+  end(t2) {
+    this.dialog?.completeUpload("direct-upload-" + t2.detail.id);
   }
-  removeUploadedFile(t) {
-    const e3 = t.detail, i2 = e3.controller?.directUpload?.id;
+  removeUploadedFile(t2) {
+    const e3 = t2.detail, i2 = e3.controller?.directUpload?.id;
     i2 && this.dialog?.removeUpload("direct-upload-" + i2), this.setInputAttachmentsDisabled(false), requestAnimationFrame((() => this.submitForm()));
   }
 };
@@ -5074,20 +5100,20 @@ var d2 = class extends HTMLElement {
     this.removeEventListener("dragover", this.handleDragOver), this.removeEventListener("dragleave", this.handleDragLeave), this.removeEventListener("drop", this.handleDrop);
   }
   get fileTarget() {
-    const t = this.getAttribute("for");
-    return t ? document.querySelector("#" + t) : null;
+    const t2 = this.getAttribute("for");
+    return t2 ? document.querySelector("#" + t2) : null;
   }
-  handleDragOver(t) {
-    t.preventDefault(), this.classList.add("-dragover");
+  handleDragOver(t2) {
+    t2.preventDefault(), this.classList.add("-dragover");
   }
   handleDragLeave() {
     this.classList.remove("-dragover");
   }
-  handleDrop(t) {
-    t.preventDefault(), this.classList.remove("-dragover");
+  handleDrop(t2) {
+    t2.preventDefault(), this.classList.remove("-dragover");
     const e3 = this.fileTarget;
-    if (e3 && t.dataTransfer.files.length > 0) {
-      e3.files = t.dataTransfer.files;
+    if (e3 && t2.dataTransfer.files.length > 0) {
+      e3.files = t2.dataTransfer.files;
       const i2 = new Event("change", { bubbles: true });
       e3.dispatchEvent(i2);
     }
@@ -5114,13 +5140,13 @@ var c3 = proxyCustomElement(class extends H {
   internals;
   fileInput;
   _files = [];
-  constructor(t) {
-    super(), false !== t && this.__registerHost(), this.__attachShadow(), this.internals = this.el.attachInternals();
+  constructor(t2) {
+    super(), false !== t2 && this.__registerHost(), this.__attachShadow(), this.internals = this.el.attachInternals();
   }
   componentWillLoad() {
     this.form = this.internals.form, this.form && (this.form.addEventListener("reset", (() => this.reset())), o2.instance(this.form, { uploadDialog: this.uploadDialog }));
-    const t = Array.from(this.el.children).filter(((t2) => "ATTACHMENT-FILE" == t2.tagName));
-    t.length > 0 && (this.files = t), this.files.length > 0 && this.updateFormValue();
+    const t2 = Array.from(this.el.children).filter(((t3) => "ATTACHMENT-FILE" == t3.tagName));
+    t2.length > 0 && (this.files = t2), this.files.length > 0 && this.updateFormValue();
   }
   componentDidLoad() {
     this.fileInput?.addEventListener("change", this.handleFileInputChange);
@@ -5128,26 +5154,26 @@ var c3 = proxyCustomElement(class extends H {
   get files() {
     return this._files;
   }
-  set files(t) {
-    this._files = t, this.multiple || (this._files = this._files.slice(-1)), forceUpdate(this.el), this.fireChangeEvent();
+  set files(t2) {
+    this._files = t2, this.multiple || (this._files = this._files.slice(-1)), forceUpdate(this.el), this.fireChangeEvent();
   }
   get value() {
-    return JSON.stringify(this.files.map(((t) => ({ value: t.value, filename: t.filename, src: t.src, state: t.state, percent: t.percent, size: t.size, filetype: t.filetype }))));
+    return JSON.stringify(this.files.map(((t2) => ({ value: t2.value, filename: t2.filename, src: t2.src, state: t2.state, percent: t2.percent, size: t2.size, filetype: t2.filetype }))));
   }
-  set value(t) {
-    const e3 = JSON.parse(t || "[]");
-    0 !== e3.length ? (this.files = e3.map(((t2) => {
+  set value(t2) {
+    const e3 = JSON.parse(t2 || "[]");
+    0 !== e3.length ? (this.files = e3.map(((t3) => {
       const e4 = document.createElement("attachment-file");
-      return e4.name = this.name, e4.preview = this.preview, e4.value = t2.value, e4.filename = t2.filename, e4.src = t2.src, e4.state = t2.state || "complete", e4.percent = t2.percent || 100, e4.size = t2.size, e4.filetype = t2.filetype, e4;
+      return e4.name = this.name, e4.preview = this.preview, e4.value = t3.value, e4.filename = t3.filename, e4.src = t3.src, e4.state = t3.state || "complete", e4.percent = t3.percent || 100, e4.size = t3.size, e4.filetype = t3.filetype, e4;
     })), requestAnimationFrame((() => this.componentDidRender()))) : this.files = [];
   }
   updateFormValue() {
     if (!this.name || !this.internals?.setFormValue) return;
-    const t = new FormData(), e3 = this.files.map(((t2) => t2.value)).filter(((t2) => t2 && "string" != typeof t2 ? (console.error("[input-attachment] Non-string value detected on attachment-file:", typeof t2, t2, Error().stack), false) : "string" == typeof t2 && t2.length > 0));
-    if (this.multiple ? (e3.forEach(((e4) => t.append(this.name, e4))), 0 === e3.length && t.append(this.name, "")) : t.set(this.name, e3[0] || ""), this.internals.setFormValue(t), this.required && 0 === this.files.length) this.internals.setValidity({ valueMissing: true }, "Please select a file.", this.fileInput);
+    const t2 = new FormData(), e3 = this.files.map(((t3) => t3.value)).filter(((t3) => t3 && "string" != typeof t3 ? (console.error("[input-attachment] Non-string value detected on attachment-file:", typeof t3, t3, Error().stack), false) : "string" == typeof t3 && t3.length > 0));
+    if (this.multiple ? (e3.forEach(((e4) => t2.append(this.name, e4))), 0 === e3.length && t2.append(this.name, "")) : t2.set(this.name, e3[0] || ""), this.internals.setFormValue(t2), this.required && 0 === this.files.length) this.internals.setValidity({ valueMissing: true }, "Please select a file.", this.fileInput);
     else {
-      const t2 = this.files.map(((t3) => t3.validationError)).filter(((t3) => t3 && t3.length > 0));
-      t2.length > 0 ? this.internals.setValidity({ customError: true }, t2[0], this.fileInput) : this.internals.setValidity({});
+      const t3 = this.files.map(((t4) => t4.validationError)).filter(((t4) => t4 && t4.length > 0));
+      t3.length > 0 ? this.internals.setValidity({ customError: true }, t3[0], this.fileInput) : this.internals.setValidity({});
     }
   }
   reset() {
@@ -5156,19 +5182,19 @@ var c3 = proxyCustomElement(class extends H {
   handleFileInputChange = () => {
     this.fileInput?.files?.length && (this.addFiles(this.fileInput.files), this.fileInput.value = null);
   };
-  handleDrop = (t) => {
-    t.preventDefault(), this.isDisabled || t.dataTransfer?.files?.length && this.addFiles(t.dataTransfer.files);
+  handleDrop = (t2) => {
+    t2.preventDefault(), this.isDisabled || t2.dataTransfer?.files?.length && this.addFiles(t2.dataTransfer.files);
   };
-  removeUploadedFile(t) {
-    !(function(t2, e3) {
-      const i2 = t2.findIndex(((t3) => t3 === e3));
-      -1 !== i2 && t2.splice(i2, 1);
-    })(this.files, t.detail), this.files = this.files;
+  removeUploadedFile(t2) {
+    !(function(t3, e3) {
+      const i2 = t3.findIndex(((t4) => t4 === e3));
+      -1 !== i2 && t3.splice(i2, 1);
+    })(this.files, t2.detail), this.files = this.files;
   }
-  handleChildValidation(t) {
+  handleChildValidation(t2) {
     this.updateFormValue();
   }
-  handleChildReady(t) {
+  handleChildReady(t2) {
     this.updateFormValue();
   }
   fireChangeEvent() {
@@ -5180,38 +5206,38 @@ var c3 = proxyCustomElement(class extends H {
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "59748e20522a9e4ab161e9810b42bd19e9f53680" }, h("input", { key: "36d0bbf56a1eab608ae86f39641fbf44eeb999d8", ref: (t) => this.fileInput = t, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange() }), h("file-drop", { key: "00348d5fa7495a5f0a9d4868b99ac3f9708fb874", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "aa0ee6f54ffb4d23c84376af60040c6df103e84f", part: "title" }, h("strong", { key: "708c2c367984ed4439c6666fba613b7b8bab06a4" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "b82c6eab958d846af3ce11fca9cfaab9c6311074" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "8e5e5c7b319c4fe88266f9e7a1aab5dbb7352c3b", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "f0354fcd6c301e98a91422e2e65f0aff3e78ffde" }))));
+    return h(Host, { key: "59748e20522a9e4ab161e9810b42bd19e9f53680" }, h("input", { key: "36d0bbf56a1eab608ae86f39641fbf44eeb999d8", ref: (t2) => this.fileInput = t2, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange() }), h("file-drop", { key: "00348d5fa7495a5f0a9d4868b99ac3f9708fb874", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "aa0ee6f54ffb4d23c84376af60040c6df103e84f", part: "title" }, h("strong", { key: "708c2c367984ed4439c6666fba613b7b8bab06a4" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "b82c6eab958d846af3ce11fca9cfaab9c6311074" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "8e5e5c7b319c4fe88266f9e7a1aab5dbb7352c3b", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "f0354fcd6c301e98a91422e2e65f0aff3e78ffde" }))));
   }
   componentDidRender() {
     if (0 === this.files.length) {
-      const t2 = Array.from(this.el.children).filter(((t3) => "ATTACHMENT-FILE" == t3.tagName));
-      t2.length > 0 && (this._files = t2);
+      const t3 = Array.from(this.el.children).filter(((t4) => "ATTACHMENT-FILE" == t4.tagName));
+      t3.length > 0 && (this._files = t3);
     }
-    const t = document.createElement("div");
-    this.files.forEach(((e4) => t.appendChild(e4)));
+    const t2 = document.createElement("div");
+    this.files.forEach(((e4) => t2.appendChild(e4)));
     let e3 = false;
-    if (t.children.length !== this.el.children.length) e3 = true;
-    else for (let i2 = 0; i2 < t.children.length; i2++) if (t.children[i2] !== this.el.children[i2]) {
+    if (t2.children.length !== this.el.children.length) e3 = true;
+    else for (let i2 = 0; i2 < t2.children.length; i2++) if (t2.children[i2] !== this.el.children[i2]) {
       e3 = true;
       break;
     }
     if (e3) {
       for (; this.el.firstChild; ) this.el.removeChild(this.el.firstChild);
-      this.el.appendChild(t);
+      this.el.appendChild(t2);
     }
     this.updateFormValue();
   }
-  addFiles(t) {
-    Array.from(t).forEach(((t2) => {
+  addFiles(t2) {
+    Array.from(t2).forEach(((t3) => {
       const e3 = document.createElement("attachment-file");
-      e3.name = this.name, e3.preview = this.preview, e3.setAttribute("url", this.directupload), e3.accepts = this.accepts, e3.max = this.max, e3.file = t2, this._files.push(e3);
+      e3.name = this.name, e3.preview = this.preview, e3.setAttribute("url", this.directupload), e3.accepts = this.accepts, e3.max = this.max, e3.file = t3, this._files.push(e3);
     })), this.files = this._files, requestAnimationFrame((() => this.componentDidRender()));
   }
   checkValidity() {
     return !this.required || 0 !== this.files.length;
   }
-  setCustomValidity(t) {
-    this.internals.setValidity(t ? { customError: true } : {}, t, this.fileInput);
+  setCustomValidity(t2) {
+    this.internals.setValidity(t2 ? { customError: true } : {}, t2, this.fileInput);
   }
   reportValidity() {
     return this.internals.reportValidity();
@@ -5241,23 +5267,23 @@ var r2 = proxyCustomElement(class extends H {
   async close() {
     this.dialog.close();
   }
-  async addUpload(e3, t) {
-    this.uploads = [...this.uploads, { id: e3, filename: t, pending: true, percent: 0, complete: false, error: null }];
+  async addUpload(e3, t2) {
+    this.uploads = [...this.uploads, { id: e3, filename: t2, pending: true, percent: 0, complete: false, error: null }];
   }
   async startUpload(e3) {
-    this.uploads = this.uploads.map(((t) => t.id === e3 ? { ...t, pending: false } : t));
+    this.uploads = this.uploads.map(((t2) => t2.id === e3 ? { ...t2, pending: false } : t2));
   }
-  async updateProgress(e3, t) {
-    this.uploads = this.uploads.map(((a3) => a3.id === e3 ? { ...a3, percent: t } : a3));
+  async updateProgress(e3, t2) {
+    this.uploads = this.uploads.map(((a3) => a3.id === e3 ? { ...a3, percent: t2 } : a3));
   }
-  async setError(e3, t) {
-    this.uploads = this.uploads.map(((a3) => a3.id === e3 ? { ...a3, error: t } : a3));
+  async setError(e3, t2) {
+    this.uploads = this.uploads.map(((a3) => a3.id === e3 ? { ...a3, error: t2 } : a3));
   }
   async completeUpload(e3) {
-    this.uploads = this.uploads.map(((t) => t.id === e3 ? { ...t, complete: true } : t));
+    this.uploads = this.uploads.map(((t2) => t2.id === e3 ? { ...t2, complete: true } : t2));
   }
   async removeUpload(e3) {
-    this.uploads = this.uploads.filter(((t) => t.id !== e3));
+    this.uploads = this.uploads.filter(((t2) => t2.id !== e3));
   }
   render() {
     return h(Host, { key: "76874b06863ae2cab526de1f0e491bb04300c6fc" }, h("dialog", { key: "55b715d6d5fc6ee0c6a16df16c6374ca6e285aee", ref: (e3) => this.dialog = e3 }, h("div", { key: "bab0ae4ed41bb5a909351866d92f0da330858691", class: "direct-upload-wrapper" }, h("div", { key: "23fe0a67bd942f5f4a53df1bd61bec8863104b2c", class: "direct-upload-content" }, h("h3", { key: "d2e349d855c046a541c9dc3ac837873bcd75da22" }, "Uploading your media"), this.uploads.map(((e3) => h("progress-bar", { key: e3.id, class: { "direct-upload--pending": e3.pending, "direct-upload--complete": e3.complete, "direct-upload--error": !!e3.error }, percent: e3.percent, title: e3.error || void 0 }, e3.filename)))))));
