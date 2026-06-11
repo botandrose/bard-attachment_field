@@ -45,6 +45,7 @@ module BardAttachmentTest
       File.expand_path('../../app/assets/javascripts', __dir__),
       File.expand_path('../../app/assets', __dir__),
       SUPPORT_ROOT.join('javascripts'),
+      SUPPORT_ROOT.join('fixtures'),
     ]
     config.assets.precompile += ['input-attachment.js', 'form-persistence.min.js', 'turbo.js']
     config.assets.digest = false
@@ -176,6 +177,13 @@ class PostsController < ApplicationController
   def block_edit
     @post = Post.find(params[:id])
     render 'posts/block_edit'
+  end
+
+  # Edit form whose <attachment-file> uses a preview src, pointing the download
+  # link at the original file via href/download.
+  def download_edit
+    @post = Post.find(params[:id])
+    render 'posts/download_edit'
   end
 
   def update
@@ -358,6 +366,7 @@ Rails.application.routes.draw do
   resources :posts do
     member do
       get :block_edit
+      get :download_edit
     end
     collection do
       get :disabled

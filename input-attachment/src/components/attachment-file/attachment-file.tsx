@@ -22,6 +22,8 @@ export class AttachmentFile {
   @Prop({ reflect: true, mutable: true }) value: string = ""
   @Prop({ reflect: true, mutable: true }) filename: string
   @Prop({ reflect: true, mutable: true }) src: string
+  @Prop({ reflect: true, mutable: true }) href: string
+  @Prop({ reflect: true, mutable: true }) download: string
   @Prop({ reflect: true, mutable: true }) filetype: string
   @Prop({ reflect: true, mutable: true }) size: number
   @Prop({ reflect: true, mutable: true }) state: string = "complete"
@@ -132,7 +134,7 @@ export class AttachmentFile {
         <figure>
           <div class="progress-details">
             <progress-bar percent={this.percent} class={this.state} error={this.state === "error"}>
-              <a class="download-link" href={this.src} download={this.filename} onClick={e => e.stopPropagation()}>
+              <a class="download-link" href={this.href || this.src} download={this.download || this.filename} onClick={e => e.stopPropagation()}>
                 {this.filename}
               </a>
             </progress-bar>

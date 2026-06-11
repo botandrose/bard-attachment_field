@@ -73,6 +73,8 @@ export class InputAttachment {
       value: f.value,
       filename: f.filename,
       src: f.src,
+      href: f.href,
+      download: f.download,
       state: f.state,
       percent: f.percent,
       size: f.size,
@@ -93,6 +95,8 @@ export class InputAttachment {
       attachmentFile.value = item.value
       attachmentFile.filename = item.filename
       attachmentFile.src = item.src
+      attachmentFile.href = item.href
+      attachmentFile.download = item.download
       attachmentFile.state = item.state || 'complete'
       attachmentFile.percent = item.percent || 100
       attachmentFile.size = item.size

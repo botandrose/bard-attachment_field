@@ -8,8 +8,10 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AttachmentFile {
         "accepts": string;
+        "download": string;
         "filename": string;
         "filetype": string;
+        "href": string;
         "max": number;
         "name": string;
         /**
@@ -126,8 +128,10 @@ declare global {
 declare namespace LocalJSX {
     interface AttachmentFile {
         "accepts"?: string;
+        "download"?: string;
         "filename"?: string;
         "filetype"?: string;
+        "href"?: string;
         "max"?: number;
         "name"?: string;
         "onAttachment-file:ready"?: (event: AttachmentFileCustomEvent<any>) => void;
@@ -199,6 +203,8 @@ declare namespace LocalJSX {
         "value": string;
         "filename": string;
         "src": string;
+        "href": string;
+        "download": string;
         "filetype": string;
         "size": number;
         "state": string;

@@ -4332,11 +4332,11 @@ var b = class {
     l.create(this.file, ((e3, i2) => {
       if (e3) return void t2(e3);
       const s = new f(this.file, i2, this.url, this.customHeaders);
-      v(this.delegate, "directUploadWillCreateBlobWithXHR", s.xhr), s.create(((e4) => {
+      w(this.delegate, "directUploadWillCreateBlobWithXHR", s.xhr), s.create(((e4) => {
         if (e4) t2(e4);
         else {
           const e5 = new m(s);
-          v(this.delegate, "directUploadWillStoreFileWithXHR", e5.xhr), e5.create(((e6) => {
+          w(this.delegate, "directUploadWillStoreFileWithXHR", e5.xhr), e5.create(((e6) => {
             e6 ? t2(e6) : t2(null, s.toJSON());
           }));
         }
@@ -4344,10 +4344,10 @@ var b = class {
     }));
   }
 };
-function v(t2, e3, ...i2) {
+function w(t2, e3, ...i2) {
   if (t2 && "function" == typeof t2[e3]) return t2[e3](...i2);
 }
-var w = class {
+var v = class {
   constructor(t2, e3) {
     this.input = t2, this.file = e3, this.directUpload = new b(this.file, this.url, this), this.dispatch("initialize");
   }
@@ -4411,7 +4411,7 @@ var y = class {
     const t2 = [];
     return this.inputs.forEach(((e3) => {
       p(e3.files).forEach(((i2) => {
-        const s = new w(e3, i2);
+        const s = new v(e3, i2);
         t2.push(s);
       }));
     })), t2;
@@ -4714,6 +4714,8 @@ var H2 = proxyCustomElement(class extends H {
   value = "";
   filename;
   src;
+  href;
+  download;
   filetype;
   size;
   state = "complete";
@@ -4766,7 +4768,7 @@ var H2 = proxyCustomElement(class extends H {
     "error" !== this.state && (this.state = "complete", this.percent = 100);
   }
   render() {
-    return h(Host, { key: "1af2d43e01a8714c658ea70a9ca68cce57bbda12" }, h("slot", { key: "deadfff4a159e17d52ed8f66d5d18aecc71fb44d" }), h("figure", { key: "7319a724f2d51c396734dacd7528b1864fb8e980" }, h("div", { key: "ce0794f4062073a8fc28e4f2398a91d711f00521", class: "progress-details" }, h("progress-bar", { key: "7317e5149cbc15dd1bff84b9c8ea92d55a29fe3f", percent: this.percent, class: this.state, error: "error" === this.state }, h("a", { key: "638de84fd46da31a7ad9b652f0dd1d71fdb87edb", class: "download-link", href: this.src, download: this.filename, onClick: (t2) => t2.stopPropagation() }, this.filename)), h("span", { key: "fe8b77d5cd5b9014caa92abe34c515a5b16dbe86", class: "progress-icon" }), h("a", { key: "b8b2fde12f9ecf1df5a044a812be4b43ee24502c", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "7ce869972ee400de34bd3462f0656263f0ddc013" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
+    return h(Host, { key: "8468877f30120b32201867ab5466d4d0fed5e514" }, h("slot", { key: "f44af091a15ff9ae425a61b708c5ea64a19a5057" }), h("figure", { key: "c629a6dece58606c37979d8d21cfe37d2312511e" }, h("div", { key: "87b9629c3133c7050cf84ec6a8824a68dadb81d0", class: "progress-details" }, h("progress-bar", { key: "63238eeda3adb36ce17a355d4cb2db0dbf45f0df", percent: this.percent, class: this.state, error: "error" === this.state }, h("a", { key: "dacdd7679ee07177fc5a18dcca018dcb6b32406e", class: "download-link", href: this.href || this.src, download: this.download || this.filename, onClick: (t2) => t2.stopPropagation() }, this.filename)), h("span", { key: "5618922137596fc76b569ac876064a0444d8d73a", class: "progress-icon" }), h("a", { key: "6ac34bc373c61db029a1e0101ea2219846e960fd", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "ef9f0d6e8ba6fab4d876cd788e75a34ada1fe572" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
   }
   componentDidLoad() {
     "pending" == this.state && this._file && (this.checkValidity() ? (this.controller = new C(this.el, this._file), this.controller.dispatch("initialize", { controller: this.controller })) : this.state = "error");
@@ -4781,7 +4783,7 @@ var H2 = proxyCustomElement(class extends H {
   static get style() {
     return `:host{display:block;width:100%;max-width:100%;font-size:13px}figure{margin:0}.progress-details{position:relative;display:flex;align-items:center}progress-bar{flex:1 0}progress-bar.pending{opacity:0.5}progress-bar.complete{opacity:0.8}progress-bar:not(.complete)+.progress-icon{display:none}progress-bar.complete+.progress-icon{content:url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve"><g><path d="M6.3,9.1c0.2,0,0.5,0.1,0.7,0.4c0.5,0.5,1,1,1.4,1.4c0.3,0.3,0.3,0.3,0.6,0c1.4-1.3,2.7-2.6,4-3.9c0.3-0.3,0.6-0.4,1-0.4 c0.5,0.1,0.9,0.6,0.7,1.1c-0.1,0.2-0.2,0.4-0.3,0.6c-1.6,1.6-3.2,3.2-4.8,4.8c-0.5,0.5-1,0.5-1.6,0c-0.8-0.7-1.5-1.5-2.3-2.3 c-0.3-0.3-0.5-0.6-0.3-1.1C5.5,9.3,5.8,9.1,6.3,9.1z"/></g></svg>');filter:invert(100%)}.progress-icon{display:inline-block;flex:0 0 20px;width:28px;height:28px;background-size:contain;position:absolute;right:30px;z-index:1}progress-bar.error{background:var(--input-attachment-error-bg, rgba(74, 70, 70, 0.25));opacity:1}.progress-bar a{color:#fff}.download-link{padding-right:20px;color:#fff}.remove-media{display:inline-block;content:url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><g><path d="M0,19.9C0.2,8.5,9.2-0.1,20.1,0C31.8,0.1,40.2,9.5,40,20.4c-0.2,11-8.9,19.7-20.1,19.6C8,39.9,0,30.5,0,19.9z M20,3.7 c-9,0-16.3,7-16.3,16.2C3.7,29,10.9,36.3,20,36.3c9,0,16.3-7.1,16.4-16.3C36.3,11,29.2,3.8,20,3.7z"/><path d="M17.3,20c-0.2-0.2-0.3-0.4-0.5-0.6c-1-1-2-1.9-2.9-2.9c-0.5-0.5-0.8-1.1-0.7-1.9c0.1-0.7,0.5-1.2,1.2-1.4 c0.8-0.2,1.5,0,2.1,0.6c1,1,2,2,3,3.1c0.3,0.4,0.6,0.3,0.9,0c1-1,2-2,3-3c0.3-0.3,0.7-0.5,1.1-0.6c0.8-0.2,1.6,0.1,2,0.8 c0.4,0.8,0.3,1.7-0.4,2.4c-1,1-2,2-3,3c-0.2,0.2-0.3,0.4-0.5,0.6c1.2,1.2,2.3,2.3,3.4,3.4c0.6,0.6,0.9,1.3,0.6,2.2 c-0.4,1.1-1.7,1.6-2.6,1c-0.3-0.2-0.5-0.4-0.8-0.6c-1-1-1.9-1.9-2.9-2.9c-0.3-0.3-0.5-0.3-0.9,0c-1,1-2,2.1-3,3 c-0.4,0.4-1,0.6-1.5,0.8c-0.6,0.1-1.2-0.2-1.5-0.8c-0.4-0.6-0.5-1.3-0.1-1.9c0.2-0.3,0.4-0.5,0.6-0.7C15.1,22.3,16.2,21.2,17.3,20z "/></g></svg>');flex:0 0 25px;width:25px;height:20px;align-items:center;opacity:0.25}.remove-media:hover{opacity:1;filter:invert(50%)sepia(100%)saturate(10000%)}.remove-media span{display:inline-block;text-indent:-9999px;color:transparent}.retry-media{color:var(--input-attachment-error-color, #c00);font-size:12px;text-decoration:underline;cursor:pointer;padding-left:8px}.retry-media:hover{color:var(--input-attachment-error-color-hover, #900)}.validation-error{color:var(--input-attachment-error-color, #c00);font-size:12px;margin:4px 0 0 10px}`;
   }
-}, [769, "attachment-file", { name: [1537], accepts: [1537], max: [1538], url: [1537], value: [1537], filename: [1537], src: [1537], filetype: [1537], size: [1538], state: [1537], percent: [1538], preview: [1540], validationMessage: [1, "validation-message"] }, [[0, "direct-upload:initialize", "start"], [0, "direct-upload:start", "start"], [0, "direct-upload:progress", "progress"], [0, "direct-upload:error", "error"], [0, "direct-upload:end", "end"]], { filename: [{ setMissingFiletype: 0 }] }]);
+}, [769, "attachment-file", { name: [1537], accepts: [1537], max: [1538], url: [1537], value: [1537], filename: [1537], src: [1537], href: [1537], download: [1537], filetype: [1537], size: [1538], state: [1537], percent: [1538], preview: [1540], validationMessage: [1, "validation-message"] }, [[0, "direct-upload:initialize", "start"], [0, "direct-upload:start", "start"], [0, "direct-upload:progress", "progress"], [0, "direct-upload:error", "error"], [0, "direct-upload:end", "end"]], { filename: [{ setMissingFiletype: 0 }] }]);
 
 // dist/components/attachment-file.js
 var o = H2;
@@ -5158,13 +5160,13 @@ var c3 = proxyCustomElement(class extends H {
     this._files = t2, this.multiple || (this._files = this._files.slice(-1)), forceUpdate(this.el), this.fireChangeEvent();
   }
   get value() {
-    return JSON.stringify(this.files.map(((t2) => ({ value: t2.value, filename: t2.filename, src: t2.src, state: t2.state, percent: t2.percent, size: t2.size, filetype: t2.filetype }))));
+    return JSON.stringify(this.files.map(((t2) => ({ value: t2.value, filename: t2.filename, src: t2.src, href: t2.href, download: t2.download, state: t2.state, percent: t2.percent, size: t2.size, filetype: t2.filetype }))));
   }
   set value(t2) {
     const e3 = JSON.parse(t2 || "[]");
     0 !== e3.length ? (this.files = e3.map(((t3) => {
       const e4 = document.createElement("attachment-file");
-      return e4.name = this.name, e4.preview = this.preview, e4.value = t3.value, e4.filename = t3.filename, e4.src = t3.src, e4.state = t3.state || "complete", e4.percent = t3.percent || 100, e4.size = t3.size, e4.filetype = t3.filetype, e4;
+      return e4.name = this.name, e4.preview = this.preview, e4.value = t3.value, e4.filename = t3.filename, e4.src = t3.src, e4.href = t3.href, e4.download = t3.download, e4.state = t3.state || "complete", e4.percent = t3.percent || 100, e4.size = t3.size, e4.filetype = t3.filetype, e4;
     })), requestAnimationFrame((() => this.componentDidRender()))) : this.files = [];
   }
   updateFormValue() {
@@ -5206,7 +5208,7 @@ var c3 = proxyCustomElement(class extends H {
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "59748e20522a9e4ab161e9810b42bd19e9f53680" }, h("input", { key: "36d0bbf56a1eab608ae86f39641fbf44eeb999d8", ref: (t2) => this.fileInput = t2, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange() }), h("file-drop", { key: "00348d5fa7495a5f0a9d4868b99ac3f9708fb874", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "aa0ee6f54ffb4d23c84376af60040c6df103e84f", part: "title" }, h("strong", { key: "708c2c367984ed4439c6666fba613b7b8bab06a4" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "b82c6eab958d846af3ce11fca9cfaab9c6311074" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "8e5e5c7b319c4fe88266f9e7a1aab5dbb7352c3b", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "f0354fcd6c301e98a91422e2e65f0aff3e78ffde" }))));
+    return h(Host, { key: "09588ce0af3411cc579d7d828c604fcc1fd44825" }, h("input", { key: "1311e26122c5778efc9eb1176c4a4986f1865d7d", ref: (t2) => this.fileInput = t2, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange() }), h("file-drop", { key: "7adac8601feb97f1123482bde83cf0bb7bd931b7", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "38faec2ec357d905719948b3f0f46b23abde4c40", part: "title" }, h("strong", { key: "61bd69a635852191f31e4e986f13bbf63e57dfa3" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "6ac8e031e03ed7d23c83edbacde03c441c4b4df7" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "476bdeafcf7e6211a3feccdc0c275efaf1bff928", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "f843426c3a3cef23ccf8d3f1f584075762ecc8b2" }))));
   }
   componentDidRender() {
     if (0 === this.files.length) {

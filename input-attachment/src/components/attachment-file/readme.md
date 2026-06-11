@@ -10,8 +10,10 @@
 | Property            | Attribute            | Description | Type      | Default      |
 | ------------------- | -------------------- | ----------- | --------- | ------------ |
 | `accepts`           | `accepts`            |             | `string`  | `undefined`  |
+| `download`          | `download`           |             | `string`  | `undefined`  |
 | `filename`          | `filename`           |             | `string`  | `undefined`  |
 | `filetype`          | `filetype`           |             | `string`  | `undefined`  |
+| `href`              | `href`               |             | `string`  | `undefined`  |
 | `max`               | `max`                |             | `number`  | `undefined`  |
 | `name`              | `name`               |             | `string`  | `undefined`  |
 | `percent`           | `percent`            |             | `number`  | `100`        |

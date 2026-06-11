@@ -73,6 +73,26 @@ Pass a block to render your own children inside the `<input-attachment>` element
 <% end %>
 ```
 
+`src` powers both the preview and the download link. When `src` points at a
+smaller preview image, set `href` to point the download link at the original
+file instead, and optionally `download` to control the downloaded filename:
+
+```erb
+<%= form.attachment_field :image do |options| %>
+  <% if @post.image.attached? %>
+    <attachment-file
+      name="<%= options["name"] %>"
+      src="<%= url_for @post.image.variant(:thumb) %>"
+      href="<%= rails_blob_path @post.image, disposition: :attachment %>"
+      download="<%= @post.image.filename %>"
+      filename="<%= @post.image.filename %>"
+      value="<%= @post.image.signed_id %>"
+      preview="true"
+      filetype="image"></attachment-file>
+  <% end %>
+<% end %>
+```
+
 ## Development
 
 This project has two parts: the Ruby gem and the Stencil web components in `input-attachment/`.
