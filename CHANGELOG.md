@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.6.0] - 2026-06-11
+
+### Features
+
+- `<attachment-file>` accepts optional `href` and `download` attributes for its
+  download link, falling back to `src` and `filename`. Lets block-rendered
+  fields point the preview at a small image while the download link fetches
+  the original file.
+
 ## [0.5.5] - 2026-06-06
 
 ### Bug Fixes
