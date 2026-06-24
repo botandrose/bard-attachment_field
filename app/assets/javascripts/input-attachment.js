@@ -4808,10 +4808,13 @@ var t = class extends HTMLElement {
     super(), this.attachShadow({ mode: "open" }), this._percent = null, this._renderedMode = null, this._rateTimer = null;
   }
   connectedCallback() {
-    this.render(), this.setAttribute("role", "progressbar"), this.setAttribute("aria-valuemin", "0"), this.setAttribute("aria-valuemax", "100"), this.updateBar(), this._syncTicker();
+    this.render(), this.updateBar(), this._syncTicker();
   }
   disconnectedCallback() {
     this._stopTicker();
+  }
+  get _progressbarEl() {
+    return this.shadowRoot.querySelector("circular" === this.mode ? ".ring" : ".bar");
   }
   get percent() {
     return this._percent;
@@ -4849,13 +4852,14 @@ var t = class extends HTMLElement {
   }
   updateBar() {
     if ("circular" === this.mode) {
-      const r4 = this.shadowRoot?.querySelector(".progress-ring");
-      r4 && (r4.style.strokeDashoffset = this.indeterminate ? "" : String(100 * (1 - this._percent / 100)));
+      const r5 = this.shadowRoot?.querySelector(".progress-ring");
+      r5 && (r5.style.strokeDashoffset = this.indeterminate ? "" : String(100 * (1 - this._percent / 100)));
     } else {
-      const r4 = this.shadowRoot?.querySelector(".bar");
-      r4 && (r4.style.width = this.indeterminate ? "" : `${this._percent}%`);
+      const r5 = this.shadowRoot?.querySelector(".bar");
+      r5 && (r5.style.width = this.indeterminate ? "" : `${this._percent}%`);
     }
-    this.indeterminate ? this.removeAttribute("aria-valuenow") : this.setAttribute("aria-valuenow", String(this._percent));
+    const r4 = this._progressbarEl;
+    r4 && (this.indeterminate ? r4.removeAttribute("aria-valuenow") : r4.setAttribute("aria-valuenow", String(this._percent)));
   }
   _syncTicker() {
     const r4 = Number(this.getAttribute("rate")), n3 = this.isConnected && !this.indeterminate && Number.isFinite(r4) && 0 !== r4;
@@ -4870,7 +4874,8 @@ var t = class extends HTMLElement {
   }
   render() {
     const n3 = this.mode;
-    this._renderedMode !== n3 && (this._renderedMode = n3, this.shadowRoot.adoptedStyleSheets = [(r || (r = new CSSStyleSheet(), r.replaceSync(`
+    if (this._renderedMode === n3) return;
+    this._renderedMode = n3, this.shadowRoot.adoptedStyleSheets = [(r || (r = new CSSStyleSheet(), r.replaceSync(`
   :host {
     --progress-color: #2E7D32;
     --error-color: #7a242f;
@@ -5012,7 +5017,9 @@ var t = class extends HTMLElement {
   :host([error]) .progress-ring { display: none; }
   :host([error]) .ring { animation: none; }
   :host([error]) .error-mark { display: block; }
-`)), r)], this.shadowRoot.innerHTML = "circular" === n3 ? '\n  <div class="circular">\n    <svg class="ring" viewBox="0 0 100 100">\n      <circle class="track" cx="50" cy="50" r="40"></circle>\n      <circle class="progress-ring" cx="50" cy="50" r="40" pathLength="100"></circle>\n      <path class="error-mark" d="M37 37 L63 63 M63 37 L37 63"></path>\n    </svg>\n    <span class="label"><slot></slot></span>\n  </div>\n' : '\n  <div class="bar"></div>\n  <div class="text"><slot></slot></div>\n');
+`)), r)], this.shadowRoot.innerHTML = "circular" === n3 ? '\n  <div class="circular">\n    <svg class="ring" viewBox="0 0 100 100">\n      <circle class="track" cx="50" cy="50" r="40"></circle>\n      <circle class="progress-ring" cx="50" cy="50" r="40" pathLength="100"></circle>\n      <path class="error-mark" d="M37 37 L63 63 M63 37 L37 63"></path>\n    </svg>\n    <span class="label" id="label"><slot></slot></span>\n  </div>\n' : '\n  <div class="bar"></div>\n  <div class="text" id="label"><slot></slot></div>\n';
+    const e3 = this._progressbarEl;
+    e3.setAttribute("role", "progressbar"), e3.setAttribute("aria-valuemin", "0"), e3.setAttribute("aria-valuemax", "100"), e3.setAttribute("aria-labelledby", "label");
   }
 };
 customElements.get("progress-bar") || customElements.define("progress-bar", t);
