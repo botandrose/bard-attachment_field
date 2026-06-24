@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.1] - 2026-06-24
+
+### Bug Fixes
+
+- Bump `@botandrose/progress-bar` to 0.6.1, which moves the `progressbar` role
+  off the host onto the inner fill/ring and names it from its slotted content.
+  This resolves the `aria-progressbar-name` and `nested-interactive` axe
+  violations on `<attachment-file>`, whose download link is slotted as the
+  progress bar's content.
+
 ## [0.6.0] - 2026-06-11
 
 ### Features
