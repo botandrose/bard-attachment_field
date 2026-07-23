@@ -4087,7 +4087,7 @@ var a = proxyCustomElement(class extends H {
   src;
   filetype;
   render() {
-    return h(Host, { key: "429f17fda03ded975255da6335ba23a663ee662e", class: this.computeClass() }, this.isImage() && h("img", { key: "daa4e38cb1375db7d8852ab1cb401f048efbbdc7", src: this.src }), this.isVideo() && h("video", { key: "1b7860bc3edf2f4ba4951dd0bd8a88f14db078a0", src: this.src, onClick: n }), this.isOther() && "This file does not offer a preview", h("slot", { key: "b8a894bcc9ae11619d543b20f2bd2ee9167616d8" }));
+    return h(Host, { key: "429f17fda03ded975255da6335ba23a663ee662e", class: this.computeClass() }, this.isImage() && h("img", { key: "daa4e38cb1375db7d8852ab1cb401f048efbbdc7", src: this.src }), this.isVideo() && h("video", { key: "1b7860bc3edf2f4ba4951dd0bd8a88f14db078a0", src: this.src, onClick: c }), this.isOther() && "This file does not offer a preview", h("slot", { key: "b8a894bcc9ae11619d543b20f2bd2ee9167616d8" }));
   }
   computeClass() {
     return this.isImage() ? "image" : this.isVideo() ? "video" : "other";
@@ -4105,8 +4105,8 @@ var a = proxyCustomElement(class extends H {
     return ":host{display:block;font-size:13px}img,video{max-width:100%;margin-top:10px}";
   }
 }, [769, "attachment-preview", { src: [513], filetype: [513] }]);
-var n = function() {
-  return this.paused ? this.play() : this.pause(), false;
+var c = function(e3) {
+  e3.stopPropagation(), this.paused ? this.play() : this.pause();
 };
 
 // dist/components/attachment-file2.js

@@ -39,4 +39,7 @@ export class AttachmentPreview {
   }
 }
 
-const toggle = function() { this.paused ? this.play() : this.pause(); return false }
+const toggle = function(event) {
+  event.stopPropagation()
+  this.paused ? this.play() : this.pause()
+}
