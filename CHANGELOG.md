@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.2] - 2026-07-23
+
+### Bug Fixes
+
+- Clicking a `<video>` preview to play/pause no longer opens the file picker.
+  The click handler now stops propagation so it doesn't bubble to the
+  `<file-drop>` wrapper, which opens the upload dialog on click.
+
 ## [0.6.1] - 2026-06-24
 
 ### Bug Fixes
