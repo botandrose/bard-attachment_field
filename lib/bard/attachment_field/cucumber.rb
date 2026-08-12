@@ -92,7 +92,7 @@ module Bard::AttachmentField::TestHelper
   end
 
   def get_files(field)
-    field.all("attachment-file").map { |e| e[:filename] }
+    field.all("attachment-file", minimum: 0).map { |e| e[:filename] }
   end
 
   def validation_messages(session, element)
