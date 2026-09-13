@@ -125,7 +125,9 @@ export class InputAttachment {
       // For has_one_attached: set single value (or empty string if none)
       formData.set(this.name, values[0] || '')
     }
-    this.internals.setFormValue(formData)
+    // State is a JSON string (this.value), not the FormData: Firefox flattens a FormData to {}
+    // in the session store and restores it as "[object Object]", but a string survives intact.
+    this.internals.setFormValue(formData, this.value)
 
     // Update validity state - check for required and child validation errors
     if (this.required && this.files.length === 0) {
@@ -145,6 +147,27 @@ export class InputAttachment {
 
   reset() {
     this.files = []
+  }
+
+  // On session restore Firefox hands back the state we saved (this.value, a JSON string of the
+  // files). Rebuild the attachments from it so they survive a browser restart; fall back to
+  // re-deriving from the current files if the state is missing or malformed (e.g. the coerced
+  // "[object Object]", which is not valid JSON).
+  formStateRestoreCallback(state) {
+    if (this.restorable(state)) {
+      this.value = state
+    } else {
+      this.updateFormValue()
+    }
+  }
+
+  restorable(state): boolean {
+    if (typeof state !== "string") return false
+    try {
+      return Array.isArray(JSON.parse(state))
+    } catch {
+      return false
+    }
   }
 
   handleFileInputChange = () => {

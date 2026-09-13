@@ -5179,7 +5179,7 @@ var c3 = proxyCustomElement(class extends H {
   updateFormValue() {
     if (!this.name || !this.internals?.setFormValue) return;
     const t2 = new FormData(), e3 = this.files.map(((t3) => t3.value)).filter(((t3) => t3 && "string" != typeof t3 ? (console.error("[input-attachment] Non-string value detected on attachment-file:", typeof t3, t3, Error().stack), false) : "string" == typeof t3 && t3.length > 0));
-    if (this.multiple ? (e3.forEach(((e4) => t2.append(this.name, e4))), 0 === e3.length && t2.append(this.name, "")) : t2.set(this.name, e3[0] || ""), this.internals.setFormValue(t2), this.required && 0 === this.files.length) this.internals.setValidity({ valueMissing: true }, "Please select a file.", this.fileInput);
+    if (this.multiple ? (e3.forEach(((e4) => t2.append(this.name, e4))), 0 === e3.length && t2.append(this.name, "")) : t2.set(this.name, e3[0] || ""), this.internals.setFormValue(t2, this.value), this.required && 0 === this.files.length) this.internals.setValidity({ valueMissing: true }, "Please select a file.", this.fileInput);
     else {
       const t3 = this.files.map(((t4) => t4.validationError)).filter(((t4) => t4 && t4.length > 0));
       t3.length > 0 ? this.internals.setValidity({ customError: true }, t3[0], this.fileInput) : this.internals.setValidity({});
@@ -5187,6 +5187,17 @@ var c3 = proxyCustomElement(class extends H {
   }
   reset() {
     this.files = [];
+  }
+  formStateRestoreCallback(t2) {
+    this.restorable(t2) ? this.value = t2 : this.updateFormValue();
+  }
+  restorable(t2) {
+    if ("string" != typeof t2) return false;
+    try {
+      return Array.isArray(JSON.parse(t2));
+    } catch {
+      return false;
+    }
   }
   handleFileInputChange = () => {
     this.fileInput?.files?.length && (this.addFiles(this.fileInput.files), this.fileInput.value = null);
@@ -5215,7 +5226,7 @@ var c3 = proxyCustomElement(class extends H {
     return this.disabled || !!this.el.closest("fieldset[disabled]");
   }
   render() {
-    return h(Host, { key: "09588ce0af3411cc579d7d828c604fcc1fd44825" }, h("input", { key: "1311e26122c5778efc9eb1176c4a4986f1865d7d", ref: (t2) => this.fileInput = t2, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange() }), h("file-drop", { key: "7adac8601feb97f1123482bde83cf0bb7bd931b7", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "38faec2ec357d905719948b3f0f46b23abde4c40", part: "title" }, h("strong", { key: "61bd69a635852191f31e4e986f13bbf63e57dfa3" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "6ac8e031e03ed7d23c83edbacde03c441c4b4df7" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "476bdeafcf7e6211a3feccdc0c275efaf1bff928", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "f843426c3a3cef23ccf8d3f1f584075762ecc8b2" }))));
+    return h(Host, { key: "9b1ce57edcd31be2885c5923e65c8f4d0ac31002" }, h("input", { key: "a498cdd103d4b3385bfbfb4c2158ae2c15ed3b55", ref: (t2) => this.fileInput = t2, type: "file", "aria-label": "Choose " + (this.multiple ? "files" : "file"), multiple: this.multiple, accept: this.accepts, required: this.required && 0 === this.files.length, disabled: this.isDisabled, onChange: () => this.handleFileInputChange() }), h("file-drop", { key: "9edc0c1e22d0a6385515f6dff44965c9f3e7a40c", onClick: () => this.fileInput?.click(), onDrop: this.handleDrop }, h("p", { key: "ae06d2f6be38f25eb977e66b1c6c565ca0e3c97d", part: "title" }, h("strong", { key: "c53fc410ec761ca7f044c25cceb1be12c6e37b5c" }, "Choose ", this.multiple ? "files" : "file", " "), h("span", { key: "227a48d7ed21443ec97f646b58611cbf611145bc" }, "or drag ", this.multiple ? "them" : "it", " here.")), h("div", { key: "25fce75fb15b66bd13bea450054d22ddabd05824", class: "media-preview " + (this.multiple ? "-stacked" : "") }, h("slot", { key: "86f6db9bef3f2d6c16a72679ec33b751aef4eec5" }))));
   }
   componentDidRender() {
     if (0 === this.files.length) {
