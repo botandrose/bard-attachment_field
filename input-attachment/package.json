@@ -1,6 +1,6 @@
 {
   "name": "@botandrose/input-attachment",
-  "version": "0.0.1",
+  "version": "0.6.4",
   "description": "Next-gen file field",
   "type": "module",
   "module": "dist/components/index.js",
