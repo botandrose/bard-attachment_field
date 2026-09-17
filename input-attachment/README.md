@@ -77,9 +77,9 @@ The main component providing file upload functionality.
 get files(): AttachmentFile[]
 set files(val: AttachmentFile[])
 
-// Get/set array of signed IDs from Active Storage
-get value(): string[]
-set value(val: string[])
+// Get/set the attachments as a JSON string of { value: signed_id, filename, src, ... } objects
+get value(): string
+set value(val: string)
 
 // Clear all files
 reset(): void
@@ -135,6 +135,38 @@ set signedId(val: string)
 
 // Validate the file
 checkValidity(): boolean
+```
+
+## Outside Rails (cross-origin, token auth)
+
+`directupload` can be an absolute URL on another origin, as long as that endpoint speaks the
+`@rails/activestorage` protocol and the storage bucket's CORS allows your origin. Add
+credentials from the `direct-upload:before-blob-request` event, which carries the XHR for the
+blob-reserving request:
+
+```js
+const el = document.querySelector("input-attachment")
+el.addEventListener("direct-upload:before-blob-request", event => {
+  event.detail.xhr.setRequestHeader("Authorization", `Bearer ${token}`)
+})
+```
+
+The element registers itself only after `defineCustomElements()` runs, so in a framework call it
+once on the client:
+
+```js
+import { defineCustomElements } from "@botandrose/input-attachment"
+defineCustomElements()
+```
+
+Without a `<form>` submit, read the signed id from the `change` event: `value` is a JSON string
+of the current attachments, and each one's `value` is its signed id.
+
+```js
+el.addEventListener("change", () => {
+  const [attachment] = JSON.parse(el.value)
+  console.log(attachment?.value) // the signed id, or undefined once removed
+})
 ```
 
 ## Form Submission Flow
