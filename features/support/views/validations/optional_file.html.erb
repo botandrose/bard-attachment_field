@@ -1,5 +1,5 @@
 <h1>Optional File</h1>
-<%= form_with model: @post, url: "/validations" do |form| %>
+<%= form_with model: @post, url: request.fullpath, method: :patch do |form| %>
   <p>
     <%= form.label :file, "Optional file" %>
     <%= form.attachment_field :file %>

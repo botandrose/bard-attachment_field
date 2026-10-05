@@ -2,6 +2,7 @@ import { Component, Prop, Element, Watch, Host, h } from '@stencil/core'
 import { Listen, Event, EventEmitter } from '@stencil/core'
 import DirectUploadController from './direct-upload-controller'
 import Max from './max'
+import NotEmpty from './not-empty'
 import Accepts from './accepts'
 import Extensions from './extensions'
 import { get } from 'rails-request-json'
@@ -170,6 +171,7 @@ export class AttachmentFile {
     let errors = []
     errors.push(...new Accepts(this).errors)
     errors.push(...new Max(this).errors)
+    errors.push(...new NotEmpty(this).errors)
     this.validationError = errors.join(" ")
     // Notify parent of validation state change
     this.validationEvent.emit({ valid: errors.length === 0, error: this.validationError })

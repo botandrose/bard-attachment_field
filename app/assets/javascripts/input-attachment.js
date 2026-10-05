@@ -4252,10 +4252,10 @@ var l = class _l {
     return false;
   }
 };
-function d(t2, e3) {
+function u(t2, e3) {
   return "string" == typeof t2 && (e3 = t2, t2 = document), t2.querySelector(e3);
 }
-function u(t2, e3, i2 = {}) {
+function d(t2, e3, i2 = {}) {
   const { disabled: s } = t2, { bubbles: r4, cancelable: n3, detail: o3 } = i2, a3 = document.createEvent("Event");
   a3.initEvent(e3, r4 || true, n3 || true), a3.detail = o3 || {};
   try {
@@ -4274,7 +4274,7 @@ var f = class {
       this.xhr.setRequestHeader(t3, s[t3]);
     }));
     const r4 = (function() {
-      const t3 = d(document.head, 'meta[name="csrf-token"]');
+      const t3 = u(document.head, 'meta[name="csrf-token"]');
       if (t3) return t3.getAttribute("content");
     })();
     null != r4 && this.xhr.setRequestHeader("X-CSRF-Token", r4), this.xhr.addEventListener("load", ((t3) => this.requestDidLoad(t3))), this.xhr.addEventListener("error", ((t3) => this.requestDidError(t3)));
@@ -4365,7 +4365,7 @@ var v = class {
     return this.input.getAttribute("data-direct-upload-url");
   }
   dispatch(t2, e3 = {}) {
-    return e3.file = this.file, e3.id = this.directUpload.id, u(this.input, `direct-upload:${t2}`, { detail: e3 });
+    return e3.file = this.file, e3.id = this.directUpload.id, d(this.input, `direct-upload:${t2}`, { detail: e3 });
   }
   dispatchError(t2) {
     this.dispatch("error", { error: t2 }).defaultPrevented || alert(t2);
@@ -4417,7 +4417,7 @@ var y = class {
     })), t2;
   }
   dispatch(t2, e3 = {}) {
-    return u(this.form, `direct-uploads:${t2}`, { detail: e3 });
+    return d(this.form, `direct-uploads:${t2}`, { detail: e3 });
   }
 };
 var x = "data-direct-uploads-processing";
@@ -4439,7 +4439,7 @@ function $(t2) {
   const i2 = new y(e3), { inputs: s } = i2;
   s.length && (t2.preventDefault(), e3.setAttribute(x, ""), s.forEach(E), i2.start(((t3) => {
     e3.removeAttribute(x), t3 ? s.forEach(U) : (function(t4) {
-      let e4 = k.get(t4) || d(t4, "input[type=submit], button[type=submit]");
+      let e4 = k.get(t4) || u(t4, "input[type=submit], button[type=submit]");
       if (e4) {
         const { disabled: t5 } = e4;
         e4.disabled = false, e4.focus(), e4.click(), e4.disabled = t5;
@@ -4532,6 +4532,16 @@ var q = class {
     return parseFloat((t2 / Math.pow(1024, s)).toFixed(i2)) + ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][s];
   }
 };
+var F = class {
+  uploadedFile;
+  constructor(t2) {
+    this.uploadedFile = t2;
+  }
+  get errors() {
+    return this.#t || (this.#t = [], 0 === this.uploadedFile.size && this.#t.push("Must be larger than 0 bytes.")), this.#t;
+  }
+  #t;
+};
 var B = class {
   uploadedFile;
   constructor(t2) {
@@ -4548,11 +4558,11 @@ var B = class {
     return t2.length >= 3 ? (t2.slice(0, -1) + [`or ${t2.at(-1)}`]).join(", ") : t2.join(" or ");
   }
 };
-var F = { image: ["ase", "art", "bmp", "blp", "cd5", "cit", "cpt", "cr2", "cut", "dds", "dib", "djvu", "egt", "exif", "gif", "gpl", "grf", "icns", "ico", "iff", "jng", "jpeg", "jpg", "jfif", "jp2", "jps", "lbm", "max", "miff", "mng", "msp", "nef", "nitf", "ota", "pbm", "pc1", "pc2", "pc3", "pcf", "pcx", "pdn", "pgm", "PI1", "PI2", "PI3", "pict", "pct", "pnm", "pns", "ppm", "psb", "psd", "pdd", "psp", "px", "pxm", "pxr", "qfx", "raw", "rle", "sct", "sgi", "rgb", "int", "bw", "tga", "tiff", "tif", "vtf", "xbm", "xcf", "xpm", "3dv", "amf", "ai", "awg", "cgm", "cdr", "cmx", "dxf", "e2d", "egt", "eps", "fs", "gbr", "odg", "svg", "stl", "vrml", "x3d", "sxd", "v2d", "vnd", "wmf", "emf", "art", "xar", "png", "webp", "jxr", "hdp", "wdp", "cur", "ecw", "iff", "lbm", "liff", "nrrd", "pam", "pcx", "pgf", "sgi", "rgb", "rgba", "bw", "int", "inta", "sid", "ras", "sun", "tga", "heic", "heif"], video: ["3g2", "3gp", "3gpp", "aaf", "asf", "avchd", "avi", "drc", "flv", "m2v", "m3u8", "m4p", "m4v", "mkv", "mng", "mov", "mp2", "mp4", "mpe", "mpeg", "mpg", "mpv", "mxf", "nsv", "ogg", "ogv", "qt", "rm", "rmvb", "roq", "svi", "vob", "webm", "wmv", "yuv"], pdf: ["pdf"], getFileType: function(t2) {
+var S = { image: ["ase", "art", "bmp", "blp", "cd5", "cit", "cpt", "cr2", "cut", "dds", "dib", "djvu", "egt", "exif", "gif", "gpl", "grf", "icns", "ico", "iff", "jng", "jpeg", "jpg", "jfif", "jp2", "jps", "lbm", "max", "miff", "mng", "msp", "nef", "nitf", "ota", "pbm", "pc1", "pc2", "pc3", "pcf", "pcx", "pdn", "pgm", "PI1", "PI2", "PI3", "pict", "pct", "pnm", "pns", "ppm", "psb", "psd", "pdd", "psp", "px", "pxm", "pxr", "qfx", "raw", "rle", "sct", "sgi", "rgb", "int", "bw", "tga", "tiff", "tif", "vtf", "xbm", "xcf", "xpm", "3dv", "amf", "ai", "awg", "cgm", "cdr", "cmx", "dxf", "e2d", "egt", "eps", "fs", "gbr", "odg", "svg", "stl", "vrml", "x3d", "sxd", "v2d", "vnd", "wmf", "emf", "art", "xar", "png", "webp", "jxr", "hdp", "wdp", "cur", "ecw", "iff", "lbm", "liff", "nrrd", "pam", "pcx", "pgf", "sgi", "rgb", "rgba", "bw", "int", "inta", "sid", "ras", "sun", "tga", "heic", "heif"], video: ["3g2", "3gp", "3gpp", "aaf", "asf", "avchd", "avi", "drc", "flv", "m2v", "m3u8", "m4p", "m4v", "mkv", "mng", "mov", "mp2", "mp4", "mpe", "mpeg", "mpg", "mpv", "mxf", "nsv", "ogg", "ogv", "qt", "rm", "rmvb", "roq", "svi", "vob", "webm", "wmv", "yuv"], pdf: ["pdf"], getFileType: function(t2) {
   const e3 = t2.toString().split(".").at(-1).toLowerCase().trim();
   return this.video.includes(e3) ? "video" : this.image.includes(e3) ? "image" : this.pdf.includes(e3) ? "pdf" : "unknown";
 } };
-var S = class {
+var T = class {
   constructor(t2) {
     this.response = t2;
   }
@@ -4597,7 +4607,7 @@ var S = class {
     window.Turbo ? await window.Turbo.renderStreamMessage(await this.text) : console.warn("You must set `window.Turbo = Turbo` to automatically process Turbo Stream events with request.js");
   }
 };
-var T = class {
+var W = class {
   static register(t2) {
     this.interceptor = t2;
   }
@@ -4608,22 +4618,22 @@ var T = class {
     this.interceptor = void 0;
   }
 };
-function W(t2) {
+function X(t2) {
   const e3 = document.head.querySelector(`meta[name="${t2}"]`);
   return e3 && e3.content;
 }
-var X = class {
+var H2 = class {
   constructor(t2, e3, i2 = {}) {
     this.method = t2, this.options = i2, this.originalUrl = e3.toString();
   }
   async perform() {
     try {
-      const t3 = T.get();
+      const t3 = W.get();
       t3 && await t3(this);
     } catch (t3) {
       console.error(t3);
     }
-    const t2 = new S(await window.fetch(this.url, this.fetchOptions));
+    const t2 = new T(await window.fetch(this.url, this.fetchOptions));
     return t2.unauthenticated && t2.authenticationURL ? Promise.reject(window.location.href = t2.authenticationURL) : (t2.ok && t2.isTurboStream && await t2.renderTurboStream(), t2);
   }
   addHeader(t2, e3) {
@@ -4650,7 +4660,7 @@ var X = class {
         const t3 = s.split("=").slice(1).join("=");
         if (t3) return decodeURIComponent(t3);
       }
-    })(W("csrf-param")) || W("csrf-token");
+    })(X("csrf-param")) || X("csrf-token");
   }
   get contentType() {
     return this.options.contentType ? this.options.contentType : null == this.body || this.body instanceof window.FormData ? void 0 : this.body instanceof window.File ? this.body.type : "application/json";
@@ -4700,7 +4710,7 @@ var X = class {
     return "application/json" !== this.headers["Content-Type"] || t2 ? this.body : JSON.stringify(this.body);
   }
 };
-var H2 = proxyCustomElement(class extends H {
+var z = proxyCustomElement(class extends H {
   constructor(t2) {
     super(), false !== t2 && this.__registerHost(), this.__attachShadow(), this.removeEvent = createEvent(this, "attachment-file:remove", 7), this.validationEvent = createEvent(this, "attachment-file:validation", 7), this.readyEvent = createEvent(this, "attachment-file:ready", 7);
   }
@@ -4745,12 +4755,12 @@ var H2 = proxyCustomElement(class extends H {
     this.src = URL.createObjectURL(t2), this.filename = t2.name, this.size = t2.size, this.state = "pending", this.percent = 0, this._file = t2;
   }
   set signedId(t2) {
-    this.value !== t2 && ((t3, e3 = {}, i2 = {}) => ((t4, e4, i3, s) => new X("get", e4, { headers: { Accept: "application/json", ...s }, query: i3 }).perform().then(((t5) => t5.response.ok ? t5.json : t5)))(0, t3, e3, i2))(`/rails/active_storage/blobs/info/${t2}`).then(((e3) => {
+    this.value !== t2 && ((t3, e3 = {}, i2 = {}) => ((t4, e4, i3, s) => new H2("get", e4, { headers: { Accept: "application/json", ...s }, query: i3 }).perform().then(((t5) => t5.response.ok ? t5.json : t5)))(0, t3, e3, i2))(`/rails/active_storage/blobs/info/${t2}`).then(((e3) => {
       this.src = `/rails/active_storage/blobs/redirect/${t2}/${e3.filename}`, this.filename = e3.filename, this.size = e3.byte_size, this.state = "complete", this.percent = 100, this.value = t2, this.readyEvent.emit(this);
     }));
   }
   setMissingFiletype(t2, e3) {
-    !this.filetype && this.filename && (this.filetype = F.getFileType(this.filename));
+    !this.filetype && this.filename && (this.filetype = S.getFileType(this.filename));
   }
   start(t2) {
     this.state = "pending", this.percent = 0;
@@ -4768,14 +4778,14 @@ var H2 = proxyCustomElement(class extends H {
     "error" !== this.state && (this.state = "complete", this.percent = 100);
   }
   render() {
-    return h(Host, { key: "8468877f30120b32201867ab5466d4d0fed5e514" }, h("slot", { key: "f44af091a15ff9ae425a61b708c5ea64a19a5057" }), h("figure", { key: "c629a6dece58606c37979d8d21cfe37d2312511e" }, h("div", { key: "87b9629c3133c7050cf84ec6a8824a68dadb81d0", class: "progress-details" }, h("progress-bar", { key: "63238eeda3adb36ce17a355d4cb2db0dbf45f0df", percent: this.percent, class: this.state, error: "error" === this.state }, h("a", { key: "dacdd7679ee07177fc5a18dcca018dcb6b32406e", class: "download-link", href: this.href || this.src, download: this.download || this.filename, onClick: (t2) => t2.stopPropagation() }, this.filename)), h("span", { key: "5618922137596fc76b569ac876064a0444d8d73a", class: "progress-icon" }), h("a", { key: "6ac34bc373c61db029a1e0101ea2219846e960fd", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "ef9f0d6e8ba6fab4d876cd788e75a34ada1fe572" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
+    return h(Host, { key: "58b4ee95bbb2847b70e0eb7273a5da05c9f65243" }, h("slot", { key: "1a50d5449d200b72f25b2824c2f0130cf09b5c9d" }), h("figure", { key: "a2ebf2d116499c28a4f83a2168df42e6fd0a450b" }, h("div", { key: "0d8ac23f1961b46affef09a23265da0c5e57fb33", class: "progress-details" }, h("progress-bar", { key: "2d6af9889678f6ae07f6deed914cddc4107a0a2d", percent: this.percent, class: this.state, error: "error" === this.state }, h("a", { key: "ebfcdd0382a04d1921447b2d659a88eb7522c1ce", class: "download-link", href: this.href || this.src, download: this.download || this.filename, onClick: (t2) => t2.stopPropagation() }, this.filename)), h("span", { key: "42dfc08c869e2cbb475d05e2f316c79733743e05", class: "progress-icon" }), h("a", { key: "f2286259bb36fb3d32036459e7383fe1e29be962", class: "remove-media", onClick: this.removeClicked, href: "#" }, h("span", { key: "2a36a5856faae7292ed2ac0572e180f3892af728" }, "Remove media")), this.uploadError && this._file ? h("a", { class: "retry-media", onClick: this.retryClicked, href: "#" }, h("span", null, "Retry upload")) : ""), this.validationError || this.uploadError ? h("p", { class: "validation-error" }, this.validationError || this.uploadError) : "", this.preview ? h("attachment-preview", { src: this.src, filetype: this.filetype }) : ""));
   }
   componentDidLoad() {
     "pending" == this.state && this._file && (this.checkValidity() ? (this.controller = new C(this.el, this._file), this.controller.dispatch("initialize", { controller: this.controller })) : this.state = "error");
   }
   checkValidity() {
     let t2 = [];
-    return t2.push(...new B(this).errors), t2.push(...new q(this).errors), this.validationError = t2.join(" "), this.validationEvent.emit({ valid: 0 === t2.length, error: this.validationError }), 0 === t2.length;
+    return t2.push(...new B(this).errors), t2.push(...new q(this).errors), t2.push(...new F(this).errors), this.validationError = t2.join(" "), this.validationEvent.emit({ valid: 0 === t2.length, error: this.validationError }), 0 === t2.length;
   }
   static get watchers() {
     return { filename: [{ setMissingFiletype: 0 }] };
@@ -4786,7 +4796,7 @@ var H2 = proxyCustomElement(class extends H {
 }, [769, "attachment-file", { name: [1537], accepts: [1537], max: [1538], url: [1537], value: [1537], filename: [1537], src: [1537], href: [1537], download: [1537], filetype: [1537], size: [1538], state: [1537], percent: [1538], preview: [1540], validationMessage: [1, "validation-message"] }, [[0, "direct-upload:initialize", "start"], [0, "direct-upload:start", "start"], [0, "direct-upload:progress", "progress"], [0, "direct-upload:error", "error"], [0, "direct-upload:end", "end"]], { filename: [{ setMissingFiletype: 0 }] }]);
 
 // dist/components/attachment-file.js
-var o = H2;
+var o = z;
 
 // dist/components/attachment-preview.js
 var e = a;

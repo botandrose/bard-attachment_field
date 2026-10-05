@@ -33,6 +33,17 @@ Feature: Attachment field validations
     And I press "Submit"
     Then I should see "Post created!"
 
+  Scenario: Empty file validation
+    Given I am on "/validations/optional_file"
+    When I attach the file "empty.mp4" to "Optional file"
+    Then the "Optional file" attachment field should have a validation error containing "Must be larger than 0 bytes."
+    When I press "Submit"
+    Then I should not see "Post created!"
+    And I should not see "empty.mp4"
+    When I attach the file "image.jpg" to "Optional file"
+    And I press "Submit"
+    Then I should see "Post created!"
+
   Scenario Outline: Supported media file extensions
     Given I am on "/validations/required_media"
     When I attach a file of type "<extension>" to "Required media"

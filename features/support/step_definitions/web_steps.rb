@@ -16,10 +16,10 @@ When "I fill in {string} with {string}" do |field, value|
   fill_in field, with: value
 end
 
-# Test-specific: attaches a file by extension (creates empty file if needed)
+# Test-specific: attaches a file by extension (creates a one-byte file if needed)
 When "I attach a file of type {string} to {string}" do |extension, field|
-  path = Pathname.new(__dir__).join("../fixtures/empty.#{extension}").expand_path
-  FileUtils.touch(path) if !path.exist?
+  path = Pathname.new(__dir__).join("../fixtures/sample.#{extension}").expand_path
+  File.write(path, "x") if !path.exist?
 
   element = Bard::AttachmentField::TestHelper.find_field(page, field)
 
