@@ -5043,15 +5043,16 @@ var o2 = class _o {
   element;
   controllers;
   submitted;
+  submitter;
   processing;
   constructor(t2, { uploadDialog: e3 = true } = {}) {
-    this.element = t2, this.controllers = [], this.submitted = false, this.processing = false, e3 && (this.dialog = document.createElement("upload-dialog"), this.dialog.id = "form-controller-dialog", this.element.appendChild(this.dialog)), this.element.addEventListener("submit", ((t3) => this.submit(t3))), window.addEventListener("beforeunload", ((t3) => this.beforeUnload(t3))), this.element.addEventListener("direct-upload:initialize", ((t3) => this.init(t3))), this.element.addEventListener("direct-upload:start", ((t3) => this.start(t3))), this.element.addEventListener("direct-upload:progress", ((t3) => this.progress(t3))), this.element.addEventListener("direct-upload:error", ((t3) => this.error(t3))), this.element.addEventListener("direct-upload:end", ((t3) => this.end(t3))), this.element.addEventListener("attachment-file:remove", ((t3) => this.removeUploadedFile(t3)));
+    this.element = t2, this.controllers = [], this.submitted = false, this.processing = false, e3 && (this.dialog = document.createElement("upload-dialog"), this.dialog.id = "form-controller-dialog", this.element.appendChild(this.dialog)), this.element.addEventListener("submit", ((t3) => this.submit(t3)), { capture: true }), window.addEventListener("beforeunload", ((t3) => this.beforeUnload(t3))), this.element.addEventListener("direct-upload:initialize", ((t3) => this.init(t3))), this.element.addEventListener("direct-upload:start", ((t3) => this.start(t3))), this.element.addEventListener("direct-upload:progress", ((t3) => this.progress(t3))), this.element.addEventListener("direct-upload:error", ((t3) => this.error(t3))), this.element.addEventListener("direct-upload:end", ((t3) => this.end(t3))), this.element.addEventListener("attachment-file:remove", ((t3) => this.removeUploadedFile(t3)));
   }
   beforeUnload(t2) {
     if (this.processing) return t2.preventDefault(), t2.returnValue = "";
   }
   submit(t2) {
-    (0 !== this.controllers.length || this.hasUploadErrors() || this.processing) && (t2.preventDefault(), this.submitted = true, this.setInputAttachmentsDisabled(true), this.startNextController(), this.processing && this.dialog?.open());
+    (0 !== this.controllers.length || this.hasUploadErrors() || this.processing) && (t2.preventDefault(), t2.stopImmediatePropagation(), this.submitted = true, this.submitter = t2.submitter, this.setInputAttachmentsDisabled(true), this.startNextController(), this.processing && this.dialog?.open());
   }
   startNextController() {
     if (this.processing) return;
@@ -5067,7 +5068,7 @@ var o2 = class _o {
     if (this.submitted) {
       if (this.hasUploadErrors()) return this.dialog?.close(), void this.setInputAttachmentsDisabled(false);
       this.setInputAttachmentsDisabled(true), requestAnimationFrame((() => {
-        this.element.submit();
+        this.submitted = false, this.setInputAttachmentsDisabled(false), this.dialog?.close(), this.element.requestSubmit(this.submitter);
       }));
     }
   }

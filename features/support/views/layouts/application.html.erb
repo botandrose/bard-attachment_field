@@ -37,5 +37,11 @@
     <div class="alert"><%= flash.alert %></div>
     <div class="notice"><%= flash.notice %></div>
     <%= yield %>
+    <% if params[:count_submits] %>
+      <script>
+        window._submitCount = 0
+        document.querySelectorAll("form").forEach(form => form.addEventListener("submit", () => window._submitCount++))
+      </script>
+    <% end %>
   </body>
 </html>

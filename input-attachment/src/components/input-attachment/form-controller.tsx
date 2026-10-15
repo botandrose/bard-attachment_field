@@ -11,6 +11,7 @@ export default class FormController {
   element: HTMLFormElement
   controllers: Array<DirectUploadController>
   submitted: boolean
+  submitter: HTMLElement | null
   processing: boolean
 
   constructor(form, { uploadDialog = true } = {}) {
@@ -25,7 +26,7 @@ export default class FormController {
       this.element.appendChild(this.dialog)
     }
 
-    this.element.addEventListener("submit", event => this.submit(event))
+    this.element.addEventListener("submit", event => this.submit(event), { capture: true })
     window.addEventListener("beforeunload", event => this.beforeUnload(event))
 
     this.element.addEventListener("direct-upload:initialize", event => this.init(event))
@@ -47,7 +48,9 @@ export default class FormController {
   submit(event) {
     if(this.controllers.length === 0 && !this.hasUploadErrors() && !this.processing) return
     event.preventDefault()
+    event.stopImmediatePropagation() // the held submit isn't the real one; listeners see the replay instead
     this.submitted = true
+    this.submitter = event.submitter
     this.setInputAttachmentsDisabled(true)
     this.startNextController()
     if(this.processing) {
@@ -96,7 +99,11 @@ export default class FormController {
     }
     this.setInputAttachmentsDisabled(true)
     requestAnimationFrame(() => { // run after pending rAF callbacks (e.g. updateFormValue)
-      this.element.submit()
+      this.submitted = false
+      this.setInputAttachmentsDisabled(false)
+      ;(this.dialog as any)?.close()
+      // replay through the submit event, so Turbo handles it like the original
+      this.element.requestSubmit(this.submitter)
     })
   }
 

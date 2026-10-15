@@ -29,3 +29,15 @@ Then "the upload completes for {string}" do |field|
   element = Bard::AttachmentField::TestHelper.find_field(page, field)
   Bard::AttachmentField::TestHelper.wait_for_upload(page, element[:id])
 end
+
+When "I mark the page" do
+  page.execute_script("window._pageMark = true")
+end
+
+Then "the page should not have reloaded" do
+  expect(page.evaluate_script("window._pageMark")).to be(true)
+end
+
+Then "the form should have dispatched {int} submit event(s)" do |count|
+  expect(page.evaluate_script("window._submitCount")).to eq(count)
+end
